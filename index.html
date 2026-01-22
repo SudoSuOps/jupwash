@@ -212,6 +212,15 @@
             50% { opacity: 0.5; }
         }
 
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
@@ -2339,22 +2348,86 @@
         });
 
         // Form Submissions
-        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+        // API endpoint for form submissions
+        const API_URL = 'https://jupwash-api.dm-6ab.workers.dev';
+
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const formData = new FormData(e.target);
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<svg class="spinner" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70" style="animation: spin 1s linear infinite;"/></svg> Sending...';
+
+            const formData = new FormData(form);
             const data = Object.fromEntries(formData);
 
-            // In production, this would send to your backend
-            alert(`Thank you for your booking request!\n\nWe'll confirm your ${data.service} appointment for ${data.date} at ${data.time}.\n\nWe'll contact you at ${data.phone} to confirm.`);
+            try {
+                const response = await fetch(`${API_URL}/api/booking`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Show success message
+                    form.innerHTML = `
+                        <div style="text-align: center; padding: 3rem;">
+                            <svg viewBox="0 0 24 24" width="64" height="64" style="color: #22c55e; margin-bottom: 1rem;">
+                                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <path d="M8 12l3 3 5-6" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <h3 style="margin-bottom: 0.5rem; color: #1a202c;">Booking Received!</h3>
+                            <p style="color: #4a5568;">Check your email for confirmation. We'll call you at ${data.phone} to confirm.</p>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(result.error || 'Booking failed');
+                }
+            } catch (error) {
+                alert(`Error: ${error.message}\n\nPlease call us directly at 561.532.7120`);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         });
 
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const formData = new FormData(e.target);
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<svg class="spinner" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70" style="animation: spin 1s linear infinite;"/></svg> Sending...';
+
+            const formData = new FormData(form);
             const data = Object.fromEntries(formData);
 
-            alert(`Thank you for your message, ${data.name}!\n\nWe'll get back to you at ${data.email} as soon as possible.`);
-            e.target.reset();
+            try {
+                const response = await fetch(`${API_URL}/api/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    form.reset();
+                    alert('Message sent! We\'ll get back to you soon.');
+                } else {
+                    throw new Error(result.error || 'Failed to send');
+                }
+            } catch (error) {
+                alert(`Error: ${error.message}\n\nPlease call us at 561.532.7120`);
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
         });
 
         // Crypto Options

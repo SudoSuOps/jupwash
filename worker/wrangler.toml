@@ -1,0 +1,8 @@
+name = "jupwash-api"
+main = "index.js"
+compatibility_date = "2024-01-01"
+account_id = "6abec5e82728df0610a98be9364918e4"
+
+[vars]
+NOTIFY_EMAIL = "service@jupiterpowerwash.com"
+FROM_EMAIL = "bookings@jupiterpowerwash.com"
