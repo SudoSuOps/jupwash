@@ -1,0 +1,2495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupiter Power Wash | Premium Power Washing Services</title>
+    <meta name="description" content="Top-tier residential and commercial power washing in Jupiter, FL. White-glove service with commercial-grade equipment. Book your wash today!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --jupiter-orange: #e36414;
+            --jupiter-gold: #fb8b24;
+            --deep-space: #0a1628;
+            --cosmic-blue: #1a365d;
+            --nebula-purple: #2d3748;
+            --clean-white: #ffffff;
+            --soft-gray: #f7fafc;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --gradient-jupiter: linear-gradient(135deg, #e36414 0%, #fb8b24 50%, #f6ad55 100%);
+            --gradient-space: linear-gradient(180deg, #0a1628 0%, #1a365d 100%);
+            --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 40px rgba(227, 100, 20, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: var(--clean-white);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--clean-white);
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        .logo-icon-footer {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--jupiter-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--jupiter-gold);
+        }
+
+        .nav-cta {
+            background: var(--gradient-jupiter);
+            color: var(--clean-white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--clean-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--gradient-space);
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            color: var(--clean-white);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-glass);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-jupiter);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-jupiter);
+            color: var(--clean-white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--clean-white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--jupiter-gold);
+            color: var(--jupiter-gold);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-image-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-large);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 30% 40%, rgba(227, 100, 20, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(251, 139, 36, 0.2) 0%, transparent 40%);
+        }
+
+        .hero-image svg {
+            width: 200px;
+            height: 200px;
+            opacity: 0.9;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .floating-card.reviews {
+            bottom: -20px;
+            left: -20px;
+        }
+
+        .floating-card.equipment {
+            top: 20px;
+            right: -20px;
+        }
+
+        .floating-card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-jupiter);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .floating-card-text {
+            font-size: 0.85rem;
+        }
+
+        .floating-card-text strong {
+            display: block;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--clean-white);
+            padding: 3rem 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-jupiter);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 2rem;
+            background: var(--soft-gray);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: var(--gradient-jupiter);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--clean-white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-jupiter);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-jupiter);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon svg {
+            width: 35px;
+            height: 35px;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-list {
+            list-style: none;
+        }
+
+        .service-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .service-list li svg {
+            width: 20px;
+            height: 20px;
+            color: var(--jupiter-orange);
+            flex-shrink: 0;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            background: var(--clean-white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image-main {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #0a1628 0%, #1a365d 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(227, 100, 20, 0.2) 0%, transparent 60%);
+        }
+
+        .about-image-main svg {
+            width: 150px;
+            height: 150px;
+            opacity: 0.8;
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: -20px;
+            right: 30px;
+            background: var(--gradient-jupiter);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-large);
+        }
+
+        .about-badge-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .about-badge-text {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .about-content {
+            padding-left: 2rem;
+        }
+
+        .about-content .section-label {
+            text-align: left;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .about-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(227, 100, 20, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .about-feature-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--jupiter-orange);
+        }
+
+        .about-feature h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .about-feature p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Booking Section */
+        .booking {
+            padding: 6rem 2rem;
+            background: var(--gradient-space);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .booking-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .booking .section-header {
+            color: white;
+        }
+
+        .booking .section-title {
+            color: white;
+        }
+
+        .booking .section-subtitle {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .booking-card {
+            background: var(--clean-white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow-large);
+        }
+
+        .booking-steps {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .booking-step {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .booking-step.active {
+            color: var(--jupiter-orange);
+        }
+
+        .booking-step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--soft-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .booking-step.active .booking-step-number {
+            background: var(--gradient-jupiter);
+            color: white;
+        }
+
+        .booking-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--jupiter-orange);
+            box-shadow: 0 0 0 3px rgba(227, 100, 20, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .date-picker {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .date-picker-header {
+            grid-column: span 7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .date-picker-header h4 {
+            font-size: 1rem;
+        }
+
+        .date-picker-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .date-picker-nav button {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--soft-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .date-picker-nav button:hover {
+            background: #e2e8f0;
+        }
+
+        .date-picker-day {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+        }
+
+        .date-picker-date {
+            aspect-ratio: 1;
+            border: none;
+            background: transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .date-picker-date:hover {
+            background: var(--soft-gray);
+        }
+
+        .date-picker-date.selected {
+            background: var(--gradient-jupiter);
+            color: white;
+        }
+
+        .date-picker-date.disabled {
+            color: #cbd5e0;
+            cursor: not-allowed;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .time-slot {
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .time-slot:hover {
+            border-color: var(--jupiter-orange);
+        }
+
+        .time-slot.selected {
+            background: var(--gradient-jupiter);
+            border-color: transparent;
+            color: white;
+        }
+
+        .booking-submit {
+            grid-column: span 2;
+            margin-top: 1rem;
+        }
+
+        .booking-submit .btn-primary {
+            width: 100%;
+            justify-content: center;
+            padding: 1.25rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Web3 Payment Section */
+        .web3-payment {
+            padding: 6rem 2rem;
+            background: var(--soft-gray);
+        }
+
+        .web3-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .web3-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .web3-content p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .web3-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .web3-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .web3-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-jupiter);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .web3-feature-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .web3-feature h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .web3-feature p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .web3-card {
+            background: var(--gradient-space);
+            border-radius: 24px;
+            padding: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .web3-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(227, 100, 20, 0.2) 0%, transparent 70%);
+        }
+
+        .web3-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .ens-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .web3-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .web3-card p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+
+        .crypto-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .crypto-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .crypto-option:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .crypto-option.selected {
+            border-color: var(--jupiter-gold);
+            background: rgba(251, 139, 36, 0.2);
+        }
+
+        .crypto-option img {
+            width: 32px;
+            height: 32px;
+        }
+
+        .crypto-option span {
+            font-weight: 600;
+        }
+
+        .wallet-address {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .wallet-address code {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1rem;
+            color: var(--jupiter-gold);
+        }
+
+        .wallet-address button {
+            background: var(--gradient-jupiter);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .wallet-address button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: var(--clean-white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info > p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-method-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-jupiter);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-method-icon svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+
+        .contact-method-text h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-method-text a,
+        .contact-method-text p {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        .contact-method-text a:hover {
+            color: var(--jupiter-orange);
+        }
+
+        .contact-form-card {
+            background: var(--soft-gray);
+            border-radius: 24px;
+            padding: 2.5rem;
+        }
+
+        .contact-form-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .contact-form .btn-primary {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gradient-space);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            max-width: 300px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--jupiter-orange);
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+            color: var(--jupiter-gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+        }
+
+        /* Chatbot */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-jupiter);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow-large), var(--shadow-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: transform 0.3s ease;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-toggle svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            width: 380px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-large);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 998;
+        }
+
+        .chatbot-window.open {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chatbot-header {
+            background: var(--gradient-jupiter);
+            color: white;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chatbot-avatar {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-avatar svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .chatbot-header-text h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .chatbot-header-text p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .chatbot-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1.25rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-message {
+            max-width: 85%;
+            padding: 1rem;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .chat-message.bot {
+            background: var(--soft-gray);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-message.user {
+            background: var(--gradient-jupiter);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0 1.25rem 1rem;
+        }
+
+        .quick-reply {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 50px;
+            background: white;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quick-reply:hover {
+            border-color: var(--jupiter-orange);
+            color: var(--jupiter-orange);
+        }
+
+        .chatbot-input {
+            display: flex;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .chatbot-input input:focus {
+            border-color: var(--jupiter-orange);
+        }
+
+        .chatbot-input button {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-jupiter);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .chatbot-input button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                order: 1;
+            }
+
+            .hero-visual {
+                order: 2;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-ctas {
+                justify-content: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid,
+            .web3-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                padding-left: 0;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .booking-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .booking-submit {
+                grid-column: span 1;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .chatbot-window {
+                width: calc(100% - 2rem);
+                right: 1rem;
+                bottom: 5rem;
+                height: 450px;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .crypto-options {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="jupwashlogo.png" alt="Jupiter Power Wash" class="logo-icon">
+                <span class="logo-text">Jupiter <span>Power Wash</span></span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#booking">Book Now</a></li>
+                <li><a href="#web3">Pay with Crypto</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#booking" class="nav-cta">Get a Quote</a>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Serving Jupiter, FL & Surrounding Areas
+                </div>
+                <h1>Bringing <span class="highlight">Sparkle</span> Back to Your Property</h1>
+                <p class="hero-subtitle">Top-tier residential and commercial power washing using all-new commercial-grade equipment. White-glove service that transforms your property.</p>
+                <div class="hero-ctas">
+                    <a href="#booking" class="btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        Book a Wash Now
+                    </a>
+                    <a href="tel:5615327120" class="btn-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        Call Us: 561.532.7120
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-container">
+                    <div class="hero-image">
+                        <!-- Power Wash Icon -->
+                        <svg viewBox="0 0 100 100" fill="none">
+                            <path d="M30 70 L30 40 L45 40 L45 25 L55 25 L55 40 L70 40 L70 70" stroke="white" stroke-width="3" fill="none"/>
+                            <path d="M25 70 L75 70" stroke="white" stroke-width="3"/>
+                            <circle cx="50" cy="32" r="8" fill="none" stroke="#fb8b24" stroke-width="2"/>
+                            <path d="M50 45 L50 85" stroke="#fb8b24" stroke-width="3" stroke-dasharray="4 4"/>
+                            <path d="M40 80 C40 85 60 85 60 80" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/>
+                            <path d="M35 82 C35 90 65 90 65 82" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="floating-card reviews">
+                        <div class="floating-card-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <div class="floating-card-text">
+                            <strong>5.0 Rating</strong>
+                            <span>Trusted by 200+ customers</span>
+                        </div>
+                    </div>
+                    <div class="floating-card equipment">
+                        <div class="floating-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                            </svg>
+                        </div>
+                        <div class="floating-card-text">
+                            <strong>Commercial Grade</strong>
+                            <span>All-new equipment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">200+</div>
+                <div class="stat-label">Happy Customers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24hr</div>
+                <div class="stat-label">Response Time</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5.0</div>
+                <div class="stat-label">Star Rating</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">Our Services</span>
+                <h2 class="section-title">Professional Power Washing Solutions</h2>
+                <p class="section-subtitle">From driveways to storefronts, we deliver exceptional results with our commercial-grade equipment and meticulous attention to detail.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                    </div>
+                    <h3>Residential Power Washing</h3>
+                    <p>Transform your home's exterior with our comprehensive residential cleaning services. We treat every property like our own.</p>
+                    <ul class="service-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            House Exteriors & Siding
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Driveways & Walkways
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Decks & Patios
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Pool Cages & Enclosures
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Fences & Gates
+                        </li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="3" width="15" height="13"/>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                            <circle cx="5.5" cy="18.5" r="2.5"/>
+                            <circle cx="18.5" cy="18.5" r="2.5"/>
+                        </svg>
+                    </div>
+                    <h3>Commercial Power Washing</h3>
+                    <p>Keep your business looking its best. First impressions matter, and we ensure your property makes the right one.</p>
+                    <ul class="service-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Storefronts & Entrances
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Office Buildings
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Parking Lots & Garages
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Restaurant Patios
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            HOA & Multi-Unit Properties
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="about-image-main">
+                        <svg viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="40" r="20" stroke="white" stroke-width="2" fill="none"/>
+                            <path d="M35 65 L50 55 L65 65 L65 85 L35 85 Z" stroke="white" stroke-width="2" fill="none"/>
+                            <circle cx="50" cy="40" r="8" fill="#fb8b24"/>
+                            <path d="M30 90 L70 90" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="about-badge">
+                        <span class="about-badge-number">100%</span>
+                        <span class="about-badge-text">Satisfaction<br>Guaranteed</span>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <span class="section-label">Why Choose Us</span>
+                    <h2>Why Choose Jupiter Power Wash?</h2>
+                    <p>At Jupiter Power Wash, we pride ourselves on delivering exceptional results using cutting-edge equipment and a meticulous, white-glove approach. We are committed to restoring the shine to your property, whether residential or commercial.</p>
+                    <p>As a local, family-owned business, we understand the importance of building lasting relationships with our community. Every job is personal to us, and we treat your property with the same care we'd give our own.</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Fully Insured</h4>
+                                <p>Complete peace of mind</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>On-Time Service</h4>
+                                <p>We respect your schedule</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Pro Equipment</h4>
+                                <p>Commercial-grade tools</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Family Owned</h4>
+                                <p>Local & trusted</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="booking">
+        <div class="booking-container">
+            <div class="section-header">
+                <span class="section-label">Book Now</span>
+                <h2 class="section-title">Schedule Your Power Wash</h2>
+                <p class="section-subtitle">Select your service, pick a date, and we'll handle the rest. It's that easy.</p>
+            </div>
+            <div class="booking-card">
+                <div class="booking-steps">
+                    <div class="booking-step active">
+                        <span class="booking-step-number">1</span>
+                        <span>Select Service</span>
+                    </div>
+                    <div class="booking-step">
+                        <span class="booking-step-number">2</span>
+                        <span>Choose Date</span>
+                    </div>
+                    <div class="booking-step">
+                        <span class="booking-step-number">3</span>
+                        <span>Confirm Details</span>
+                    </div>
+                </div>
+                <form class="booking-form" id="bookingForm">
+                    <div class="form-group">
+                        <label for="booking-name">Full Name</label>
+                        <input type="text" id="booking-name" name="name" placeholder="John Smith" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-email">Email Address</label>
+                        <input type="email" id="booking-email" name="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-phone">Phone Number</label>
+                        <input type="tel" id="booking-phone" name="phone" placeholder="(561) 555-0123" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-service">Service Type</label>
+                        <select id="booking-service" name="service" required>
+                            <option value="">Select a service...</option>
+                            <option value="residential-house">Residential - House Exterior</option>
+                            <option value="residential-driveway">Residential - Driveway</option>
+                            <option value="residential-deck">Residential - Deck/Patio</option>
+                            <option value="residential-pool">Residential - Pool Cage</option>
+                            <option value="residential-full">Residential - Full Property</option>
+                            <option value="commercial-storefront">Commercial - Storefront</option>
+                            <option value="commercial-building">Commercial - Building</option>
+                            <option value="commercial-parking">Commercial - Parking Lot</option>
+                            <option value="other">Other (describe below)</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Preferred Date</label>
+                        <div class="date-picker" id="datePicker">
+                            <div class="date-picker-header">
+                                <h4 id="currentMonth">January 2026</h4>
+                                <div class="date-picker-nav">
+                                    <button type="button" id="prevMonth">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                            <polyline points="15 18 9 12 15 6"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" id="nextMonth">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                            <polyline points="9 18 15 12 9 6"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="date-picker-day">Sun</div>
+                            <div class="date-picker-day">Mon</div>
+                            <div class="date-picker-day">Tue</div>
+                            <div class="date-picker-day">Wed</div>
+                            <div class="date-picker-day">Thu</div>
+                            <div class="date-picker-day">Fri</div>
+                            <div class="date-picker-day">Sat</div>
+                            <div id="dateGrid"></div>
+                        </div>
+                        <input type="hidden" id="selectedDate" name="date">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Preferred Time</label>
+                        <div class="time-slots">
+                            <button type="button" class="time-slot" data-time="8:00 AM">8:00 AM</button>
+                            <button type="button" class="time-slot" data-time="9:00 AM">9:00 AM</button>
+                            <button type="button" class="time-slot" data-time="10:00 AM">10:00 AM</button>
+                            <button type="button" class="time-slot" data-time="11:00 AM">11:00 AM</button>
+                            <button type="button" class="time-slot" data-time="12:00 PM">12:00 PM</button>
+                            <button type="button" class="time-slot" data-time="1:00 PM">1:00 PM</button>
+                            <button type="button" class="time-slot" data-time="2:00 PM">2:00 PM</button>
+                            <button type="button" class="time-slot" data-time="3:00 PM">3:00 PM</button>
+                        </div>
+                        <input type="hidden" id="selectedTime" name="time">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="booking-address">Property Address</label>
+                        <input type="text" id="booking-address" name="address" placeholder="123 Main St, Jupiter, FL 33458" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="booking-notes">Additional Notes</label>
+                        <textarea id="booking-notes" name="notes" placeholder="Any special requests or details about your property..."></textarea>
+                    </div>
+                    <div class="booking-submit">
+                        <button type="submit" class="btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Confirm Booking Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Web3 Payment Section -->
+    <section id="web3" class="web3-payment">
+        <div class="section-container">
+            <div class="web3-grid">
+                <div class="web3-content">
+                    <span class="section-label">Web3 Enabled</span>
+                    <h2>Pay with Crypto</h2>
+                    <p>We embrace the future of payments. Pay for your power washing services using cryptocurrency - fast, secure, and borderless.</p>
+                    <div class="web3-features">
+                        <div class="web3-feature">
+                            <div class="web3-feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Secure Transactions</h4>
+                                <p>Blockchain-verified payments</p>
+                            </div>
+                        </div>
+                        <div class="web3-feature">
+                            <div class="web3-feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Instant Settlement</h4>
+                                <p>No waiting for bank transfers</p>
+                            </div>
+                        </div>
+                        <div class="web3-feature">
+                            <div class="web3-feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                    <line x1="1" y1="10" x2="23" y2="10"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>No Card Fees</h4>
+                                <p>Lower transaction costs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="web3-card">
+                    <div class="web3-card-content">
+                        <div class="ens-badge">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                            ENS Domain
+                        </div>
+                        <h3>Send Payment to jupwash.eth</h3>
+                        <p>Select your preferred cryptocurrency and send payment directly to our ENS address.</p>
+                        <div class="crypto-options">
+                            <div class="crypto-option selected" data-crypto="usdc">
+                                <svg viewBox="0 0 32 32" width="32" height="32">
+                                    <circle cx="16" cy="16" r="16" fill="#2775CA"/>
+                                    <path d="M16 6c5.523 0 10 4.477 10 10s-4.477 10-10 10S6 21.523 6 16 10.477 6 16 6zm0 2a8 8 0 100 16 8 8 0 000-16zm.5 2v1.05c1.725.233 3 1.316 3 2.95h-1.5c0-.966-.897-1.5-2-1.5-1.172 0-2 .534-2 1.25 0 .716.672 1.125 1.75 1.375l1 .25c1.725.375 3.25 1.091 3.25 2.875 0 1.65-1.275 2.717-3 2.95V22h-1v-1.05c-1.725-.233-3-1.316-3-2.95h1.5c0 .966.897 1.5 2 1.5 1.172 0 2-.534 2-1.25 0-.716-.672-1.125-1.75-1.375l-1-.25c-1.725-.375-3.25-1.091-3.25-2.875 0-1.65 1.275-2.717 3-2.95V10h1z" fill="white"/>
+                                </svg>
+                                <span>USDC</span>
+                            </div>
+                            <div class="crypto-option" data-crypto="eth">
+                                <svg viewBox="0 0 32 32" width="32" height="32">
+                                    <circle cx="16" cy="16" r="16" fill="#627EEA"/>
+                                    <path d="M16 4v8.87l7.5 3.35L16 4z" fill="white" fill-opacity="0.6"/>
+                                    <path d="M16 4L8.5 16.22l7.5-3.35V4z" fill="white"/>
+                                    <path d="M16 21.97v6.03l7.5-10.4-7.5 4.37z" fill="white" fill-opacity="0.6"/>
+                                    <path d="M16 28v-6.03l-7.5-4.37L16 28z" fill="white"/>
+                                    <path d="M16 20.57l7.5-4.35-7.5-3.35v7.7z" fill="white" fill-opacity="0.2"/>
+                                    <path d="M8.5 16.22l7.5 4.35v-7.7l-7.5 3.35z" fill="white" fill-opacity="0.6"/>
+                                </svg>
+                                <span>ETH</span>
+                            </div>
+                        </div>
+                        <div class="wallet-address">
+                            <code>jupwash.eth</code>
+                            <button onclick="copyAddress()">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <span class="section-label">Get in Touch</span>
+                    <h2>Contact Us</h2>
+                    <p>Have questions? Need a custom quote? We're here to help. Reach out and let's talk about how we can make your property shine.</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-method-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-method-text">
+                                <h4>Phone</h4>
+                                <a href="tel:5615327120">561.532.7120</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-method-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <div class="contact-method-text">
+                                <h4>Email</h4>
+                                <a href="mailto:service@jupiterpowerwash.com">service@jupiterpowerwash.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-method-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div class="contact-method-text">
+                                <h4>Service Area</h4>
+                                <p>Jupiter, FL & Surrounding Areas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-card">
+                    <h3>Send Us a Message</h3>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="contact-name">Your Name</label>
+                            <input type="text" id="contact-name" name="name" placeholder="John Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" name="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-phone">Phone Number</label>
+                            <input type="tel" id="contact-phone" name="phone" placeholder="(561) 555-0123">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message" placeholder="Tell us about your project..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <line x1="22" y1="2" x2="11" y2="13"/>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                            </svg>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <img src="jupwashlogo.png" alt="Jupiter Power Wash" class="logo-icon-footer">
+                        <span class="logo-text">Jupiter <span>Power Wash</span></span>
+                    </a>
+                    <p>Professional power washing services for residential and commercial properties. White-glove service, exceptional results.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Residential Washing</a></li>
+                        <li><a href="#services">Commercial Washing</a></li>
+                        <li><a href="#services">Driveway Cleaning</a></li>
+                        <li><a href="#services">Deck & Patio</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#booking">Book Online</a></li>
+                        <li><a href="#web3">Pay with Crypto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:5615327120">561.532.7120</a></li>
+                        <li><a href="mailto:service@jupiterpowerwash.com">Email Us</a></li>
+                        <li><a href="#">Jupiter, FL</a></li>
+                        <li><a href="#">jupwash.eth</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Jupiter Power Wash. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+    </button>
+
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <div class="chatbot-avatar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                </svg>
+            </div>
+            <div class="chatbot-header-text">
+                <h4>Jupiter Assistant</h4>
+                <p>Online | Ready to help</p>
+            </div>
+            <button class="chatbot-close" id="chatbotClose" aria-label="Close chat">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chat-message bot">
+                Hi there! I'm Jupiter, your power washing assistant. How can I help you today?
+            </div>
+        </div>
+        <div class="chat-quick-replies">
+            <button class="quick-reply" data-message="What services do you offer?">Services</button>
+            <button class="quick-reply" data-message="How much does it cost?">Pricing</button>
+            <button class="quick-reply" data-message="I want to book a wash">Book Now</button>
+            <button class="quick-reply" data-message="How do crypto payments work?">Crypto Pay</button>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Type your message...">
+            <button id="chatSend" aria-label="Send message">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Date Picker
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            document.getElementById('currentMonth').textContent = `${months[month]} ${year}`;
+
+            const dateGrid = document.getElementById('dateGrid');
+            dateGrid.innerHTML = '';
+
+            // Empty cells for days before the first day of the month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('button');
+                emptyCell.type = 'button';
+                emptyCell.className = 'date-picker-date disabled';
+                emptyCell.disabled = true;
+                dateGrid.appendChild(emptyCell);
+            }
+
+            // Days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateBtn = document.createElement('button');
+                dateBtn.type = 'button';
+                dateBtn.className = 'date-picker-date';
+                dateBtn.textContent = day;
+
+                const cellDate = new Date(year, month, day);
+                if (cellDate < today) {
+                    dateBtn.classList.add('disabled');
+                    dateBtn.disabled = true;
+                } else {
+                    dateBtn.addEventListener('click', () => selectDate(year, month, day));
+                }
+
+                if (selectedDate && selectedDate.getTime() === cellDate.getTime()) {
+                    dateBtn.classList.add('selected');
+                }
+
+                dateGrid.appendChild(dateBtn);
+            }
+        }
+
+        function selectDate(year, month, day) {
+            selectedDate = new Date(year, month, day);
+            document.getElementById('selectedDate').value = selectedDate.toISOString().split('T')[0];
+            renderCalendar();
+
+            // Update booking steps
+            document.querySelectorAll('.booking-step')[1].classList.add('active');
+        }
+
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        renderCalendar();
+
+        // Time Slots
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.addEventListener('click', () => {
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                slot.classList.add('selected');
+                selectedTime = slot.dataset.time;
+                document.getElementById('selectedTime').value = selectedTime;
+
+                // Update booking steps
+                document.querySelectorAll('.booking-step')[2].classList.add('active');
+            });
+        });
+
+        // Form Submissions
+        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            // In production, this would send to your backend
+            alert(`Thank you for your booking request!\n\nWe'll confirm your ${data.service} appointment for ${data.date} at ${data.time}.\n\nWe'll contact you at ${data.phone} to confirm.`);
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            alert(`Thank you for your message, ${data.name}!\n\nWe'll get back to you at ${data.email} as soon as possible.`);
+            e.target.reset();
+        });
+
+        // Crypto Options
+        document.querySelectorAll('.crypto-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.crypto-option').forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // Copy Wallet Address
+        function copyAddress() {
+            navigator.clipboard.writeText('jupwash.eth').then(() => {
+                const btn = document.querySelector('.wallet-address button');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Chatbot
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+
+        chatbotToggle.addEventListener('click', () => {
+            chatbotWindow.classList.toggle('open');
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.classList.remove('open');
+        });
+
+        const botResponses = {
+            services: "We offer both residential and commercial power washing services! This includes:\n\n• House exteriors & siding\n• Driveways & walkways\n• Decks & patios\n• Pool cages\n• Storefronts & parking lots\n\nWould you like to book a service?",
+            pricing: "Our pricing depends on the size and type of service needed. We offer free estimates!\n\nFor a quick quote, give us a call at 561.532.7120 or fill out our booking form above.",
+            book: "Great! You can book directly on this page using our booking form above, or call us at 561.532.7120.\n\nWe have availability this week!",
+            crypto: "We accept cryptocurrency payments via our ENS address: jupwash.eth\n\nWe accept USDC and ETH. Just send payment to jupwash.eth after your service is complete.\n\nIt's fast, secure, and fee-friendly!",
+            default: "Thanks for your message! For immediate assistance, please call us at 561.532.7120 or use the booking form above.\n\nIs there anything specific I can help you with?"
+        };
+
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isUser ? 'user' : 'bot'}`;
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            if (lowerMessage.includes('service') || lowerMessage.includes('offer') || lowerMessage.includes('what do you')) {
+                return botResponses.services;
+            } else if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('how much') || lowerMessage.includes('quote')) {
+                return botResponses.pricing;
+            } else if (lowerMessage.includes('book') || lowerMessage.includes('schedule') || lowerMessage.includes('appointment')) {
+                return botResponses.book;
+            } else if (lowerMessage.includes('crypto') || lowerMessage.includes('eth') || lowerMessage.includes('usdc') || lowerMessage.includes('pay')) {
+                return botResponses.crypto;
+            }
+            return botResponses.default;
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, true);
+            chatInput.value = '';
+
+            setTimeout(() => {
+                const response = getBotResponse(message);
+                addMessage(response);
+            }, 500);
+        }
+
+        chatSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        document.querySelectorAll('.quick-reply').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const message = btn.dataset.message;
+                addMessage(message, true);
+                setTimeout(() => {
+                    const response = getBotResponse(message);
+                    addMessage(response);
+                }, 500);
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu (basic toggle - can be expanded)
+        document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>
