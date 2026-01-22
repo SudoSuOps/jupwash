@@ -2,7 +2,49 @@
  * Jupiter Power Wash - Booking & Contact API
  * Cloudflare Worker for handling form submissions
  * Sends notifications to Discord + Email + Stores in D1 Database
+ * AI Chatbot powered by Cloudflare Workers AI
  */
+
+const SYSTEM_PROMPT = `You are Splash, the friendly AI assistant for Jupiter Power Wash, a professional pressure washing company in Jupiter, Florida. You're helpful, warm, and knowledgeable about pressure washing services.
+
+ABOUT JUPITER POWER WASH:
+- Family-owned business serving Jupiter, FL and surrounding areas (Palm Beach Gardens, Tequesta, Hobe Sound, Stuart)
+- Services: House exteriors, driveways, decks/patios, pool cages, commercial properties
+- Phone: 561.532.7120
+- Email: service@jupiterpowerwash.com
+- Website: jupiterpowerwash.com
+- Accepts USDC crypto payments at jupwash.eth
+
+SERVICES & TYPICAL PRICING (estimates, final quote depends on size/condition):
+- House Exterior: $200-$500
+- Driveway: $100-$250
+- Deck/Patio: $150-$350
+- Pool Cage: $200-$450
+- Full Property Package: $500-$1000
+- Commercial: Custom quotes
+
+YOUR ROLE:
+1. Welcome visitors warmly
+2. Answer questions about services, pricing, and the company
+3. Help customers book appointments by collecting: name, email, phone, service type, preferred date, preferred time, and property address
+4. Be conversational and friendly - you're representing a local family business
+
+BOOKING FLOW:
+When a customer wants to book, collect this information naturally through conversation:
+- Their name
+- Email address
+- Phone number
+- Which service they need
+- Preferred date
+- Preferred time (morning 8-12, afternoon 12-4, or evening 4-7)
+- Property address
+
+Once you have ALL the information, confirm the details and say you're submitting their booking request. Include a JSON block at the end of your message in this exact format:
+###BOOKING_DATA###
+{"name": "...", "email": "...", "phone": "...", "service": "...", "date": "...", "time": "...", "address": "..."}
+###END_BOOKING###
+
+Keep responses concise but friendly. Use casual language appropriate for Florida - warm and welcoming!`;
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -26,6 +68,9 @@ export default {
       }
       if (url.pathname === '/api/contact') {
         return handleContact(request, env);
+      }
+      if (url.pathname === '/api/chat') {
+        return handleChat(request, env);
       }
     }
 
@@ -199,6 +244,136 @@ Submitted via jupiterpowerwash.com contact form
   } catch (error) {
     console.error('Contact error:', error);
     return jsonResponse({ error: 'Failed to send message. Please call 561.532.7120' }, 500);
+  }
+}
+
+async function handleChat(request, env) {
+  try {
+    const { message, sessionId } = await request.json();
+
+    if (!message || !sessionId) {
+      return jsonResponse({ error: 'Message and sessionId required' }, 400);
+    }
+
+    // Load conversation history from D1
+    const { results: history } = await env.DB.prepare(
+      `SELECT role, content FROM conversations
+       WHERE session_id = ?
+       ORDER BY created_at ASC
+       LIMIT 20`
+    ).bind(sessionId).all();
+
+    // Build messages array for AI
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...history.map(h => ({ role: h.role, content: h.content })),
+      { role: 'user', content: message }
+    ];
+
+    // Call Cloudflare Workers AI
+    const aiResponse = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+      messages: messages,
+      max_tokens: 500,
+      temperature: 0.7,
+    });
+
+    const assistantMessage = aiResponse.response;
+
+    // Store conversation in D1
+    await env.DB.batch([
+      env.DB.prepare(
+        'INSERT INTO conversations (session_id, role, content) VALUES (?, ?, ?)'
+      ).bind(sessionId, 'user', message),
+      env.DB.prepare(
+        'INSERT INTO conversations (session_id, role, content) VALUES (?, ?, ?)'
+      ).bind(sessionId, 'assistant', assistantMessage),
+    ]);
+
+    // Check if AI collected booking data
+    let bookingCreated = null;
+    const bookingMatch = assistantMessage.match(/###BOOKING_DATA###\s*([\s\S]*?)\s*###END_BOOKING###/);
+
+    if (bookingMatch) {
+      try {
+        const bookingData = JSON.parse(bookingMatch[1]);
+
+        // Create the booking
+        const dbResult = await env.DB.prepare(
+          `INSERT INTO bookings (name, email, phone, service, date, time, address, notes)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+        ).bind(
+          bookingData.name,
+          bookingData.email,
+          bookingData.phone,
+          bookingData.service,
+          bookingData.date,
+          bookingData.time,
+          bookingData.address,
+          'Booked via AI chatbot'
+        ).run();
+
+        const bookingId = dbResult.meta?.last_row_id || 'N/A';
+        bookingCreated = { id: bookingId, ...bookingData };
+
+        // Send Discord notification
+        await sendDiscord(env, {
+          title: '🤖 New AI Chatbot Booking',
+          color: 0x00d4ff,
+          fields: [
+            { name: '🆔 Booking ID', value: `#${bookingId}`, inline: true },
+            { name: '👤 Customer', value: bookingData.name, inline: true },
+            { name: '📧 Email', value: bookingData.email, inline: true },
+            { name: '📱 Phone', value: bookingData.phone, inline: true },
+            { name: '🔧 Service', value: bookingData.service, inline: true },
+            { name: '📅 Date', value: bookingData.date, inline: true },
+            { name: '⏰ Time', value: bookingData.time, inline: true },
+            { name: '📍 Address', value: bookingData.address, inline: false },
+            { name: '🤖 Source', value: 'AI Chatbot (Splash)', inline: false },
+          ],
+          footer: 'Jupiter Power Wash | AI Booking',
+        });
+
+        // Send email notification
+        await sendEmail(env, {
+          to: env.NOTIFY_EMAIL,
+          replyTo: bookingData.email,
+          subject: `AI Booking #${bookingId}: ${bookingData.service} - ${bookingData.name}`,
+          body: `NEW AI CHATBOT BOOKING - Jupiter Power Wash
+Booking ID: #${bookingId}
+
+Customer: ${bookingData.name}
+Email: ${bookingData.email}
+Phone: ${bookingData.phone}
+
+Service: ${bookingData.service}
+Date: ${bookingData.date}
+Time: ${bookingData.time}
+
+Address: ${bookingData.address}
+
+---
+Booked via AI Chatbot (Splash)
+jupiterpowerwash.com`,
+        });
+
+      } catch (e) {
+        console.error('Failed to create booking from AI:', e);
+      }
+    }
+
+    // Clean the response to remove booking JSON if present
+    let cleanResponse = assistantMessage.replace(/###BOOKING_DATA###[\s\S]*?###END_BOOKING###/, '').trim();
+
+    return jsonResponse({
+      response: cleanResponse,
+      bookingCreated: bookingCreated,
+    });
+
+  } catch (error) {
+    console.error('Chat error:', error);
+    return jsonResponse({
+      response: "I'm having a little trouble right now. You can call us directly at 561.532.7120 or use the booking form above!"
+    });
   }
 }
 

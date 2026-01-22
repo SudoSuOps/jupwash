@@ -1227,6 +1227,69 @@
             justify-content: center;
         }
 
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .testimonial-stars {
+            color: #f59e0b;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .author-location {
+            color: var(--jupiter-cyan);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Footer */
         footer {
             background: var(--gradient-space);
@@ -1525,6 +1588,22 @@
 
         .chatbot-input button:hover {
             transform: scale(1.05);
+        }
+
+        /* Typing indicator */
+        .typing-dots span {
+            animation: typingBlink 1.4s infinite;
+            animation-fill-mode: both;
+        }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBlink {
+            0%, 80%, 100% { opacity: 0; }
+            40% { opacity: 1; }
+        }
+        .chat-message.typing {
+            color: #94a3b8;
+            font-style: italic;
         }
 
         /* Responsive */
@@ -2178,6 +2257,40 @@
         </div>
     </section>
 
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="section-subtitle">Real reviews from our Jupiter neighbors</p>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Dean was fantastic! He showed up on time, was super professional, and my driveway looks brand new. The Florida sun had really done a number on it, but now it's spotless. Highly recommend!"</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">Mike R.</span>
+                        <span class="author-location">Jupiter, FL</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"High quality work at a fair price. They cleaned our entire pool cage and patio - got rid of years of algae buildup. Dean was friendly, explained everything, and the results speak for themselves. Our backyard looks amazing!"</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">Sarah & Tom L.</span>
+                        <span class="author-location">Palm Beach Gardens, FL</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"We've used several pressure washing services over the years, but Jupiter Power Wash is hands down the best. They cleaned our house exterior and it looks like we just repainted. Professional, punctual, and great attention to detail."</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">Jennifer M.</span>
+                        <span class="author-location">Tequesta, FL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -2486,13 +2599,21 @@
             });
         }
 
-        // Chatbot
+        // AI Chatbot - Powered by Splash
         const chatbotToggle = document.getElementById('chatbotToggle');
         const chatbotWindow = document.getElementById('chatbotWindow');
         const chatbotClose = document.getElementById('chatbotClose');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
         const chatSend = document.getElementById('chatSend');
+        const CHAT_API = 'https://jupwash-api.dm-6ab.workers.dev/api/chat';
+
+        // Generate unique session ID for conversation history
+        let sessionId = localStorage.getItem('jupwash_session');
+        if (!sessionId) {
+            sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('jupwash_session', sessionId);
+        }
 
         chatbotToggle.addEventListener('click', () => {
             chatbotWindow.classList.toggle('open');
@@ -2502,62 +2623,87 @@
             chatbotWindow.classList.remove('open');
         });
 
-        const botResponses = {
-            services: "We offer both residential and commercial power washing services! This includes:\n\n• House exteriors & siding\n• Driveways & walkways\n• Decks & patios\n• Pool cages\n• Storefronts & parking lots\n\nWould you like to book a service?",
-            pricing: "Our pricing depends on the size and type of service needed. We offer free estimates!\n\nFor a quick quote, give us a call at 561.532.7120 or fill out our booking form above.",
-            book: "Great! You can book directly on this page using our booking form above, or call us at 561.532.7120.\n\nWe have availability this week!",
-            crypto: "We accept cryptocurrency payments via our ENS address: jupwash.eth\n\nWe accept USDC and ETH. Just send payment to jupwash.eth after your service is complete.\n\nIt's fast, secure, and fee-friendly!",
-            default: "Thanks for your message! For immediate assistance, please call us at 561.532.7120 or use the booking form above.\n\nIs there anything specific I can help you with?"
-        };
-
         function addMessage(text, isUser = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-message ${isUser ? 'user' : 'bot'}`;
             messageDiv.textContent = text;
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+            return messageDiv;
         }
 
-        function getBotResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            if (lowerMessage.includes('service') || lowerMessage.includes('offer') || lowerMessage.includes('what do you')) {
-                return botResponses.services;
-            } else if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('how much') || lowerMessage.includes('quote')) {
-                return botResponses.pricing;
-            } else if (lowerMessage.includes('book') || lowerMessage.includes('schedule') || lowerMessage.includes('appointment')) {
-                return botResponses.book;
-            } else if (lowerMessage.includes('crypto') || lowerMessage.includes('eth') || lowerMessage.includes('usdc') || lowerMessage.includes('pay')) {
-                return botResponses.crypto;
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message bot typing';
+            typingDiv.innerHTML = '<span class="typing-dots">Splash is typing<span>.</span><span>.</span><span>.</span></span>';
+            typingDiv.id = 'typing-indicator';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTyping() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+
+        async function sendToAI(message) {
+            try {
+                const response = await fetch(CHAT_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message, sessionId })
+                });
+                const data = await response.json();
+
+                if (data.bookingCreated) {
+                    // Show booking confirmation
+                    return data.response + `\n\n✅ Booking #${data.bookingCreated.id} confirmed! We'll contact you soon.`;
+                }
+                return data.response;
+            } catch (error) {
+                console.error('Chat error:', error);
+                return "I'm having trouble connecting right now. You can call us at 561.532.7120 or use the booking form above!";
             }
-            return botResponses.default;
         }
 
-        function sendMessage() {
+        async function sendMessage() {
             const message = chatInput.value.trim();
             if (!message) return;
 
             addMessage(message, true);
             chatInput.value = '';
+            chatInput.disabled = true;
+            chatSend.disabled = true;
+            showTyping();
 
-            setTimeout(() => {
-                const response = getBotResponse(message);
-                addMessage(response);
-            }, 500);
+            const response = await sendToAI(message);
+
+            removeTyping();
+            addMessage(response);
+            chatInput.disabled = false;
+            chatSend.disabled = false;
+            chatInput.focus();
         }
 
         chatSend.addEventListener('click', sendMessage);
         chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
+            if (e.key === 'Enter' && !chatInput.disabled) sendMessage();
         });
 
         document.querySelectorAll('.quick-reply').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', async () => {
                 const message = btn.dataset.message;
                 addMessage(message, true);
-                setTimeout(() => {
-                    const response = getBotResponse(message);
-                    addMessage(response);
-                }, 500);
+                chatInput.disabled = true;
+                chatSend.disabled = true;
+                showTyping();
+
+                const response = await sendToAI(message);
+
+                removeTyping();
+                addMessage(response);
+                chatInput.disabled = false;
+                chatSend.disabled = false;
             });
         });
 

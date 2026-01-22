@@ -12,3 +12,6 @@ FROM_EMAIL = "bookings@jupiterpowerwash.com"
 binding = "DB"
 database_name = "jupwash-inquiries"
 database_id = "6098043a-c0f0-496c-b724-eb9383732aeb"
+
+[ai]
+binding = "AI"
