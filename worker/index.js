@@ -1,7 +1,7 @@
 /**
  * Jupiter Power Wash - Booking & Contact API
  * Cloudflare Worker for handling form submissions
- * Sends notifications to Discord webhook
+ * Sends notifications to Discord + Email
  */
 
 const CORS_HEADERS = {
@@ -51,7 +51,7 @@ async function handleBooking(request, env) {
     // Send to Discord
     await sendDiscord(env, {
       title: '🧹 New Booking Request',
-      color: 0x00d4ff, // Cyan
+      color: 0x00d4ff,
       fields: [
         { name: '👤 Customer', value: data.name, inline: true },
         { name: '📧 Email', value: data.email, inline: true },
@@ -63,6 +63,42 @@ async function handleBooking(request, env) {
         { name: '📝 Notes', value: data.notes || 'None', inline: false },
       ],
       footer: 'Jupiter Power Wash | jupiterpowerwash.com',
+    });
+
+    // Send email notification
+    const emailBody = `
+NEW BOOKING REQUEST - Jupiter Power Wash
+
+Customer Details:
+-----------------
+Name: ${data.name}
+Email: ${data.email}
+Phone: ${data.phone}
+
+Service Requested:
+------------------
+Service: ${formatService(data.service)}
+Date: ${data.date}
+Time: ${data.time}
+
+Property Address:
+-----------------
+${data.address}
+
+Additional Notes:
+-----------------
+${data.notes || 'None'}
+
+---
+Submitted via jupiterpowerwash.com
+Reply to this email or call ${data.phone} to confirm.
+    `.trim();
+
+    await sendEmail(env, {
+      to: env.NOTIFY_EMAIL,
+      replyTo: data.email,
+      subject: `New Booking: ${formatService(data.service)} - ${data.name}`,
+      body: emailBody,
     });
 
     return jsonResponse({
@@ -88,7 +124,7 @@ async function handleContact(request, env) {
     // Send to Discord
     await sendDiscord(env, {
       title: '💬 New Contact Message',
-      color: 0xf97316, // Orange
+      color: 0xf97316,
       fields: [
         { name: '👤 From', value: data.name, inline: true },
         { name: '📧 Email', value: data.email, inline: true },
@@ -96,6 +132,29 @@ async function handleContact(request, env) {
         { name: '💬 Message', value: data.message, inline: false },
       ],
       footer: 'Jupiter Power Wash | jupiterpowerwash.com',
+    });
+
+    // Send email notification
+    const emailBody = `
+NEW MESSAGE - Jupiter Power Wash Website
+
+From: ${data.name}
+Email: ${data.email}
+Phone: ${data.phone || 'Not provided'}
+
+Message:
+--------
+${data.message}
+
+---
+Submitted via jupiterpowerwash.com contact form
+    `.trim();
+
+    await sendEmail(env, {
+      to: env.NOTIFY_EMAIL,
+      replyTo: data.email,
+      subject: `Contact Form: ${data.name}`,
+      body: emailBody,
     });
 
     return jsonResponse({
@@ -127,6 +186,34 @@ async function sendDiscord(env, { title, color, fields, footer }) {
   if (!response.ok) {
     const error = await response.text();
     throw new Error(`Discord webhook failed: ${error}`);
+  }
+}
+
+async function sendEmail(env, { to, replyTo, subject, body }) {
+  const response = await fetch('https://api.mailchannels.net/tx/v1/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      personalizations: [{
+        to: [{ email: to }],
+      }],
+      from: {
+        email: env.FROM_EMAIL,
+        name: 'Jupiter Power Wash',
+      },
+      reply_to: replyTo ? { email: replyTo } : undefined,
+      subject: subject,
+      content: [{
+        type: 'text/plain',
+        value: body,
+      }],
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    console.error(`Email failed: ${error}`);
+    // Don't throw - Discord already sent, email is backup
   }
 }
 
