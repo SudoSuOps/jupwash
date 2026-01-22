@@ -9,7 +9,7 @@ const SYSTEM_PROMPT = `You are Splash, the friendly AI assistant for Jupiter Pow
 
 ABOUT JUPITER POWER WASH:
 - Family-owned business serving Jupiter, FL and surrounding areas (Palm Beach Gardens, Tequesta, Hobe Sound, Stuart)
-- Services: House exteriors, driveways, decks/patios, pool cages, commercial properties
+- Services: House exteriors, driveways, decks/patios, pool cages, boats, clean-outs, commercial properties
 - Phone: 561.532.7120
 - Email: service@jupiterpowerwash.com
 - Website: jupiterpowerwash.com
@@ -20,6 +20,8 @@ SERVICES & TYPICAL PRICING (estimates, final quote depends on size/condition):
 - Driveway: $100-$250
 - Deck/Patio: $150-$350
 - Pool Cage: $200-$450
+- Boat/Watercraft: $150-$400 (depends on size)
+- Clean-Out/Junk Removal: Custom quotes
 - Full Property Package: $500-$1000
 - Commercial: Custom quotes
 
@@ -454,6 +456,8 @@ function formatService(serviceKey) {
     'residential-deck': 'Residential - Deck/Patio',
     'residential-pool': 'Residential - Pool Cage',
     'residential-full': 'Residential - Full Property',
+    'residential-boat': 'Boat / Watercraft',
+    'cleanout': 'Clean-Out / Junk Removal',
     'commercial-storefront': 'Commercial - Storefront',
     'commercial-building': 'Commercial - Building',
     'commercial-parking': 'Commercial - Parking Lot',
