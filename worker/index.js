@@ -1,6 +1,7 @@
 /**
  * Jupiter Power Wash - Booking & Contact API
  * Cloudflare Worker for handling form submissions
+ * Sends notifications to Discord webhook
  */
 
 const CORS_HEADERS = {
@@ -47,75 +48,26 @@ async function handleBooking(request, env) {
       }
     }
 
-    // Format the booking email
-    const emailBody = `
-NEW BOOKING REQUEST - Jupiter Power Wash
-
-Customer Details:
------------------
-Name: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone}
-
-Service Requested:
-------------------
-Service: ${formatService(data.service)}
-Date: ${data.date}
-Time: ${data.time}
-
-Property Address:
------------------
-${data.address}
-
-Additional Notes:
------------------
-${data.notes || 'None'}
-
----
-This booking was submitted via jupiterpowerwash.com
-Reply to this email or call ${data.phone} to confirm.
-    `.trim();
-
-    // Send email via MailChannels
-    await sendEmail(env, {
-      to: env.NOTIFY_EMAIL,
-      replyTo: data.email,
-      subject: `New Booking: ${formatService(data.service)} - ${data.name}`,
-      body: emailBody,
-    });
-
-    // Send confirmation to customer
-    const confirmationBody = `
-Hi ${data.name},
-
-Thank you for booking with Jupiter Power Wash!
-
-We've received your request for ${formatService(data.service)} on ${data.date} at ${data.time}.
-
-Booking Details:
-- Service: ${formatService(data.service)}
-- Date: ${data.date}
-- Time: ${data.time}
-- Address: ${data.address}
-
-We'll contact you shortly at ${data.phone} to confirm your appointment.
-
-If you have any questions, call us at 561.532.7120 or reply to this email.
-
-Thank you for choosing Jupiter Power Wash!
-
-- The Jupiter Power Wash Team
-    `.trim();
-
-    await sendEmail(env, {
-      to: data.email,
-      subject: `Booking Confirmation - Jupiter Power Wash`,
-      body: confirmationBody,
+    // Send to Discord
+    await sendDiscord(env, {
+      title: '🧹 New Booking Request',
+      color: 0x00d4ff, // Cyan
+      fields: [
+        { name: '👤 Customer', value: data.name, inline: true },
+        { name: '📧 Email', value: data.email, inline: true },
+        { name: '📱 Phone', value: data.phone, inline: true },
+        { name: '🔧 Service', value: formatService(data.service), inline: true },
+        { name: '📅 Date', value: data.date, inline: true },
+        { name: '⏰ Time', value: data.time, inline: true },
+        { name: '📍 Address', value: data.address, inline: false },
+        { name: '📝 Notes', value: data.notes || 'None', inline: false },
+      ],
+      footer: 'Jupiter Power Wash | jupiterpowerwash.com',
     });
 
     return jsonResponse({
       success: true,
-      message: 'Booking received! Check your email for confirmation.'
+      message: 'Booking received! We\'ll contact you shortly to confirm.'
     });
 
   } catch (error) {
@@ -133,26 +85,17 @@ async function handleContact(request, env) {
       return jsonResponse({ error: 'Please fill in all required fields' }, 400);
     }
 
-    const emailBody = `
-NEW MESSAGE - Jupiter Power Wash Website
-
-From: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone || 'Not provided'}
-
-Message:
---------
-${data.message}
-
----
-Submitted via jupiterpowerwash.com contact form
-    `.trim();
-
-    await sendEmail(env, {
-      to: env.NOTIFY_EMAIL,
-      replyTo: data.email,
-      subject: `Contact Form: ${data.name}`,
-      body: emailBody,
+    // Send to Discord
+    await sendDiscord(env, {
+      title: '💬 New Contact Message',
+      color: 0xf97316, // Orange
+      fields: [
+        { name: '👤 From', value: data.name, inline: true },
+        { name: '📧 Email', value: data.email, inline: true },
+        { name: '📱 Phone', value: data.phone || 'Not provided', inline: true },
+        { name: '💬 Message', value: data.message, inline: false },
+      ],
+      footer: 'Jupiter Power Wash | jupiterpowerwash.com',
     });
 
     return jsonResponse({
@@ -166,30 +109,24 @@ Submitted via jupiterpowerwash.com contact form
   }
 }
 
-async function sendEmail(env, { to, replyTo, subject, body }) {
-  const response = await fetch('https://api.mailchannels.net/tx/v1/send', {
+async function sendDiscord(env, { title, color, fields, footer }) {
+  const response = await fetch(env.DISCORD_WEBHOOK, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      personalizations: [{
-        to: [{ email: to }],
-      }],
-      from: {
-        email: env.FROM_EMAIL,
-        name: 'Jupiter Power Wash',
-      },
-      reply_to: replyTo ? { email: replyTo } : undefined,
-      subject: subject,
-      content: [{
-        type: 'text/plain',
-        value: body,
+      embeds: [{
+        title: title,
+        color: color,
+        fields: fields,
+        footer: { text: footer },
+        timestamp: new Date().toISOString(),
       }],
     }),
   });
 
   if (!response.ok) {
     const error = await response.text();
-    throw new Error(`Email failed: ${error}`);
+    throw new Error(`Discord webhook failed: ${error}`);
   }
 }
 
