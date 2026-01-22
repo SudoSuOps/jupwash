@@ -7,3 +7,8 @@ account_id = "6abec5e82728df0610a98be9364918e4"
 DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1463970270879547498/JbKpVqF2ol8K1sx3jQYfMyNhZmA8vL9iS02_3cS_qVDDUUpskUM8E2MGYZcTlA1PpOQr"
 NOTIFY_EMAIL = "service@jupiterpowerwash.com"
 FROM_EMAIL = "bookings@jupiterpowerwash.com"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "jupwash-inquiries"
+database_id = "6098043a-c0f0-496c-b724-eb9383732aeb"

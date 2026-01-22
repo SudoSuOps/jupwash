@@ -1,12 +1,12 @@
 /**
  * Jupiter Power Wash - Booking & Contact API
  * Cloudflare Worker for handling form submissions
- * Sends notifications to Discord + Email
+ * Sends notifications to Discord + Email + Stores in D1 Database
  */
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
@@ -29,6 +29,16 @@ export default {
       }
     }
 
+    // GET endpoints for viewing data (could be protected in production)
+    if (request.method === 'GET') {
+      if (url.pathname === '/api/bookings') {
+        return getBookings(env);
+      }
+      if (url.pathname === '/api/contacts') {
+        return getContacts(env);
+      }
+    }
+
     return new Response('Jupiter Power Wash API', {
       status: 200,
       headers: { 'Content-Type': 'text/plain' },
@@ -48,11 +58,23 @@ async function handleBooking(request, env) {
       }
     }
 
+    // Store in D1 database
+    const dbResult = await env.DB.prepare(
+      `INSERT INTO bookings (name, email, phone, service, date, time, address, notes)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      data.name, data.email, data.phone, data.service,
+      data.date, data.time, data.address, data.notes || ''
+    ).run();
+
+    const bookingId = dbResult.meta?.last_row_id || 'N/A';
+
     // Send to Discord
     await sendDiscord(env, {
       title: '🧹 New Booking Request',
       color: 0x00d4ff,
       fields: [
+        { name: '🆔 Booking ID', value: `#${bookingId}`, inline: true },
         { name: '👤 Customer', value: data.name, inline: true },
         { name: '📧 Email', value: data.email, inline: true },
         { name: '📱 Phone', value: data.phone, inline: true },
@@ -68,6 +90,7 @@ async function handleBooking(request, env) {
     // Send email notification
     const emailBody = `
 NEW BOOKING REQUEST - Jupiter Power Wash
+Booking ID: #${bookingId}
 
 Customer Details:
 -----------------
@@ -97,12 +120,13 @@ Reply to this email or call ${data.phone} to confirm.
     await sendEmail(env, {
       to: env.NOTIFY_EMAIL,
       replyTo: data.email,
-      subject: `New Booking: ${formatService(data.service)} - ${data.name}`,
+      subject: `New Booking #${bookingId}: ${formatService(data.service)} - ${data.name}`,
       body: emailBody,
     });
 
     return jsonResponse({
       success: true,
+      bookingId: bookingId,
       message: 'Booking received! We\'ll contact you shortly to confirm.'
     });
 
@@ -121,11 +145,19 @@ async function handleContact(request, env) {
       return jsonResponse({ error: 'Please fill in all required fields' }, 400);
     }
 
+    // Store in D1 database
+    const dbResult = await env.DB.prepare(
+      `INSERT INTO contacts (name, email, phone, message) VALUES (?, ?, ?, ?)`
+    ).bind(data.name, data.email, data.phone || '', data.message).run();
+
+    const contactId = dbResult.meta?.last_row_id || 'N/A';
+
     // Send to Discord
     await sendDiscord(env, {
       title: '💬 New Contact Message',
       color: 0xf97316,
       fields: [
+        { name: '🆔 Message ID', value: `#${contactId}`, inline: true },
         { name: '👤 From', value: data.name, inline: true },
         { name: '📧 Email', value: data.email, inline: true },
         { name: '📱 Phone', value: data.phone || 'Not provided', inline: true },
@@ -137,6 +169,7 @@ async function handleContact(request, env) {
     // Send email notification
     const emailBody = `
 NEW MESSAGE - Jupiter Power Wash Website
+Message ID: #${contactId}
 
 From: ${data.name}
 Email: ${data.email}
@@ -153,18 +186,41 @@ Submitted via jupiterpowerwash.com contact form
     await sendEmail(env, {
       to: env.NOTIFY_EMAIL,
       replyTo: data.email,
-      subject: `Contact Form: ${data.name}`,
+      subject: `Contact #${contactId}: ${data.name}`,
       body: emailBody,
     });
 
     return jsonResponse({
       success: true,
+      messageId: contactId,
       message: 'Message sent! We\'ll get back to you soon.'
     });
 
   } catch (error) {
     console.error('Contact error:', error);
     return jsonResponse({ error: 'Failed to send message. Please call 561.532.7120' }, 500);
+  }
+}
+
+async function getBookings(env) {
+  try {
+    const { results } = await env.DB.prepare(
+      'SELECT * FROM bookings ORDER BY created_at DESC LIMIT 100'
+    ).all();
+    return jsonResponse({ bookings: results });
+  } catch (error) {
+    return jsonResponse({ error: 'Failed to fetch bookings' }, 500);
+  }
+}
+
+async function getContacts(env) {
+  try {
+    const { results } = await env.DB.prepare(
+      'SELECT * FROM contacts ORDER BY created_at DESC LIMIT 100'
+    ).all();
+    return jsonResponse({ contacts: results });
+  } catch (error) {
+    return jsonResponse({ error: 'Failed to fetch contacts' }, 500);
   }
 }
 
@@ -213,7 +269,6 @@ async function sendEmail(env, { to, replyTo, subject, body }) {
   if (!response.ok) {
     const error = await response.text();
     console.error(`Email failed: ${error}`);
-    // Don't throw - Discord already sent, email is backup
   }
 }
 
