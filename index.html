@@ -2277,12 +2277,9 @@
         const chatSend = document.getElementById('chatSend');
         const CHAT_API = 'https://jupwash-api.dm-6ab.workers.dev/api/chat';
 
-        // Generate unique session ID for conversation history
-        let sessionId = localStorage.getItem('jupwash_session');
-        if (!sessionId) {
-            sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('jupwash_session', sessionId);
-        }
+        // Conversation history lives in this tab only (no server-side storage) -
+        // sent along with each message so Splash remembers the conversation so far.
+        let chatHistory = [];
 
         chatbotToggle.addEventListener('click', () => {
             chatbotWindow.classList.toggle('open');
@@ -2320,9 +2317,11 @@
                 const response = await fetch(CHAT_API, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message, sessionId })
+                    body: JSON.stringify({ message, history: chatHistory })
                 });
                 const data = await response.json();
+                chatHistory.push({ role: 'user', content: message });
+                chatHistory.push({ role: 'assistant', content: data.response });
                 return data.response;
             } catch (error) {
                 console.error('Chat error:', error);
