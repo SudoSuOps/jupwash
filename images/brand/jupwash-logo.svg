@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- outer rings -->
+  <circle cx="200" cy="200" r="192" fill="#F3E8D2"/>
+  <circle cx="200" cy="200" r="192" fill="none" stroke="#A8824F" stroke-width="3"/>
+  <circle cx="200" cy="200" r="178" fill="none" stroke="#5E8679" stroke-width="2"/>
+  <circle cx="200" cy="200" r="168" fill="#FAF5EA" stroke="#C9A876" stroke-width="1.5"/>
+
+  <!-- top wordmark -->
+  <text x="200" y="76" font-family="Liberation Serif, Georgia, serif" font-size="30" font-weight="700"
+        letter-spacing="5" fill="#3A332A" text-anchor="middle">JUPITER</text>
+
+  <!-- divider flanking small dots + rule -->
+  <line x1="110" y1="95" x2="165" y2="95" stroke="#A8824F" stroke-width="1.5"/>
+  <circle cx="200" cy="95" r="3.5" fill="#A8824F"/>
+  <line x1="235" y1="95" x2="290" y2="95" stroke="#A8824F" stroke-width="1.5"/>
+
+  <!-- sun -->
+  <circle cx="200" cy="130" r="8" fill="#C9A876" opacity="0.85"/>
+
+  <!-- waves -->
+  <path d="M 90 292 Q 115 277 140 292 T 190 292 T 240 292 T 290 292" fill="none" stroke="#7A9E96" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 100 310 Q 125 297 150 310 T 200 310 T 250 310 T 300 310" fill="none" stroke="#A8C3BC" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- lighthouse -->
+  <g>
+    <path d="M 178 287 L 186 232 L 214 232 L 222 287 Z" fill="#C9A876"/>
+    <path d="M 186 232 L 191 192 L 209 192 L 214 232 Z" fill="#FAF5EA" stroke="#A8824F" stroke-width="2"/>
+    <rect x="183" y="257" width="34" height="9" fill="#5E8679"/>
+    <rect x="187" y="212" width="26" height="9" fill="#5E8679"/>
+    <rect x="189" y="174" width="22" height="20" fill="#7A9E96" stroke="#3A332A" stroke-width="1.5"/>
+    <path d="M 186 174 L 200 154 L 214 174 Z" fill="#A8824F"/>
+    <path d="M 211 183 L 240 172 M 211 187 L 242 187 M 211 191 L 240 202" stroke="#C9A876" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="183" y="192" width="34" height="4" fill="#3A332A"/>
+  </g>
+
+  <!-- bottom wordmark -->
+  <text x="200" y="345" font-family="Liberation Serif, Georgia, serif" font-size="24" font-weight="700"
+        letter-spacing="4" fill="#3A332A" text-anchor="middle">POWER WASH</text>
+
+  <!-- tagline -->
+  <text x="200" y="360" font-family="Liberation Serif, Georgia, serif" font-size="9" font-weight="600"
+        letter-spacing="1.5" fill="#5E8679" text-anchor="middle">JUPITER, FLORIDA</text>
+</svg>
