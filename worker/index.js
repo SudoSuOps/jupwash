@@ -1,7 +1,7 @@
 /**
  * Jupiter Power Wash - Booking & Contact API
  * Cloudflare Worker for handling form submissions
- * Sends notifications to Discord + Email + Stores in D1 Database
+ * Sends email notifications + stores in D1 Database
  * AI Chatbot powered by Cloudflare Workers AI
  */
 
@@ -98,24 +98,6 @@ async function handleBooking(request, env) {
 
     const bookingId = dbResult.meta?.last_row_id || 'N/A';
 
-    // Send to Discord
-    await sendDiscord(env, {
-      title: '🧹 New Booking Request',
-      color: 0x00d4ff,
-      fields: [
-        { name: '🆔 Booking ID', value: `#${bookingId}`, inline: true },
-        { name: '👤 Customer', value: data.name, inline: true },
-        { name: '📧 Email', value: data.email, inline: true },
-        { name: '📱 Phone', value: data.phone, inline: true },
-        { name: '🔧 Service', value: formatService(data.service), inline: true },
-        { name: '📅 Date', value: data.date, inline: true },
-        { name: '⏰ Time', value: data.time, inline: true },
-        { name: '📍 Address', value: data.address, inline: false },
-        { name: '📝 Notes', value: data.notes || 'None', inline: false },
-      ],
-      footer: 'Jupiter Power Wash | jupiterpowerwash.com',
-    });
-
     // Send email notification
     const emailBody = `
 NEW BOOKING REQUEST - Jupiter Power Wash
@@ -180,20 +162,6 @@ async function handleContact(request, env) {
     ).bind(data.name, data.email, data.phone || '', data.message).run();
 
     const contactId = dbResult.meta?.last_row_id || 'N/A';
-
-    // Send to Discord
-    await sendDiscord(env, {
-      title: '💬 New Contact Message',
-      color: 0xf97316,
-      fields: [
-        { name: '🆔 Message ID', value: `#${contactId}`, inline: true },
-        { name: '👤 From', value: data.name, inline: true },
-        { name: '📧 Email', value: data.email, inline: true },
-        { name: '📱 Phone', value: data.phone || 'Not provided', inline: true },
-        { name: '💬 Message', value: data.message, inline: false },
-      ],
-      footer: 'Jupiter Power Wash | jupiterpowerwash.com',
-    });
 
     // Send email notification
     const emailBody = `
@@ -299,24 +267,6 @@ async function handleChat(request, env) {
         const bookingId = dbResult.meta?.last_row_id || 'N/A';
         bookingCreated = { id: bookingId, ...bookingData };
 
-        // Send Discord notification
-        await sendDiscord(env, {
-          title: '🤖 New AI Chatbot Booking',
-          color: 0x00d4ff,
-          fields: [
-            { name: '🆔 Booking ID', value: `#${bookingId}`, inline: true },
-            { name: '👤 Customer', value: bookingData.name, inline: true },
-            { name: '📧 Email', value: bookingData.email, inline: true },
-            { name: '📱 Phone', value: bookingData.phone, inline: true },
-            { name: '🔧 Service', value: bookingData.service, inline: true },
-            { name: '📅 Date', value: bookingData.date, inline: true },
-            { name: '⏰ Time', value: bookingData.time, inline: true },
-            { name: '📍 Address', value: bookingData.address, inline: false },
-            { name: '🤖 Source', value: 'AI Chatbot (Splash)', inline: false },
-          ],
-          footer: 'Jupiter Power Wash | AI Booking',
-        });
-
         // Send email notification
         await sendEmail(env, {
           to: env.NOTIFY_EMAIL,
@@ -380,27 +330,6 @@ async function getContacts(env) {
     return jsonResponse({ contacts: results });
   } catch (error) {
     return jsonResponse({ error: 'Failed to fetch contacts' }, 500);
-  }
-}
-
-async function sendDiscord(env, { title, color, fields, footer }) {
-  const response = await fetch(env.DISCORD_WEBHOOK, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      embeds: [{
-        title: title,
-        color: color,
-        fields: fields,
-        footer: { text: footer },
-        timestamp: new Date().toISOString(),
-      }],
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Discord webhook failed: ${error}`);
   }
 }
 
