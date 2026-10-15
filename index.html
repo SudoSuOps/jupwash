@@ -13,6 +13,9 @@
     <meta name="geo.region" content="US-FL">
     <meta name="geo.placename" content="Jupiter, Florida">
     <link rel="canonical" href="https://jupiterpowerwash.com">
+    <link rel="icon" type="image/svg+xml" href="images/brand/jupwash-logo.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/brand/jupwash-logo-192.png">
+    <link rel="apple-touch-icon" href="images/brand/jupwash-logo-192.png">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -64,37 +67,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Primary - warm coastal ocean, not neon */
-            --jupiter-cyan: #2A7F9E;
-            --jupiter-blue: #1D5E78;
-            --jupiter-light: #5FB4C9;
-            /* Accent - Jupiter sunset orange */
-            --jupiter-orange: #E8743B;
-            --jupiter-gold: #F2994A;
-            --jupiter-warm: #F4B183;
-            /* Warm, friendly backgrounds (light) */
-            --deep-space: #F7EFE1;
-            --cosmic-blue: #FBF4E8;
-            --nebula-purple: #F3E5D0;
-            --card-dark: #FFFFFF;
-            --card-lighter: #FBF4E8;
-            --clean-white: #FFFDF8;
-            --soft-gray: #FBF4E8;
-            --text-primary: #2B2420;
+            /* Primary - seaglass */
+            --jupiter-cyan: #5E8679;
+            --jupiter-blue: #3F5F56;
+            --jupiter-light: #A8C3BC;
+            /* Accent - vintage tan */
+            --jupiter-orange: #A8824F;
+            --jupiter-gold: #C9A876;
+            --jupiter-warm: #D8C3A0;
+            /* Vintage, sun-worn backgrounds (light) */
+            --deep-space: #F3E8D2;
+            --cosmic-blue: #FAF5EA;
+            --nebula-purple: #EDE0C8;
+            --card-dark: #FFFDF8;
+            --card-lighter: #F3E8D2;
+            --clean-white: #FAF5EA;
+            --soft-gray: #F3E8D2;
+            --text-primary: #3A332A;
             --text-secondary: #6B6056;
-            --text-muted: #9C9186;
-            /* Gradients - Jupiter sunset over the ocean */
-            --gradient-jupiter: linear-gradient(135deg, #1D5E78 0%, #2A7F9E 50%, #5FB4C9 100%);
-            --gradient-warm: linear-gradient(135deg, #E8743B 0%, #F2994A 100%);
-            --gradient-sunset: linear-gradient(135deg, #2A7F9E 0%, #E8743B 60%, #F2994A 100%);
-            --gradient-space: linear-gradient(160deg, #0F3A4A 0%, #1D5E78 45%, #2A7F9E 100%);
-            --gradient-dark-section: linear-gradient(180deg, #FBF4E8 0%, #F3E5D0 100%);
-            --gradient-glass: linear-gradient(135deg, rgba(42,127,158,0.10) 0%, rgba(242,153,74,0.08) 100%);
-            --border-subtle: rgba(43, 36, 32, 0.08);
-            --shadow-soft: 0 4px 6px -1px rgba(43, 36, 32, 0.08), 0 2px 4px -1px rgba(43, 36, 32, 0.05);
-            --shadow-medium: 0 10px 20px -5px rgba(43, 36, 32, 0.12), 0 4px 8px -2px rgba(43, 36, 32, 0.06);
-            --shadow-large: 0 25px 50px -12px rgba(43, 36, 32, 0.18);
-            --shadow-glow: 0 0 30px rgba(242, 153, 74, 0.3), 0 0 50px rgba(42, 127, 158, 0.15);
+            --text-muted: #9C9080;
+            /* Gradients - seaglass & tan, vintage Jupiter */
+            --gradient-jupiter: linear-gradient(135deg, #3F5F56 0%, #5E8679 50%, #A8C3BC 100%);
+            --gradient-warm: linear-gradient(135deg, #A8824F 0%, #C9A876 100%);
+            --gradient-sunset: linear-gradient(135deg, #5E8679 0%, #A8824F 60%, #C9A876 100%);
+            --gradient-space: linear-gradient(160deg, #2A3F3A 0%, #3F5F56 45%, #5E8679 100%);
+            --gradient-dark-section: linear-gradient(180deg, #FAF5EA 0%, #EDE0C8 100%);
+            --gradient-glass: linear-gradient(135deg, rgba(94,134,121,0.10) 0%, rgba(168,130,79,0.08) 100%);
+            --border-subtle: rgba(58, 51, 42, 0.08);
+            --shadow-soft: 0 4px 6px -1px rgba(58, 51, 42, 0.08), 0 2px 4px -1px rgba(58, 51, 42, 0.05);
+            --shadow-medium: 0 10px 20px -5px rgba(58, 51, 42, 0.12), 0 4px 8px -2px rgba(58, 51, 42, 0.06);
+            --shadow-large: 0 25px 50px -12px rgba(58, 51, 42, 0.18);
+            --shadow-glow: 0 0 30px rgba(168, 130, 79, 0.3), 0 0 50px rgba(94, 134, 121, 0.15);
         }
 
         * {
@@ -130,7 +133,7 @@
             right: 0;
             z-index: 1000;
             padding: 1rem 2rem;
-            background: rgba(255, 253, 248, 0.92);
+            background: rgba(250, 245, 234, 0.92);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-subtle);
             transition: all 0.3s ease;
@@ -257,8 +260,8 @@
             right: 0;
             bottom: 0;
             background:
-                radial-gradient(circle at 85% 15%, rgba(242,153,74,0.35) 0%, transparent 55%),
-                radial-gradient(circle at 10% 90%, rgba(95,180,201,0.25) 0%, transparent 50%);
+                radial-gradient(circle at 85% 15%, rgba(168,130,79,0.30) 0%, transparent 55%),
+                radial-gradient(circle at 10% 90%, rgba(168,195,188,0.30) 0%, transparent 50%);
         }
 
         .hero-container {
@@ -405,7 +408,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(29, 94, 120, 0.25) 0%, rgba(42, 127, 158, 0.1) 50%, rgba(242, 153, 74, 0.15) 100%);
+            background: linear-gradient(135deg, rgba(42, 63, 58, 0.25) 0%, rgba(94, 134, 121, 0.1) 50%, rgba(168, 130, 79, 0.15) 100%);
         }
 
         .floating-card {
@@ -479,7 +482,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            color: #2B2420;
+            color: #3A332A;
             text-decoration: none;
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
@@ -702,7 +705,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(180deg, rgba(29,94,120,0.1) 0%, rgba(29,94,120,0.05) 60%, rgba(29,94,120,0.25) 100%);
+            background: linear-gradient(180deg, rgba(42,63,58,0.1) 0%, rgba(42,63,58,0.05) 60%, rgba(42,63,58,0.25) 100%);
         }
 
         .about-badge {
@@ -807,8 +810,8 @@
             right: 0;
             bottom: 0;
             background:
-                radial-gradient(circle at 15% 10%, rgba(242,153,74,0.3) 0%, transparent 55%),
-                radial-gradient(circle at 90% 85%, rgba(95,180,201,0.2) 0%, transparent 50%);
+                radial-gradient(circle at 15% 10%, rgba(168,130,79,0.30) 0%, transparent 55%),
+                radial-gradient(circle at 90% 85%, rgba(168,195,188,0.25) 0%, transparent 50%);
         }
 
         .booking-container {
@@ -834,61 +837,49 @@
             background: var(--card-dark);
             border: 1px solid var(--border-subtle);
             border-radius: 24px;
-            padding: 3rem;
+            padding: 3.5rem 3rem;
             box-shadow: var(--shadow-large);
+            text-align: center;
         }
 
-        .booking-steps {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .booking-step {
-            display: flex;
+        .call-cta-number {
+            display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+            gap: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 2.75rem;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s ease, color 0.2s ease;
         }
 
-        .booking-step.active {
+        .call-cta-number svg {
+            color: var(--jupiter-orange);
+            flex-shrink: 0;
+        }
+
+        .call-cta-number:hover {
+            transform: scale(1.03);
             color: var(--jupiter-cyan);
         }
 
-        .booking-step-number {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--soft-gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.9rem;
+        .call-cta-sub {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
         }
 
-        .booking-step.active .booking-step-number {
-            background: var(--gradient-jupiter);
-            color: white;
-        }
-
-        .booking-form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+        @media (max-width: 600px) {
+            .call-cta-number { font-size: 1.9rem; }
+            .call-cta-number svg { width: 28px; height: 28px; }
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-        }
-
-        .form-group.full-width {
-            grid-column: span 2;
         }
 
         .form-group label {
@@ -920,130 +911,13 @@
         .form-group textarea:focus {
             outline: none;
             border-color: var(--jupiter-cyan);
-            box-shadow: 0 0 0 3px rgba(42, 127, 158, 0.15);
+            box-shadow: 0 0 0 3px rgba(94, 134, 121, 0.15);
             background: var(--card-dark);
         }
 
         .form-group textarea {
             min-height: 120px;
             resize: vertical;
-        }
-
-        .date-picker {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .date-picker-header {
-            grid-column: span 7;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .date-picker-header h4 {
-            font-size: 1rem;
-        }
-
-        .date-picker-nav {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .date-picker-nav button {
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: var(--card-lighter);
-            color: var(--text-primary);
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s ease;
-        }
-
-        .date-picker-nav button:hover {
-            background: var(--jupiter-cyan);
-            color: white;
-        }
-
-        .date-picker-day {
-            text-align: center;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            padding: 0.5rem;
-        }
-
-        .date-picker-date {
-            aspect-ratio: 1;
-            border: none;
-            background: transparent;
-            color: var(--text-primary);
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .date-picker-date:hover {
-            background: var(--card-lighter);
-        }
-
-        .date-picker-date.selected {
-            background: var(--gradient-jupiter);
-            color: white;
-        }
-
-        .date-picker-date.disabled {
-            color: var(--text-muted);
-            cursor: not-allowed;
-        }
-
-        .time-slots {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .time-slot {
-            padding: 0.75rem;
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            background: var(--card-lighter);
-            color: var(--text-primary);
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .time-slot:hover {
-            border-color: var(--jupiter-cyan);
-            background: var(--card-dark);
-        }
-
-        .time-slot.selected {
-            background: var(--gradient-jupiter);
-            border-color: transparent;
-            color: white;
-        }
-
-        .booking-submit {
-            grid-column: span 2;
-            margin-top: 1rem;
-        }
-
-        .booking-submit .btn-primary {
-            width: 100%;
-            justify-content: center;
-            padding: 1.25rem 2rem;
-            font-size: 1.1rem;
         }
 
         /* Contact Section */
@@ -1195,7 +1069,7 @@
 
         .prevention-banner {
             margin-top: 4rem;
-            background: linear-gradient(135deg, rgba(42, 127, 158, 0.08) 0%, rgba(242, 153, 74, 0.12) 100%);
+            background: linear-gradient(135deg, rgba(94, 134, 121, 0.08) 0%, rgba(168, 130, 79, 0.12) 100%);
             border: 1px solid var(--border-subtle);
             border-radius: 24px;
             padding: 3rem;
@@ -1333,7 +1207,7 @@
         .testimonial-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-large);
-            border-color: rgba(242, 153, 74, 0.35);
+            border-color: rgba(168, 130, 79, 0.35);
         }
 
         .testimonial-stars {
@@ -1761,22 +1635,6 @@
                 font-size: 2rem;
             }
 
-            .booking-form {
-                grid-template-columns: 1fr;
-            }
-
-            .form-group.full-width {
-                grid-column: span 1;
-            }
-
-            .booking-submit {
-                grid-column: span 1;
-            }
-
-            .time-slots {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
             .footer-grid {
                 grid-template-columns: 1fr;
             }
@@ -1834,7 +1692,7 @@
             <ul class="nav-links">
                 <li><a href="#services">Services</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#booking">Book Now</a></li>
+                <li><a href="#booking">Free Estimate</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <a href="tel:5615327120" class="nav-phone">
@@ -1843,7 +1701,7 @@
                 </svg>
                 561-532-7120
             </a>
-            <a href="#booking" class="nav-cta">Get a Quote</a>
+            <a href="tel:5615327120" class="nav-cta">Get a Quote</a>
             <button class="mobile-menu-btn" aria-label="Menu">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 6h16M4 12h16M4 18h16"/>
@@ -1864,20 +1722,18 @@
                 <p class="hero-subtitle">Friendly, family-owned power washing for driveways, patios, pool areas, and sidewalks right here in Jupiter. We treat your home like it's our own.</p>
                 <p style="font-style: italic; color: var(--jupiter-warm); margin-bottom: 2rem; font-size: 1.1rem;">"Powering Clean, One Wash at a Time – Your Property, Our Priority"</p>
                 <div class="hero-ctas">
-                    <a href="#booking" class="btn-primary">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                            <line x1="16" y1="2" x2="16" y2="6"/>
-                            <line x1="8" y1="2" x2="8" y2="6"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
-                        </svg>
-                        Book a Wash Now
-                    </a>
-                    <a href="tel:5615327120" class="btn-secondary">
+                    <a href="tel:5615327120" class="btn-primary">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                         </svg>
-                        Call Us: 561.532.7120
+                        Call for a Free Estimate
+                    </a>
+                    <a href="#contact" class="btn-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        Send a Message
                     </a>
                 </div>
             </div>
@@ -2103,114 +1959,22 @@
         </div>
     </section>
 
-    <!-- Booking Section -->
+    <!-- Free Estimate Call-to-Action -->
     <section id="booking" class="booking">
         <div class="booking-container">
             <div class="section-header">
-                <span class="section-label">Book Now</span>
-                <h2 class="section-title">Schedule Your Power Wash</h2>
-                <p class="section-subtitle">Select your service, pick a date, and we'll handle the rest. It's that easy.</p>
+                <span class="section-label">Free Estimates</span>
+                <h2 class="section-title">Ready for a Free Estimate?</h2>
+                <p class="section-subtitle">No calendars, no online booking - just give us a call and we'll take care of the rest.</p>
             </div>
             <div class="booking-card">
-                <div class="booking-steps">
-                    <div class="booking-step active">
-                        <span class="booking-step-number">1</span>
-                        <span>Select Service</span>
-                    </div>
-                    <div class="booking-step">
-                        <span class="booking-step-number">2</span>
-                        <span>Choose Date</span>
-                    </div>
-                    <div class="booking-step">
-                        <span class="booking-step-number">3</span>
-                        <span>Confirm Details</span>
-                    </div>
-                </div>
-                <form class="booking-form" id="bookingForm">
-                    <div class="form-group">
-                        <label for="booking-name">Full Name</label>
-                        <input type="text" id="booking-name" name="name" placeholder="John Smith" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="booking-email">Email Address</label>
-                        <input type="email" id="booking-email" name="email" placeholder="john@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="booking-phone">Phone Number</label>
-                        <input type="tel" id="booking-phone" name="phone" placeholder="(561) 555-0123" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="booking-service">Service Type</label>
-                        <select id="booking-service" name="service" required>
-                            <option value="">Select a service...</option>
-                            <option value="driveway">Driveway</option>
-                            <option value="patio">Patio</option>
-                            <option value="pool-area">Pool Area</option>
-                            <option value="sidewalk">Sidewalk</option>
-                            <option value="full-property">Full Property Package</option>
-                            <option value="other">Other (describe below)</option>
-                        </select>
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Preferred Date</label>
-                        <div class="date-picker" id="datePicker">
-                            <div class="date-picker-header">
-                                <h4 id="currentMonth">January 2026</h4>
-                                <div class="date-picker-nav">
-                                    <button type="button" id="prevMonth">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                                            <polyline points="15 18 9 12 15 6"/>
-                                        </svg>
-                                    </button>
-                                    <button type="button" id="nextMonth">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                                            <polyline points="9 18 15 12 9 6"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="date-picker-day">Sun</div>
-                            <div class="date-picker-day">Mon</div>
-                            <div class="date-picker-day">Tue</div>
-                            <div class="date-picker-day">Wed</div>
-                            <div class="date-picker-day">Thu</div>
-                            <div class="date-picker-day">Fri</div>
-                            <div class="date-picker-day">Sat</div>
-                            <div id="dateGrid"></div>
-                        </div>
-                        <input type="hidden" id="selectedDate" name="date">
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Preferred Time</label>
-                        <div class="time-slots">
-                            <button type="button" class="time-slot" data-time="8:00 AM">8:00 AM</button>
-                            <button type="button" class="time-slot" data-time="9:00 AM">9:00 AM</button>
-                            <button type="button" class="time-slot" data-time="10:00 AM">10:00 AM</button>
-                            <button type="button" class="time-slot" data-time="11:00 AM">11:00 AM</button>
-                            <button type="button" class="time-slot" data-time="12:00 PM">12:00 PM</button>
-                            <button type="button" class="time-slot" data-time="1:00 PM">1:00 PM</button>
-                            <button type="button" class="time-slot" data-time="2:00 PM">2:00 PM</button>
-                            <button type="button" class="time-slot" data-time="3:00 PM">3:00 PM</button>
-                        </div>
-                        <input type="hidden" id="selectedTime" name="time">
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="booking-address">Property Address</label>
-                        <input type="text" id="booking-address" name="address" placeholder="123 Main St, Jupiter, FL 33458" required>
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="booking-notes">Additional Notes</label>
-                        <textarea id="booking-notes" name="notes" placeholder="Any special requests or details about your property..."></textarea>
-                    </div>
-                    <div class="booking-submit">
-                        <button type="submit" class="btn-primary">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            Confirm Booking Request
-                        </button>
-                    </div>
-                </form>
+                <a href="tel:5615327120" class="call-cta-number">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="36" height="36">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    561-532-7120
+                </a>
+                <p class="call-cta-sub">Call or text - we usually answer within a few rings.</p>
             </div>
         </div>
     </section>
@@ -2386,7 +2150,7 @@
                     <ul>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#contact">Contact</a></li>
-                        <li><a href="#booking">Book Online</a></li>
+                        <li><a href="#booking">Free Estimate</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
@@ -2442,7 +2206,7 @@
         <div class="chat-quick-replies">
             <button class="quick-reply" data-message="What services do you offer?">Services</button>
             <button class="quick-reply" data-message="How much does it cost?">Pricing</button>
-            <button class="quick-reply" data-message="I want to book a wash">Book Now</button>
+            <button class="quick-reply" data-message="I'd like a free estimate">Free Estimate</button>
             <button class="quick-reply" data-message="What areas do you serve?">Service Area</button>
         </div>
         <div class="chatbot-input">
@@ -2465,138 +2229,9 @@
             setTimeout(() => btn.textContent = 'Copy', 2000);
         }
 
-        // Date Picker
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        let currentDate = new Date();
-        let selectedDate = null;
-        let selectedTime = null;
-
-        function renderCalendar() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            document.getElementById('currentMonth').textContent = `${months[month]} ${year}`;
-
-            const dateGrid = document.getElementById('dateGrid');
-            dateGrid.innerHTML = '';
-
-            // Empty cells for days before the first day of the month
-            for (let i = 0; i < firstDay; i++) {
-                const emptyCell = document.createElement('button');
-                emptyCell.type = 'button';
-                emptyCell.className = 'date-picker-date disabled';
-                emptyCell.disabled = true;
-                dateGrid.appendChild(emptyCell);
-            }
-
-            // Days of the month
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dateBtn = document.createElement('button');
-                dateBtn.type = 'button';
-                dateBtn.className = 'date-picker-date';
-                dateBtn.textContent = day;
-
-                const cellDate = new Date(year, month, day);
-                if (cellDate < today) {
-                    dateBtn.classList.add('disabled');
-                    dateBtn.disabled = true;
-                } else {
-                    dateBtn.addEventListener('click', () => selectDate(year, month, day));
-                }
-
-                if (selectedDate && selectedDate.getTime() === cellDate.getTime()) {
-                    dateBtn.classList.add('selected');
-                }
-
-                dateGrid.appendChild(dateBtn);
-            }
-        }
-
-        function selectDate(year, month, day) {
-            selectedDate = new Date(year, month, day);
-            document.getElementById('selectedDate').value = selectedDate.toISOString().split('T')[0];
-            renderCalendar();
-
-            // Update booking steps
-            document.querySelectorAll('.booking-step')[1].classList.add('active');
-        }
-
-        document.getElementById('prevMonth').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
-        });
-
-        document.getElementById('nextMonth').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
-        });
-
-        renderCalendar();
-
-        // Time Slots
-        document.querySelectorAll('.time-slot').forEach(slot => {
-            slot.addEventListener('click', () => {
-                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-                slot.classList.add('selected');
-                selectedTime = slot.dataset.time;
-                document.getElementById('selectedTime').value = selectedTime;
-
-                // Update booking steps
-                document.querySelectorAll('.booking-step')[2].classList.add('active');
-            });
-        });
-
         // Form Submissions
         // API endpoint for form submissions
         const API_URL = 'https://jupwash-api.dm-6ab.workers.dev';
-
-        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<svg class="spinner" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70" style="animation: spin 1s linear infinite;"/></svg> Sending...';
-
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-
-            try {
-                const response = await fetch(`${API_URL}/api/booking`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    // Show success message
-                    form.innerHTML = `
-                        <div style="text-align: center; padding: 3rem;">
-                            <svg viewBox="0 0 24 24" width="64" height="64" style="color: #22c55e; margin-bottom: 1rem;">
-                                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <path d="M8 12l3 3 5-6" fill="none" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                            <h3 style="margin-bottom: 0.5rem; color: #1a202c;">Booking Received!</h3>
-                            <p style="color: #4a5568;">Check your email for confirmation. We'll call you at ${data.phone} to confirm.</p>
-                        </div>
-                    `;
-                } else {
-                    throw new Error(result.error || 'Booking failed');
-                }
-            } catch (error) {
-                alert(`Error: ${error.message}\n\nPlease call us directly at 561.532.7120`);
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            }
-        });
 
         document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -2688,15 +2323,10 @@
                     body: JSON.stringify({ message, sessionId })
                 });
                 const data = await response.json();
-
-                if (data.bookingCreated) {
-                    // Show booking confirmation
-                    return data.response + `\n\n✅ Booking #${data.bookingCreated.id} confirmed! We'll contact you soon.`;
-                }
                 return data.response;
             } catch (error) {
                 console.error('Chat error:', error);
-                return "I'm having trouble connecting right now. You can call us at 561.532.7120 or use the booking form above!";
+                return "I'm having trouble connecting right now. Give us a call at 561-532-7120 for a free estimate!";
             }
         }
 
