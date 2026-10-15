@@ -1,7 +1,7 @@
 /**
- * Jupiter Power Wash - Booking & Contact API
- * Cloudflare Worker for handling form submissions
- * Sends email notifications + stores in D1 Database
+ * Jupiter Power Wash - Contact API
+ * Cloudflare Worker for handling the contact form and the AI chatbot
+ * Sends email notifications. No database - stateless.
  * AI Chatbot powered by Cloudflare Workers AI
  */
 
@@ -47,24 +47,11 @@ export default {
 
     // Route handling
     if (request.method === 'POST') {
-      if (url.pathname === '/api/booking') {
-        return handleBooking(request, env);
-      }
       if (url.pathname === '/api/contact') {
         return handleContact(request, env);
       }
       if (url.pathname === '/api/chat') {
         return handleChat(request, env);
-      }
-    }
-
-    // GET endpoints for viewing data (could be protected in production)
-    if (request.method === 'GET') {
-      if (url.pathname === '/api/bookings') {
-        return getBookings(env);
-      }
-      if (url.pathname === '/api/contacts') {
-        return getContacts(env);
       }
     }
 
@@ -75,78 +62,6 @@ export default {
   },
 };
 
-async function handleBooking(request, env) {
-  try {
-    const data = await request.json();
-
-    // Validate required fields
-    const required = ['name', 'email', 'phone', 'service', 'date', 'time', 'address'];
-    for (const field of required) {
-      if (!data[field]) {
-        return jsonResponse({ error: `Missing required field: ${field}` }, 400);
-      }
-    }
-
-    // Store in D1 database
-    const dbResult = await env.DB.prepare(
-      `INSERT INTO bookings (name, email, phone, service, date, time, address, notes)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-    ).bind(
-      data.name, data.email, data.phone, data.service,
-      data.date, data.time, data.address, data.notes || ''
-    ).run();
-
-    const bookingId = dbResult.meta?.last_row_id || 'N/A';
-
-    // Send email notification
-    const emailBody = `
-NEW BOOKING REQUEST - Jupiter Power Wash
-Booking ID: #${bookingId}
-
-Customer Details:
------------------
-Name: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone}
-
-Service Requested:
-------------------
-Service: ${formatService(data.service)}
-Date: ${data.date}
-Time: ${data.time}
-
-Property Address:
------------------
-${data.address}
-
-Additional Notes:
------------------
-${data.notes || 'None'}
-
----
-Submitted via jupiterpowerwash.com
-Reply to this email or call ${data.phone} to confirm.
-    `.trim();
-
-    await sendEmail(env, {
-      to: env.NOTIFY_EMAIL,
-      replyTo: data.email,
-      subject: `New Booking #${bookingId}: ${formatService(data.service)} - ${data.name}`,
-      body: emailBody,
-    });
-
-    return jsonResponse({
-      success: true,
-      bookingId: bookingId,
-      message: 'Booking received! We\'ll contact you shortly to confirm.'
-    });
-
-  } catch (error) {
-    console.error('Booking error:', error);
-    return jsonResponse({ error: 'Failed to process booking. Please call 561.532.7120' }, 500);
-  }
-}
-
 async function handleContact(request, env) {
   try {
     const data = await request.json();
@@ -156,17 +71,11 @@ async function handleContact(request, env) {
       return jsonResponse({ error: 'Please fill in all required fields' }, 400);
     }
 
-    // Store in D1 database
-    const dbResult = await env.DB.prepare(
-      `INSERT INTO contacts (name, email, phone, message) VALUES (?, ?, ?, ?)`
-    ).bind(data.name, data.email, data.phone || '', data.message).run();
+    const refId = Date.now().toString(36).toUpperCase();
 
-    const contactId = dbResult.meta?.last_row_id || 'N/A';
-
-    // Send email notification
     const emailBody = `
 NEW MESSAGE - Jupiter Power Wash Website
-Message ID: #${contactId}
+Ref: ${refId}
 
 From: ${data.name}
 Email: ${data.email}
@@ -183,13 +92,13 @@ Submitted via jupiterpowerwash.com contact form
     await sendEmail(env, {
       to: env.NOTIFY_EMAIL,
       replyTo: data.email,
-      subject: `Contact #${contactId}: ${data.name}`,
+      subject: `Contact ${refId}: ${data.name}`,
       body: emailBody,
     });
 
     return jsonResponse({
       success: true,
-      messageId: contactId,
+      messageId: refId,
       message: 'Message sent! We\'ll get back to you soon.'
     });
 
@@ -201,135 +110,38 @@ Submitted via jupiterpowerwash.com contact form
 
 async function handleChat(request, env) {
   try {
-    const { message, sessionId } = await request.json();
+    const { message, history } = await request.json();
 
-    if (!message || !sessionId) {
-      return jsonResponse({ error: 'Message and sessionId required' }, 400);
+    if (!message) {
+      return jsonResponse({ error: 'Message required' }, 400);
     }
 
-    // Load conversation history from D1
-    const { results: history } = await env.DB.prepare(
-      `SELECT role, content FROM conversations
-       WHERE session_id = ?
-       ORDER BY created_at ASC
-       LIMIT 20`
-    ).bind(sessionId).all();
+    // Conversation history is passed in from the browser (no server-side storage) -
+    // keep it short so we don't blow past the model's context window.
+    const recentHistory = Array.isArray(history) ? history.slice(-12) : [];
 
-    // Build messages array for AI
     const messages = [
       { role: 'system', content: SYSTEM_PROMPT },
-      ...history.map(h => ({ role: h.role, content: h.content })),
-      { role: 'user', content: message }
+      ...recentHistory
+        .filter(h => h && (h.role === 'user' || h.role === 'assistant') && typeof h.content === 'string')
+        .map(h => ({ role: h.role, content: h.content })),
+      { role: 'user', content: message },
     ];
 
     // Call Cloudflare Workers AI
-    const aiResponse = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+    const aiResponse = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
       messages: messages,
       max_tokens: 500,
       temperature: 0.7,
     });
 
-    const assistantMessage = aiResponse.response;
-
-    // Store conversation in D1
-    await env.DB.batch([
-      env.DB.prepare(
-        'INSERT INTO conversations (session_id, role, content) VALUES (?, ?, ?)'
-      ).bind(sessionId, 'user', message),
-      env.DB.prepare(
-        'INSERT INTO conversations (session_id, role, content) VALUES (?, ?, ?)'
-      ).bind(sessionId, 'assistant', assistantMessage),
-    ]);
-
-    // Check if AI collected booking data
-    let bookingCreated = null;
-    const bookingMatch = assistantMessage.match(/###BOOKING_DATA###\s*([\s\S]*?)\s*###END_BOOKING###/);
-
-    if (bookingMatch) {
-      try {
-        const bookingData = JSON.parse(bookingMatch[1]);
-
-        // Create the booking
-        const dbResult = await env.DB.prepare(
-          `INSERT INTO bookings (name, email, phone, service, date, time, address, notes)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-        ).bind(
-          bookingData.name,
-          bookingData.email,
-          bookingData.phone,
-          bookingData.service,
-          bookingData.date,
-          bookingData.time,
-          bookingData.address,
-          'Booked via AI chatbot'
-        ).run();
-
-        const bookingId = dbResult.meta?.last_row_id || 'N/A';
-        bookingCreated = { id: bookingId, ...bookingData };
-
-        // Send email notification
-        await sendEmail(env, {
-          to: env.NOTIFY_EMAIL,
-          replyTo: bookingData.email,
-          subject: `AI Booking #${bookingId}: ${bookingData.service} - ${bookingData.name}`,
-          body: `NEW AI CHATBOT BOOKING - Jupiter Power Wash
-Booking ID: #${bookingId}
-
-Customer: ${bookingData.name}
-Email: ${bookingData.email}
-Phone: ${bookingData.phone}
-
-Service: ${bookingData.service}
-Date: ${bookingData.date}
-Time: ${bookingData.time}
-
-Address: ${bookingData.address}
-
----
-Booked via AI Chatbot (Splash)
-jupiterpowerwash.com`,
-        });
-
-      } catch (e) {
-        console.error('Failed to create booking from AI:', e);
-      }
-    }
-
-    // Clean the response to remove booking JSON if present
-    let cleanResponse = assistantMessage.replace(/###BOOKING_DATA###[\s\S]*?###END_BOOKING###/, '').trim();
-
-    return jsonResponse({
-      response: cleanResponse,
-      bookingCreated: bookingCreated,
-    });
+    return jsonResponse({ response: aiResponse.response });
 
   } catch (error) {
     console.error('Chat error:', error);
     return jsonResponse({
-      response: "I'm having a little trouble right now. You can call us directly at 561.532.7120 or use the booking form above!"
+      response: "I'm having a little trouble right now. You can call us directly at 561.532.7120 for a free estimate!"
     });
-  }
-}
-
-async function getBookings(env) {
-  try {
-    const { results } = await env.DB.prepare(
-      'SELECT * FROM bookings ORDER BY created_at DESC LIMIT 100'
-    ).all();
-    return jsonResponse({ bookings: results });
-  } catch (error) {
-    return jsonResponse({ error: 'Failed to fetch bookings' }, 500);
-  }
-}
-
-async function getContacts(env) {
-  try {
-    const { results } = await env.DB.prepare(
-      'SELECT * FROM contacts ORDER BY created_at DESC LIMIT 100'
-    ).all();
-    return jsonResponse({ contacts: results });
-  } catch (error) {
-    return jsonResponse({ error: 'Failed to fetch contacts' }, 500);
   }
 }
 
@@ -358,18 +170,6 @@ async function sendEmail(env, { to, replyTo, subject, body }) {
     const error = await response.text();
     console.error(`Email failed: ${error}`);
   }
-}
-
-function formatService(serviceKey) {
-  const services = {
-    'driveway': 'Driveway',
-    'patio': 'Patio',
-    'pool-area': 'Pool Area',
-    'sidewalk': 'Sidewalk',
-    'full-property': 'Full Property Package',
-    'other': 'Other',
-  };
-  return services[serviceKey] || serviceKey;
 }
 
 function jsonResponse(data, status = 200) {
