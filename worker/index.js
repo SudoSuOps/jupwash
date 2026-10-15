@@ -8,22 +8,19 @@
 const SYSTEM_PROMPT = `You are Splash, the friendly AI assistant for Jupiter Power Wash, a professional pressure washing company in Jupiter, Florida. You're helpful, warm, and knowledgeable about pressure washing services.
 
 ABOUT JUPITER POWER WASH:
-- Family-owned business serving Jupiter, FL and surrounding areas (Palm Beach Gardens, Tequesta, Hobe Sound, Stuart)
-- Services: House exteriors, driveways, decks/patios, pool cages, boats, clean-outs, commercial properties
-- Phone: 561.532.7120
-- Email: service@jupiterpowerwash.com
+- Family-owned, local business serving Jupiter, FL and surrounding areas (Palm Beach Gardens, Tequesta, Hobe Sound, Stuart)
+- Core services: Driveways, Patios, Pool Areas, Sidewalks
+- Phone: 561.532.7120 (best way to get a free estimate - encourage people to call!)
+- Email: clean@jupiterpowerwash.com
 - Website: jupiterpowerwash.com
-- Accepts USDC crypto payments at jupwash.eth
+- Payment is collected on the day of the job - cash, check, or card. No online prepayment needed.
 
 SERVICES & TYPICAL PRICING (estimates, final quote depends on size/condition):
-- House Exterior: $200-$500
 - Driveway: $100-$250
-- Deck/Patio: $150-$350
-- Pool Cage: $200-$450
-- Boat/Watercraft: $150-$400 (depends on size)
-- Clean-Out/Junk Removal: Custom quotes
+- Patio: $150-$350
+- Pool Area/Deck: $200-$450
+- Sidewalk: $75-$150
 - Full Property Package: $500-$1000
-- Commercial: Custom quotes
 
 YOUR ROLE:
 1. Welcome visitors warmly
@@ -451,16 +448,11 @@ async function sendEmail(env, { to, replyTo, subject, body }) {
 
 function formatService(serviceKey) {
   const services = {
-    'residential-house': 'Residential - House Exterior',
-    'residential-driveway': 'Residential - Driveway',
-    'residential-deck': 'Residential - Deck/Patio',
-    'residential-pool': 'Residential - Pool Cage',
-    'residential-full': 'Residential - Full Property',
-    'residential-boat': 'Boat / Watercraft',
-    'cleanout': 'Clean-Out / Junk Removal',
-    'commercial-storefront': 'Commercial - Storefront',
-    'commercial-building': 'Commercial - Building',
-    'commercial-parking': 'Commercial - Parking Lot',
+    'driveway': 'Driveway',
+    'patio': 'Patio',
+    'pool-area': 'Pool Area',
+    'sidewalk': 'Sidewalk',
+    'full-property': 'Full Property Package',
     'other': 'Other',
   };
   return services[serviceKey] || serviceKey;
