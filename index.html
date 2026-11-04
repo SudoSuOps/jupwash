@@ -1097,10 +1097,65 @@
         }
 
         .hero h1 .highlight {
-            background: var(--gradient-jupiter);
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(110deg, #F6E2B6 0%, #FFFDF4 18%, #EFCF8E 36%, #FFFFFF 50%, #F3D9A2 64%, #FFF9E8 82%, #F6E2B6 100%);
+            background-size: 260% 100%;
+            background-position: 0% 50%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            filter: drop-shadow(0 0 16px rgba(255, 228, 160, 0.7)) drop-shadow(0 0 3px rgba(255, 252, 240, 0.85));
+            animation: sparkle-shine 4s ease-in-out infinite;
+        }
+
+        .hero h1 .highlight::before,
+        .hero h1 .highlight::after {
+            content: '\2726';
+            position: absolute;
+            -webkit-text-fill-color: #FFFFFF;
+            color: #FFFFFF;
+            text-shadow: 0 0 10px rgba(255, 236, 180, 0.9);
+            background: none;
+            line-height: 1;
+            pointer-events: none;
+            animation: sparkle-twinkle 2.4s ease-in-out infinite;
+        }
+
+        .hero h1 .highlight::before {
+            top: -0.22em;
+            right: -0.46em;
+            font-size: 0.5em;
+        }
+
+        .hero h1 .highlight::after {
+            bottom: 0.02em;
+            left: -0.34em;
+            font-size: 0.32em;
+            animation-delay: 1.2s;
+        }
+
+        @keyframes sparkle-shine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes sparkle-twinkle {
+            0%, 100% { opacity: 0.25; transform: scale(0.7) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.1) rotate(20deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero h1 .highlight,
+            .hero h1 .highlight::before,
+            .hero h1 .highlight::after {
+                animation: none;
+            }
+
+            .hero h1 .highlight::before,
+            .hero h1 .highlight::after {
+                opacity: 0.9;
+            }
         }
 
         .hero-subtitle {
