@@ -12,7 +12,7 @@
 
 const PHONE_DISPLAY = '561-532-7120';
 
-const SERVICE_AREA = 'Jupiter, Tequesta, Juno Beach, Palm Beach Gardens, North Palm Beach, Hobe Sound and nearby';
+const SERVICE_AREA = 'Jupiter, Tequesta, Palm Beach Gardens and Juno Beach';
 
 const SYSTEM_PROMPT = `You are Splash, the friendly assistant on the Jupiter Power Wash website. Jupiter Power Wash is a local, family-owned power washing company in Jupiter, Florida.
 
