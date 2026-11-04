@@ -2687,6 +2687,38 @@
                 font-size: 0.8rem;
             }
         }
+    
+        /* Mobile polish: 16px form text (stops iPhone zoom-on-tap) + 44px finger targets */
+        @media (max-width: 1180px) {
+            .mobile-menu-btn, .nav-phone {
+                min-width: 44px;
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        @media (max-width: 380px) {
+            .nav-phone { display: none; }
+        }
+        @media (max-width: 768px) {
+            input, select, textarea { font-size: 16px; }
+            .referral-code button { min-height: 44px; min-width: 64px; }
+            .call-banner-number { min-height: 44px; display: inline-flex; align-items: center; }
+            .nav-cta { min-height: 44px; display: inline-flex; align-items: center; }
+            input[type="file"]::file-selector-button {
+                min-height: 40px;
+                padding: 0 1rem;
+                margin-right: 0.75rem;
+                border: none;
+                border-radius: 50px;
+                background: var(--jupiter-orange);
+                color: #fff;
+                font: inherit;
+                font-weight: 600;
+                cursor: pointer;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2728,7 +2760,7 @@
                     Serving Jupiter, Tequesta, Palm Beach Gardens &amp; Juno Beach
                 </div>
                 <h1>Jupiter Power Washing That Brings the <span class="highlight">Sparkle</span> Back</h1>
-                <p class="hero-subtitle">Friendly, family-owned power washing for driveways, patios, pool areas, and sidewalks right here in Jupiter. Simple pricing: <strong>$300 half day, $550 full day</strong>. Send us a photo and we'll tell you which.</p>
+                <p class="hero-subtitle">Friendly, family-owned power washing for stucco homes, driveways, patios, pool areas, and sidewalks right here in Jupiter. Simple pricing: <strong>$300 half day, $550 full day</strong>. Send us a photo and we'll tell you which.</p>
                 <p style="font-style: italic; color: var(--jupiter-warm); margin-bottom: 2rem; font-size: 1.1rem;">"Powering Clean, One Wash at a Time – Your Property, Our Priority"</p>
                 <div class="hero-ctas">
                     <a href="tel:5615327120" class="btn-primary">
