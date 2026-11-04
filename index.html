@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jupiter Power Wash | Friendly, Local Power Washing in Jupiter, FL</title>
-    <meta name="description" content="Jupiter Power Wash is your local, family-owned power washing company serving Jupiter, FL. Driveways, patios, pool areas & sidewalks. Call 561-532-7120 for a free estimate!">
+    <meta name="description" content="Jupiter Power Wash is your local, family-owned power washing company serving Jupiter, FL. Driveways, patios, pool areas & sidewalks. Simple pricing: $300 half day, $550 full day. Text a photo to 561-532-7120 for a free estimate.">
 
     <!-- SEO Meta Tags -->
     <meta name="keywords" content="power washing Jupiter FL, pressure washing Jupiter, driveway cleaning Jupiter, patio cleaning Palm Beach, pool area cleaning, sidewalk cleaning Jupiter Florida, local family owned power washing, residential pressure washing">
@@ -54,8 +54,8 @@
             "latitude": 26.9342,
             "longitude": -80.0942
         },
-        "areaServed": ["Jupiter", "Palm Beach Gardens", "Tequesta", "Juno Beach", "North Palm Beach", "West Palm Beach"],
-        "priceRange": "$$",
+        "areaServed": ["Jupiter", "Tequesta", "Juno Beach", "Palm Beach Gardens", "North Palm Beach", "Hobe Sound"],
+        "priceRange": "$300 half day, $550 full day",
         "openingHours": "Mo-Sa 08:00-18:00",
         "sameAs": [],
         "serviceType": ["Power Washing", "Pressure Washing", "Driveway Cleaning", "Patio Cleaning", "Pool Area Cleaning", "Sidewalk Cleaning"]
@@ -206,7 +206,7 @@
         }
 
         .nav-links a {
-            color: rgba(255,255,255,0.8);
+            color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
@@ -214,7 +214,7 @@
         }
 
         .nav-links a:hover {
-            color: var(--jupiter-light);
+            color: var(--jupiter-cyan);
         }
 
         .nav-cta {
@@ -238,8 +238,184 @@
             background: none;
             border: none;
             color: var(--text-primary);
-            font-size: 1.5rem;
             cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn svg {
+            width: 28px;
+            height: 28px;
+            display: block;
+        }
+
+
+        /* Pricing */
+        .pricing {
+            padding: 6rem 2rem;
+            background: var(--soft-gray);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2rem;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .price-card {
+            background: #FFFDF8;
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-medium);
+            position: relative;
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--jupiter-orange);
+        }
+
+        .price-tag {
+            position: absolute;
+            top: -0.85rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-warm);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .price-card h3 {
+            font-size: 1.35rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-amount {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--jupiter-blue);
+            line-height: 1.1;
+        }
+
+        .price-sub {
+            color: var(--text-secondary);
+            margin: 0.5rem 0 0;
+        }
+
+        .price-promise {
+            text-align: center;
+            max-width: 680px;
+            margin: 2.5rem auto 0;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .price-promise strong {
+            color: var(--text-primary);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+            max-width: 960px;
+            margin: 3.5rem auto 0;
+            counter-reset: step;
+        }
+
+        .step {
+            text-align: center;
+            padding: 0 0.5rem;
+        }
+
+        .step-num {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-jupiter);
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.9rem;
+        }
+
+        .step h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .pricing-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 2px solid var(--jupiter-cyan);
+            color: var(--jupiter-blue);
+            text-decoration: none;
+            font-weight: 700;
+            transition: background 0.2s ease;
+        }
+
+        .btn-outline:hover {
+            background: rgba(94, 134, 121, 0.1);
+        }
+
+        @media (max-width: 700px) {
+            .pricing-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing {
+                padding: 4rem 1.25rem;
+            }
+        }
+
+        .contact-grid > * {
+            min-width: 0;
+        }
+
+        .contact-form input[type="file"] {
+            width: 100%;
+            max-width: 100%;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .photo-note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.4rem;
         }
 
         /* Hero Section */
@@ -581,6 +757,53 @@
             font-size: 1.1rem;
             max-width: 600px;
             margin: 0 auto;
+        }
+
+        .why-powerwash .section-title,
+        .why-powerwash .section-subtitle,
+        .testimonials .section-title,
+        .testimonials .section-subtitle {
+            text-align: center;
+        }
+
+        .why-powerwash .section-subtitle,
+        .testimonials .section-subtitle {
+            margin-bottom: 3rem;
+        }
+
+        .form-status {
+            display: none;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .form-status.ok {
+            display: block;
+            background: rgba(94, 134, 121, 0.12);
+            color: var(--jupiter-blue);
+            border: 1px solid var(--jupiter-cyan);
+        }
+
+        .form-status.err {
+            display: block;
+            background: rgba(168, 130, 79, 0.12);
+            color: #7A5527;
+            border: 1px solid var(--jupiter-orange);
+        }
+
+        .form-status a {
+            color: inherit;
+            font-weight: 700;
+        }
+
+        .hp-field {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
         }
 
         .services-grid {
@@ -1619,6 +1842,26 @@
                 display: none;
             }
 
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--cosmic-blue);
+                border-bottom: 1px solid var(--border-subtle);
+                box-shadow: 0 12px 24px rgba(58, 51, 42, 0.12);
+                padding: 0.5rem 0;
+            }
+
+            .nav-links.open a {
+                display: block;
+                padding: 0.9rem 2rem;
+                font-size: 1.05rem;
+            }
+
             .mobile-menu-btn {
                 display: block;
             }
@@ -1679,6 +1922,28 @@
                 width: 20px;
                 height: 20px;
             }
+
+            nav {
+                padding: 0.5rem 1rem;
+            }
+
+            .nav-container {
+                gap: 0.5rem;
+            }
+
+            .logo-icon {
+                width: 84px;
+            }
+
+            .nav-cta {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+                margin-left: auto;
+            }
+
+            .mobile-menu-btn {
+                padding: 0.25rem;
+            }
         }
     </style>
 </head>
@@ -1689,8 +1954,9 @@
             <a href="#" class="logo">
                 <img src="jupwashlogo.png" alt="Jupiter Power Wash" class="logo-icon">
             </a>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#services">Services</a></li>
+                <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#booking">Free Estimate</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -1702,7 +1968,7 @@
                 561-532-7120
             </a>
             <a href="tel:5615327120" class="nav-cta">Get a Quote</a>
-            <button class="mobile-menu-btn" aria-label="Menu">
+            <button class="mobile-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
@@ -1719,7 +1985,7 @@
                     Serving Jupiter, FL & Surrounding Areas
                 </div>
                 <h1>Bringing <span class="highlight">Sparkle</span> Back to Your Home</h1>
-                <p class="hero-subtitle">Friendly, family-owned power washing for driveways, patios, pool areas, and sidewalks right here in Jupiter. We treat your home like it's our own.</p>
+                <p class="hero-subtitle">Friendly, family-owned power washing for driveways, patios, pool areas, and sidewalks right here in Jupiter. Simple pricing: <strong>$300 half day, $550 full day</strong>. Send us a photo and we'll tell you which.</p>
                 <p style="font-style: italic; color: var(--jupiter-warm); margin-bottom: 2rem; font-size: 1.1rem;">"Powering Clean, One Wash at a Time – Your Property, Our Priority"</p>
                 <div class="hero-ctas">
                     <a href="tel:5615327120" class="btn-primary">
@@ -1728,12 +1994,9 @@
                         </svg>
                         Call for a Free Estimate
                     </a>
-                    <a href="#contact" class="btn-secondary">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                        Send a Message
+                    <a href="sms:5615327120" class="btn-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                        Text Us a Photo
                     </a>
                 </div>
             </div>
@@ -1748,7 +2011,7 @@
     <!-- Call Banner -->
     <section class="call-banner">
         <div class="call-banner-inner">
-            <p>Free Estimates &mdash; Call or Text Today:</p>
+            <p>Free Estimates &mdash; Text a Photo or Call:</p>
             <a href="tel:5615327120" class="call-banner-number">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -1825,6 +2088,52 @@
                     <h3>Sidewalks</h3>
                     <p>Safer footing and a cleaner curb appeal. We wash walkways front to back so the whole property looks cared for.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">Simple Pricing</span>
+                <h2 class="section-title">Two Prices. That's It.</h2>
+                <p class="section-subtitle">Full-service cleaning, priced by the time it takes. No per-square-foot math, no surprise add-ons.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Half Day</h3>
+                    <div class="price-amount">$300</div>
+                    <p class="price-sub">Full service, half a day on your property</p>
+                </div>
+                <div class="price-card featured">
+                    <span class="price-tag">Most Popular</span>
+                    <h3>Full Day</h3>
+                    <div class="price-amount">$550</div>
+                    <p class="price-sub">Full service, a full day on your property</p>
+                </div>
+            </div>
+            <p class="price-promise"><strong>Our promise: full service made easy.</strong> Driveways, patios, pool areas, sidewalks &mdash; whatever needs a clean. Send us a photo and we'll tell you up front if it's a half day or a full day. That's the price.</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h4>Send a photo</h4>
+                    <p>Text us pictures of what you want cleaned, or add them to the form below.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h4>Get your estimate</h4>
+                    <p>We tell you: half day ($300) or full day ($550). Free, no obligation.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h4>We clean, you relax</h4>
+                    <p>Pay on the day of the job &mdash; cash, check or card.</p>
+                </div>
+            </div>
+            <div class="pricing-ctas">
+                <a href="sms:5615327120" class="btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Text Us a Photo</a>
+                <a href="#contact" class="btn-outline">Upload Photos Online</a>
             </div>
         </div>
     </section>
@@ -1974,7 +2283,7 @@
                     </svg>
                     561-532-7120
                 </a>
-                <p class="call-cta-sub">Call or text - we usually answer within a few rings.</p>
+                <p class="call-cta-sub">Call, or text a photo of what needs cleaning &mdash; we'll tell you half day ($300) or full day ($550).</p>
             </div>
         </div>
     </section>
@@ -2030,19 +2339,29 @@
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <label for="contact-name">Your Name</label>
-                            <input type="text" id="contact-name" name="name" placeholder="John Smith" required>
+                            <input type="text" id="contact-name" name="name" placeholder="John Smith" autocomplete="name" required>
                         </div>
                         <div class="form-group">
                             <label for="contact-email">Email Address</label>
-                            <input type="email" id="contact-email" name="email" placeholder="john@example.com" required>
+                            <input type="email" id="contact-email" name="email" placeholder="john@example.com" autocomplete="email">
                         </div>
                         <div class="form-group">
-                            <label for="contact-phone">Phone Number</label>
-                            <input type="tel" id="contact-phone" name="phone" placeholder="(561) 555-0123">
+                            <label for="contact-phone">Phone Number <span style="font-weight:400;color:var(--text-secondary)">(fastest way to reach you)</span></label>
+                            <input type="tel" id="contact-phone" name="phone" placeholder="(561) 555-0123" autocomplete="tel">
                         </div>
+                        <div class="form-group">
+                            <label for="contact-photos">Photos <span style="font-weight:400;color:var(--text-secondary)">(optional, up to 5)</span></label>
+                            <input type="file" id="contact-photos" accept="image/*" multiple>
+                            <p class="photo-note" id="photoNote">A photo of what needs cleaning lets us tell you half day or full day.</p>
+                        </div>
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="contact-website">Website</label>
+                            <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+                        <p class="form-hint" style="font-size:0.85rem;color:var(--text-secondary);margin:-0.5rem 0 0;">Leave an email or a phone number so we can get back to you.</p>
                         <div class="form-group">
                             <label for="contact-message">Message</label>
-                            <textarea id="contact-message" name="message" placeholder="Tell us about your project..." required></textarea>
+                            <textarea id="contact-message" name="message" placeholder="What would you like cleaned? (driveway, patio, pool deck...)" maxlength="4000" required></textarea>
                         </div>
                         <button type="submit" class="btn-primary">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
@@ -2051,6 +2370,7 @@
                             </svg>
                             Send Message
                         </button>
+                        <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
                     </form>
                 </div>
             </div>
@@ -2116,25 +2436,6 @@
                     <p style="margin-top: 1rem;"><strong>Contact Us:</strong><br>
                     <a href="mailto:clean@jupiterpowerwash.com" style="color: var(--jupiter-gold);">clean@jupiterpowerwash.com</a><br>
                     <a href="tel:5615327120" style="color: var(--jupiter-gold);">561.532.7120</a></p>
-                    <div class="footer-social">
-                        <a href="#" aria-label="Facebook">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="Twitter">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                        </a>
-                    </div>
                 </div>
                 <div class="footer-links">
                     <h4>Services</h4>
@@ -2148,6 +2449,7 @@
                 <div class="footer-links">
                     <h4>Company</h4>
                     <ul>
+                        <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#contact">Contact</a></li>
                         <li><a href="#booking">Free Estimate</a></li>
@@ -2158,16 +2460,12 @@
                     <ul>
                         <li><a href="tel:5615327120">561.532.7120</a></li>
                         <li><a href="mailto:clean@jupiterpowerwash.com">Email Us</a></li>
-                        <li><a href="#">Jupiter, FL</a></li>
+                        <li><span style="color:inherit;opacity:0.8">Jupiter, FL</span></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Jupiter Power Wash. All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
             </div>
         </div>
     </footer>
@@ -2188,7 +2486,7 @@
                 </svg>
             </div>
             <div class="chatbot-header-text">
-                <h4>Jupiter Assistant</h4>
+                <h4>Splash &middot; Jupiter Power Wash</h4>
                 <p>Online | Ready to help</p>
             </div>
             <button class="chatbot-close" id="chatbotClose" aria-label="Close chat">
@@ -2200,17 +2498,17 @@
         </div>
         <div class="chatbot-messages" id="chatMessages">
             <div class="chat-message bot">
-                Hi there! I'm Jupiter, your power washing assistant. How can I help you today?
+                Hi there! I'm Splash, the Jupiter Power Wash assistant. Ask me about our services or pricing - or call/text 561-532-7120 for a free estimate.
             </div>
         </div>
         <div class="chat-quick-replies">
             <button class="quick-reply" data-message="What services do you offer?">Services</button>
-            <button class="quick-reply" data-message="How much does it cost?">Pricing</button>
+            <button class="quick-reply" data-message="How does your pricing work?">Pricing</button>
             <button class="quick-reply" data-message="I'd like a free estimate">Free Estimate</button>
             <button class="quick-reply" data-message="What areas do you serve?">Service Area</button>
         </div>
         <div class="chatbot-input">
-            <input type="text" id="chatInput" placeholder="Type your message...">
+            <input type="text" id="chatInput" placeholder="Type your message..." maxlength="1000" aria-label="Chat message">
             <button id="chatSend" aria-label="Send message">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                     <line x1="22" y1="2" x2="11" y2="13"/>
@@ -2223,7 +2521,7 @@
     <script>
         // Referral Code Copy
         function copyReferral() {
-            navigator.clipboard.writeText('JUPFRIEND50');
+            if (navigator.clipboard) navigator.clipboard.writeText('JUPFRIEND50').catch(() => {});
             const btn = document.querySelector('.referral-code button');
             btn.textContent = 'Copied!';
             setTimeout(() => btn.textContent = 'Copy', 2000);
@@ -2233,35 +2531,105 @@
         // API endpoint for form submissions
         const API_URL = 'https://jupwash-api.dm-6ab.workers.dev';
 
-        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+        const CALL_LINK = '<a href="tel:5615327120">561-532-7120</a>';
+
+        function escapeHtml(t) {
+            return String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        function showFormStatus(kind, html) {
+            formStatus.className = 'form-status ' + kind;
+            formStatus.innerHTML = html;
+        }
+
+        const photoInput = document.getElementById('contact-photos');
+        const photoNote = document.getElementById('photoNote');
+        const MAX_PHOTOS = 5;
+
+        photoInput.addEventListener('change', () => {
+            const n = photoInput.files.length;
+            if (n > MAX_PHOTOS) {
+                photoNote.textContent = `Up to ${MAX_PHOTOS} photos please - the first ${MAX_PHOTOS} will be sent.`;
+            } else if (n) {
+                photoNote.textContent = `${n} photo${n > 1 ? 's' : ''} ready to send.`;
+            } else {
+                photoNote.textContent = 'A photo of what needs cleaning lets us tell you half day or full day.';
+            }
+        });
+
+        // Shrink each photo in the browser (max 1600px JPEG) so uploads are fast on cell data.
+        function shrinkPhoto(file) {
+            return new Promise((resolve, reject) => {
+                const url = URL.createObjectURL(file);
+                const img = new Image();
+                img.onload = () => {
+                    const scale = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
+                    const canvas = document.createElement('canvas');
+                    canvas.width = Math.round(img.naturalWidth * scale);
+                    canvas.height = Math.round(img.naturalHeight * scale);
+                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                    URL.revokeObjectURL(url);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                    const base = (file.name || 'photo').replace(/\.[^.]+$/, '').replace(/[^\w.-]+/g, '_').slice(0, 60) || 'photo';
+                    resolve({ filename: base + '.jpg', content: dataUrl.split(',')[1] });
+                };
+                img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('unreadable image')); };
+                img.src = url;
+            });
+        }
+
+        async function collectPhotos() {
+            const files = Array.from(photoInput.files).slice(0, MAX_PHOTOS);
+            const photos = [];
+            let skipped = 0;
+            for (const f of files) {
+                try { photos.push(await shrinkPhoto(f)); } catch (_) { skipped++; }
+            }
+            return { photos, skipped };
+        }
+
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const form = e.target;
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
+            const data = Object.fromEntries(new FormData(form));
+
+            if (!data.email.trim() && !data.phone.trim()) {
+                showFormStatus('err', 'Please leave an email or a phone number so we can get back to you.');
+                return;
+            }
 
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<svg class="spinner" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70" style="animation: spin 1s linear infinite;"/></svg> Sending...';
-
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
+            formStatus.className = 'form-status';
 
             try {
+                const { photos, skipped } = await collectPhotos();
+                data.photos = photos;
+                if (skipped) data.message += `\n\n(${skipped} photo(s) couldn't be read by the browser and weren't attached.)`;
                 const response = await fetch(`${API_URL}/api/contact`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data),
                 });
+                let result = {};
+                try { result = await response.json(); } catch (_) {}
 
-                const result = await response.json();
-
-                if (result.success) {
+                if (response.ok && result.success) {
                     form.reset();
-                    alert('Message sent! We\'ll get back to you soon.');
+                    photoInput.dispatchEvent(new Event('change'));
+                    showFormStatus('ok', "Thanks! Your message is in. We'll get back to you soon. Need it faster? Call or text " + CALL_LINK + '.');
                 } else {
-                    throw new Error(result.error || 'Failed to send');
+                    const msg = response.status === 400 && result.error
+                        ? escapeHtml(result.error) + ' Or call or text ' + CALL_LINK + '.'
+                        : "Sorry, your message didn't go through. Please call or text " + CALL_LINK + ' and we\'ll take care of you.';
+                    showFormStatus('err', msg);
                 }
             } catch (error) {
-                alert(`Error: ${error.message}\n\nPlease call us at 561.532.7120`);
+                showFormStatus('err', "Sorry, we couldn't send that (connection problem). Please call or text " + CALL_LINK + '.');
             }
 
             submitBtn.disabled = false;
@@ -2320,6 +2688,7 @@
                     body: JSON.stringify({ message, history: chatHistory })
                 });
                 const data = await response.json();
+                if (!data || typeof data.response !== 'string' || !data.response) throw new Error('empty reply');
                 chatHistory.push({ role: 'user', content: message });
                 chatHistory.push({ role: 'assistant', content: data.response });
                 return data.response;
@@ -2370,25 +2739,32 @@
             });
         });
 
+        // Mobile menu
+        const navLinks = document.getElementById('navLinks');
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        menuBtn.addEventListener('click', () => {
+            const open = navLinks.classList.toggle('open');
+            menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+
         // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                navLinks.classList.remove('open');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                if (href === '#') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                const target = document.querySelector(href);
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
 
-        // Mobile menu (basic toggle - can be expanded)
-        document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        });
     </script>
 </body>
 </html>
