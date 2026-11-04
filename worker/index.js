@@ -74,7 +74,7 @@ function cleanPhotos(raw) {
     if (total + p.content.length > MAX_TOTAL_B64) break;
     total += p.content.length;
     const base = clean(p.filename, 80).replace(/\.[^.]*$/, '').replace(/[^\w.-]+/g, '_') || 'photo';
-    out.push({ filename: `${out.length + 1}-${base}.jpg`, content: p.content });
+    out.push({ filename: `${out.length + 1}-${base}.jpg`, content: p.content, content_type: 'image/jpeg' });
   }
   return out;
 }
@@ -163,7 +163,7 @@ async function handleContact(request, env, cors) {
     '',
     `Address: ${address}`,
     `Map:     ${mapsUrl}`,
-    town === 'Other' ? '** OUTSIDE SERVICE AREA (Jupiter, Tequesta, Palm Beach Gardens, Juno Beach) **' : '',
+    ...(town === 'Other' ? ['** OUTSIDE SERVICE AREA (Jupiter, Tequesta, Palm Beach Gardens, Juno Beach) **'] : []),
     '',
     `Name:  ${name}`,
     `Phone: ${phone || 'Not provided'}`,
