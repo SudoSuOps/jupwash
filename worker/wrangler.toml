@@ -3,9 +3,16 @@ main = "index.js"
 compatibility_date = "2024-01-01"
 account_id = "6abec5e82728df0610a98be9364918e4"
 
+# Secret (not in this file): RESEND_API_KEY
+#   npx wrangler secret put RESEND_API_KEY
+
 [vars]
 NOTIFY_EMAIL = "clean@jupiterpowerwash.com"
-FROM_EMAIL = "bookings@jupiterpowerwash.com"
+FROM_EMAIL = "website@jupiterpowerwash.com"
 
 [ai]
 binding = "AI"
+
+# Keep worker logs so a lead that fails to email can still be recovered from the dashboard.
+[observability]
+enabled = true

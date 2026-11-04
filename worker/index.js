@@ -1,183 +1,234 @@
 /**
- * Jupiter Power Wash - Contact API
- * Cloudflare Worker for handling the contact form and the AI chatbot
- * Sends email notifications. No database - stateless.
- * AI Chatbot powered by Cloudflare Workers AI
+ * Jupiter Power Wash - Website API (Cloudflare Worker)
+ *
+ *   POST /api/contact  -> emails the lead to NOTIFY_EMAIL via Resend
+ *   POST /api/chat     -> "Splash" chat assistant on Workers AI
+ *
+ * Stateless: no database. Secrets: RESEND_API_KEY (wrangler secret put RESEND_API_KEY).
+ *
+ * Rule for /api/contact: never tell a customer "sent" unless Resend accepted
+ * the email. A failed send returns an error so the page tells them to call.
  */
 
-const SYSTEM_PROMPT = `You are Splash, the friendly AI assistant for Jupiter Power Wash, a professional pressure washing company in Jupiter, Florida. You're helpful, warm, and knowledgeable about pressure washing services.
+const PHONE_DISPLAY = '561-532-7120';
 
-ABOUT JUPITER POWER WASH:
-- Family-owned, local business serving Jupiter, FL and surrounding areas (Palm Beach Gardens, Tequesta, Hobe Sound, Stuart)
-- Core services: Driveways, Patios, Pool Areas, Sidewalks
-- Phone: 561.532.7120 (best way to get a free estimate - encourage people to call!)
+const SERVICE_AREA = 'Jupiter, Tequesta, Juno Beach, Palm Beach Gardens, North Palm Beach, Hobe Sound and nearby';
+
+const SYSTEM_PROMPT = `You are Splash, the friendly assistant on the Jupiter Power Wash website. Jupiter Power Wash is a local, family-owned power washing company in Jupiter, Florida.
+
+FACTS (only state facts from this list):
+- Services: driveways, patios, pool areas / pool decks, and sidewalks.
+- Service area: ${SERVICE_AREA}. If someone is outside this, tell them to call and ask - don't promise.
+- Phone (call or text): ${PHONE_DISPLAY}. This is the fastest way to get a free estimate.
 - Email: clean@jupiterpowerwash.com
-- Website: jupiterpowerwash.com
-- Payment is collected on the day of the job - cash, check, or card. No online prepayment needed.
+- Payment is collected on the day of the job (cash, check or card). No online prepayment.
+- Referral offer: code JUPFRIEND50 - the customer and the friend they refer each save $50.
+- Services are done in half-day or full-day visits (see pricing).
 
-SERVICES & TYPICAL PRICING (estimates, final quote depends on size/condition):
-- Driveway: $100-$250
-- Patio: $150-$350
-- Pool Area/Deck: $200-$450
-- Sidewalk: $75-$150
-- Full Property Package: $500-$1000
+PRICING (this is the whole price list - never quote any other numbers):
+- Half day, full service: $300
+- Full day, full service: $550
+- How it works: the customer sends a photo of what they want cleaned (text it to ${PHONE_DISPLAY}, or attach it to the "Send a Message" form on this page). We look at it and tell them up front whether it's a half day or a full day. Estimates are free.
+- Our promise: full service made easy. No per-square-foot pricing, no surprise add-ons.
+- You can't tell from a description alone whether a job is a half or full day - ask them to send a photo.
 
-YOUR ROLE:
-1. Welcome visitors warmly
-2. Answer questions about services, pricing, and the company
-3. There is NO online booking - when someone wants to schedule a job or get a quote, tell them to call or text 561-532-7120 and they'll get a free estimate. Don't try to collect their info and book it yourself.
-4. Be conversational and friendly - you're representing a local family business
+RULES:
+1. There is no online booking. To schedule or get a quote, the customer calls or texts ${PHONE_DISPLAY}, or uses the "Send a Message" form on this page. Don't collect their details yourself.
+2. If asked about a service not listed above (roofs, house walls, windows, gutters, etc.), say you're not sure it's offered and ask them to call ${PHONE_DISPLAY} to ask. Never recommend or name other companies.
+3. Don't invent facts: no made-up hours, guarantees, licenses, discounts or availability. If you don't know, say so and give the phone number.
+4. Keep answers short (2-4 sentences), warm and casual. Plain text only, no markdown.`;
 
-Keep responses concise but friendly. Use casual language appropriate for Florida - warm and welcoming!`;
+const ALLOWED_ORIGINS = new Set([
+  'https://jupiterpowerwash.com',
+  'https://www.jupiterpowerwash.com',
+  'https://jupwash.pages.dev',
+]);
 
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
+const LIMITS = { name: 100, email: 200, phone: 40, message: 4000, chat: 1000, historyItem: 2000 };
+
+// Photos arrive already shrunk by the browser (~1600px JPEG). Base64 sizes.
+const MAX_PHOTOS = 5;
+const MAX_PHOTO_B64 = 6 * 1024 * 1024;
+const MAX_TOTAL_B64 = 20 * 1024 * 1024;
+
+function cleanPhotos(raw) {
+  if (!Array.isArray(raw)) return [];
+  const out = [];
+  let total = 0;
+  for (const p of raw.slice(0, MAX_PHOTOS)) {
+    if (!p || typeof p.content !== 'string' || !p.content) continue;
+    if (p.content.length > MAX_PHOTO_B64 || !/^[A-Za-z0-9+/=]+$/.test(p.content)) continue;
+    if (total + p.content.length > MAX_TOTAL_B64) break;
+    total += p.content.length;
+    const base = clean(p.filename, 80).replace(/\.[^.]*$/, '').replace(/[^\w.-]+/g, '_') || 'photo';
+    out.push({ filename: `${out.length + 1}-${base}.jpg`, content: p.content });
+  }
+  return out;
+}
 
 export default {
   async fetch(request, env) {
-    // Handle CORS preflight
+    const cors = corsHeaders(request);
+
     if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: CORS_HEADERS });
+      return new Response(null, { status: 204, headers: cors });
     }
 
     const url = new URL(request.url);
 
-    // Route handling
-    if (request.method === 'POST') {
-      if (url.pathname === '/api/contact') {
-        return handleContact(request, env);
-      }
-      if (url.pathname === '/api/chat') {
-        return handleChat(request, env);
-      }
+    if (request.method === 'POST' && url.pathname === '/api/contact') {
+      return handleContact(request, env, cors);
+    }
+    if (request.method === 'POST' && url.pathname === '/api/chat') {
+      return handleChat(request, env, cors);
     }
 
     return new Response('Jupiter Power Wash API', {
       status: 200,
-      headers: { 'Content-Type': 'text/plain' },
+      headers: { 'Content-Type': 'text/plain', ...cors },
     });
   },
 };
 
-async function handleContact(request, env) {
-  try {
-    const data = await request.json();
-
-    // Validate required fields
-    if (!data.name || !data.email || !data.message) {
-      return jsonResponse({ error: 'Please fill in all required fields' }, 400);
-    }
-
-    const refId = Date.now().toString(36).toUpperCase();
-
-    const emailBody = `
-NEW MESSAGE - Jupiter Power Wash Website
-Ref: ${refId}
-
-From: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone || 'Not provided'}
-
-Message:
---------
-${data.message}
-
----
-Submitted via jupiterpowerwash.com contact form
-    `.trim();
-
-    await sendEmail(env, {
-      to: env.NOTIFY_EMAIL,
-      replyTo: data.email,
-      subject: `Contact ${refId}: ${data.name}`,
-      body: emailBody,
-    });
-
-    return jsonResponse({
-      success: true,
-      messageId: refId,
-      message: 'Message sent! We\'ll get back to you soon.'
-    });
-
-  } catch (error) {
-    console.error('Contact error:', error);
-    return jsonResponse({ error: 'Failed to send message. Please call 561.532.7120' }, 500);
-  }
+function corsHeaders(request) {
+  const origin = request.headers.get('Origin') || '';
+  const allowed = ALLOWED_ORIGINS.has(origin) || /^https:\/\/[a-z0-9-]+\.jupwash\.pages\.dev$/.test(origin);
+  return {
+    'Access-Control-Allow-Origin': allowed ? origin : 'https://jupiterpowerwash.com',
+    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Vary': 'Origin',
+  };
 }
 
-async function handleChat(request, env) {
-  try {
-    const { message, history } = await request.json();
+function clean(value, max) {
+  return typeof value === 'string' ? value.trim().slice(0, max) : '';
+}
 
+async function handleContact(request, env, cors) {
+  let data;
+  try {
+    data = await request.json();
+  } catch {
+    return jsonResponse({ error: 'Invalid request' }, 400, cors);
+  }
+
+  // Honeypot: real people never fill the hidden "website" field. Pretend success for bots.
+  if (clean(data.website, 200)) {
+    return jsonResponse({ success: true, messageId: 'OK' }, 200, cors);
+  }
+
+  const name = clean(data.name, LIMITS.name);
+  const email = clean(data.email, LIMITS.email);
+  const phone = clean(data.phone, LIMITS.phone);
+  const message = clean(data.message, LIMITS.message);
+
+  if (!name || !message || (!email && !phone)) {
+    return jsonResponse({ error: 'Please add your name, a message, and an email or phone number.' }, 400, cors);
+  }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return jsonResponse({ error: 'That email address doesn\'t look right.' }, 400, cors);
+  }
+
+  const photos = cleanPhotos(data.photos);
+  const refId = Date.now().toString(36).toUpperCase();
+  const when = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+
+  const text = [
+    'NEW WEBSITE LEAD - Jupiter Power Wash',
+    `Ref: ${refId}`,
+    `Received: ${when} ET`,
+    '',
+    `Name:  ${name}`,
+    `Phone: ${phone || 'Not provided'}`,
+    `Email: ${email || 'Not provided'}`,
+    `Photos: ${photos.length ? `${photos.length} attached` : 'none'}`,
+    '',
+    'Message:',
+    '--------',
+    message,
+    '',
+    '---',
+    'Sent from the contact form on jupiterpowerwash.com.',
+    email ? 'Hit Reply to answer the customer directly.' : 'No email given - call or text them back.',
+  ].join('\n');
+
+  try {
+    await sendEmail(env, {
+      to: env.NOTIFY_EMAIL,
+      replyTo: email || undefined,
+      subject: `New lead: ${name}${phone ? ` - ${phone}` : ''}${photos.length ? ` [${photos.length} photo${photos.length > 1 ? 's' : ''}]` : ''} (${refId})`,
+      text,
+      attachments: photos,
+    });
+  } catch (error) {
+    console.error(`Lead ${refId} NOT delivered:`, error.message, JSON.stringify({ name, phone, email, message, photos: photos.length }));
+    return jsonResponse({ error: `Sorry, your message didn't go through. Please call or text us at ${PHONE_DISPLAY}.` }, 502, cors);
+  }
+
+  return jsonResponse({ success: true, messageId: refId }, 200, cors);
+}
+
+async function handleChat(request, env, cors) {
+  const fallback = `I'm having a little trouble right now. Call or text us at ${PHONE_DISPLAY} for a free estimate!`;
+  try {
+    const body = await request.json();
+    const message = clean(body.message, LIMITS.chat);
     if (!message) {
-      return jsonResponse({ error: 'Message required' }, 400);
+      return jsonResponse({ error: 'Message required' }, 400, cors);
     }
 
-    // Conversation history is passed in from the browser (no server-side storage) -
-    // keep it short so we don't blow past the model's context window.
-    const recentHistory = Array.isArray(history) ? history.slice(-12) : [];
-
+    const history = Array.isArray(body.history) ? body.history.slice(-12) : [];
     const messages = [
       { role: 'system', content: SYSTEM_PROMPT },
-      ...recentHistory
-        .filter(h => h && (h.role === 'user' || h.role === 'assistant') && typeof h.content === 'string')
-        .map(h => ({ role: h.role, content: h.content })),
+      ...history
+        .filter(h => h && (h.role === 'user' || h.role === 'assistant') && typeof h.content === 'string' && h.content)
+        .map(h => ({ role: h.role, content: h.content.slice(0, LIMITS.historyItem) })),
       { role: 'user', content: message },
     ];
 
-    // Call Cloudflare Workers AI
-    const aiResponse = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
-      messages: messages,
-      max_tokens: 500,
-      temperature: 0.7,
+    const ai = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
+      messages,
+      max_tokens: 400,
+      temperature: 0.5,
     });
 
-    return jsonResponse({ response: aiResponse.response });
-
+    const reply = typeof ai?.response === 'string' && ai.response.trim() ? ai.response.trim() : fallback;
+    return jsonResponse({ response: reply }, 200, cors);
   } catch (error) {
     console.error('Chat error:', error);
-    return jsonResponse({
-      response: "I'm having a little trouble right now. You can call us directly at 561.532.7120 for a free estimate!"
-    });
+    return jsonResponse({ response: fallback }, 200, cors);
   }
 }
 
-async function sendEmail(env, { to, replyTo, subject, body }) {
-  const response = await fetch('https://api.mailchannels.net/tx/v1/send', {
+async function sendEmail(env, { to, replyTo, subject, text, attachments }) {
+  if (!env.RESEND_API_KEY) throw new Error('RESEND_API_KEY is not set');
+  if (!to || !env.FROM_EMAIL) throw new Error('NOTIFY_EMAIL / FROM_EMAIL not configured');
+
+  const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
-      personalizations: [{
-        to: [{ email: to }],
-      }],
-      from: {
-        email: env.FROM_EMAIL,
-        name: 'Jupiter Power Wash',
-      },
-      reply_to: replyTo ? { email: replyTo } : undefined,
-      subject: subject,
-      content: [{
-        type: 'text/plain',
-        value: body,
-      }],
+      from: `Jupiter Power Wash Website <${env.FROM_EMAIL}>`,
+      to: [to],
+      reply_to: replyTo,
+      subject,
+      text,
+      attachments: attachments && attachments.length ? attachments : undefined,
     }),
   });
 
-  if (!response.ok) {
-    const error = await response.text();
-    console.error(`Email failed: ${error}`);
+  if (!res.ok) {
+    throw new Error(`Resend ${res.status}: ${(await res.text()).slice(0, 500)}`);
   }
 }
 
-function jsonResponse(data, status = 200) {
+function jsonResponse(data, status, cors) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      'Content-Type': 'application/json',
-      ...CORS_HEADERS,
-    },
+    headers: { 'Content-Type': 'application/json', ...cors },
   });
 }
