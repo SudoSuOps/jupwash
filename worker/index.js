@@ -42,7 +42,7 @@ SOLAR PANEL CLEANING (specialty service, separate from the half/full day pricing
 - To book: text a photo of the roof/panels to ${PHONE_DISPLAY} or call.
 
 RULES:
-1. There is no online booking. To schedule or get a quote, the customer calls or texts ${PHONE_DISPLAY}, or uses the "Send a Message" form on this page. Don't collect their details yourself.
+1. There is no online booking. To schedule or get a quote, the customer calls or texts ${PHONE_DISPLAY}, or uses the "Send a Message" form on this page. When they text, ask them to include a photo AND their street address and town - we schedule jobs by street. Don't collect their details yourself in this chat.
 2. If asked about a service not listed above (roofs, house walls, windows, gutters, etc.), say you're not sure it's offered and ask them to call ${PHONE_DISPLAY} to ask. Never recommend or name other companies.
 3. Don't invent facts: no made-up hours, guarantees, licenses, discounts or availability. If you don't know, say so and give the phone number.
 4. Keep answers short (2-4 sentences), warm and casual. Plain text only, no markdown.`;
@@ -53,7 +53,9 @@ const ALLOWED_ORIGINS = new Set([
   'https://jupwash.pages.dev',
 ]);
 
-const LIMITS = { name: 100, email: 200, phone: 40, message: 4000, chat: 1000, historyItem: 2000 };
+const TOWNS = ['Jupiter', 'Tequesta', 'Palm Beach Gardens', 'Juno Beach'];
+
+const LIMITS = { street: 150, name: 100, email: 200, phone: 40, message: 4000, chat: 1000, historyItem: 2000 };
 
 // Photos arrive already shrunk by the browser (~1600px JPEG). Base64 sizes.
 const MAX_PHOTOS = 5;
@@ -131,11 +133,19 @@ async function handleContact(request, env, cors) {
   const email = clean(data.email, LIMITS.email);
   const phone = clean(data.phone, LIMITS.phone);
   const message = clean(data.message, LIMITS.message);
+  const street = clean(data.street, LIMITS.street);
+  const townRaw = clean(data.town, 40);
+  const town = TOWNS.includes(townRaw) ? townRaw : (townRaw ? 'Other' : '');
   const outlet = { yes: 'Yes', no: 'No - bring the generator' }[clean(data.outlet, 10)] || 'Not sure';
 
   if (!name || !message || (!email && !phone)) {
     return jsonResponse({ error: 'Please add your name, a message, and an email or phone number.' }, 400, cors);
   }
+  if (!street || !town) {
+    return jsonResponse({ error: 'Please add the street address and town where the job is.' }, 400, cors);
+  }
+  const address = `${street}, ${town === 'Other' ? '(outside service area)' : `${town}, FL`}`;
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${street}, ${town === 'Other' ? '' : town + ', '}FL`)}`;
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return jsonResponse({ error: 'That email address doesn\'t look right.' }, 400, cors);
   }
@@ -148,6 +158,10 @@ async function handleContact(request, env, cors) {
     'NEW WEBSITE LEAD - Jupiter Power Wash',
     `Ref: ${refId}`,
     `Received: ${when} ET`,
+    '',
+    `Address: ${address}`,
+    `Map:     ${mapsUrl}`,
+    town === 'Other' ? '** OUTSIDE SERVICE AREA (Jupiter, Tequesta, Palm Beach Gardens, Juno Beach) **' : '',
     '',
     `Name:  ${name}`,
     `Phone: ${phone || 'Not provided'}`,
@@ -168,12 +182,12 @@ async function handleContact(request, env, cors) {
     await sendEmail(env, {
       to: env.NOTIFY_EMAIL,
       replyTo: email || undefined,
-      subject: `New lead: ${name}${phone ? ` - ${phone}` : ''}${photos.length ? ` [${photos.length} photo${photos.length > 1 ? 's' : ''}]` : ''} (${refId})`,
+      subject: `New lead: ${street}, ${town === 'Other' ? 'OUTSIDE AREA' : town} - ${name}${phone ? ` - ${phone}` : ''}${photos.length ? ` [${photos.length} photo${photos.length > 1 ? 's' : ''}]` : ''} (${refId})`,
       text,
       attachments: photos,
     });
   } catch (error) {
-    console.error(`Lead ${refId} NOT delivered:`, error.message, JSON.stringify({ name, phone, email, message, photos: photos.length }));
+    console.error(`Lead ${refId} NOT delivered:`, error.message, JSON.stringify({ name, phone, email, street, town, message, photos: photos.length }));
     return jsonResponse({ error: `Sorry, your message didn't go through. Please call or text us at ${PHONE_DISPLAY}.` }, 502, cors);
   }
 
