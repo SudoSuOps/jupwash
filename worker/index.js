@@ -22,6 +22,7 @@ FACTS (only state facts from this list):
 - Phone (call or text): ${PHONE_DISPLAY}. This is the fastest way to get a free estimate.
 - Email: clean@jupiterpowerwash.com
 - Payment is collected on the day of the job (cash, check or card). No online prepayment.
+- Equipment: our pressure washers are electric - much quieter than gas machines, no exhaust fumes at the customer's home. We need an outdoor electrical outlet; if there isn't one, we bring our own generator - no problem. Don't quote any generator fee. Don't call it "zero emissions" or make other environmental claims beyond quiet / no exhaust at the home.
 - Referral offer: code JUPFRIEND50 - the customer and the friend they refer each save $50.
 - Services are done in half-day or full-day visits (see pricing).
 
@@ -130,6 +131,7 @@ async function handleContact(request, env, cors) {
   const email = clean(data.email, LIMITS.email);
   const phone = clean(data.phone, LIMITS.phone);
   const message = clean(data.message, LIMITS.message);
+  const outlet = { yes: 'Yes', no: 'No - bring the generator' }[clean(data.outlet, 10)] || 'Not sure';
 
   if (!name || !message || (!email && !phone)) {
     return jsonResponse({ error: 'Please add your name, a message, and an email or phone number.' }, 400, cors);
@@ -151,6 +153,7 @@ async function handleContact(request, env, cors) {
     `Phone: ${phone || 'Not provided'}`,
     `Email: ${email || 'Not provided'}`,
     `Photos: ${photos.length ? `${photos.length} attached` : 'none'}`,
+    `Outdoor outlet: ${outlet}`,
     '',
     'Message:',
     '--------',

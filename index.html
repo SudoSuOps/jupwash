@@ -412,6 +412,46 @@
             color: var(--text-secondary);
         }
 
+        .electric-note {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            max-width: 760px;
+            margin: 2.5rem auto 0;
+            padding: 1.25rem 1.5rem;
+            background: #FFFDF8;
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--jupiter-cyan);
+            border-radius: 16px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .electric-note svg {
+            flex-shrink: 0;
+            color: var(--jupiter-cyan);
+        }
+
+        .electric-note h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .electric-note p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .contact-form select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            background: var(--soft-gray);
+            color: var(--text-primary);
+            font: inherit;
+        }
+
         .photo-note {
             font-size: 0.85rem;
             color: var(--text-secondary);
@@ -2291,6 +2331,13 @@
                     <p>Pay on the day of the job &mdash; cash, check or card.</p>
                 </div>
             </div>
+            <div class="electric-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M9 2v6M15 2v6"/><path d="M6 8h12v4a6 6 0 0 1-12 0z"/><path d="M12 18v4"/></svg>
+                <div>
+                    <h4>Quiet, all-electric equipment</h4>
+                    <p>Our pressure washers are electric: much quieter than gas machines and no exhaust fumes at your home. We just need an outdoor electrical outlet. No outdoor outlet? No problem &mdash; we bring our own generator.</p>
+                </div>
+            </div>
             <div class="pricing-ctas">
                 <a href="sms:5615327120" class="btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Text Us a Photo</a>
                 <a href="#contact" class="btn-outline">Upload Photos Online</a>
@@ -2565,6 +2612,14 @@
                         <div class="form-group">
                             <label for="contact-phone">Phone Number <span style="font-weight:400;color:var(--text-secondary)">(fastest way to reach you)</span></label>
                             <input type="tel" id="contact-phone" name="phone" placeholder="(561) 555-0123" autocomplete="tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-outlet">Outdoor electrical outlet? <span style="font-weight:400;color:var(--text-secondary)">(our washers are electric)</span></label>
+                            <select id="contact-outlet" name="outlet">
+                                <option value="">Not sure</option>
+                                <option value="yes">Yes, there's an outdoor outlet</option>
+                                <option value="no">No - please bring the generator</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="contact-photos">Photos <span style="font-weight:400;color:var(--text-secondary)">(optional, up to 5)</span></label>
