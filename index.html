@@ -885,6 +885,72 @@
         }
 
 
+
+        /* Vintage van */
+        .van-band {
+            padding: 5rem 2rem 4rem;
+            background: linear-gradient(180deg, #F3E8D2 0%, #EDE0C8 100%);
+            overflow: hidden;
+        }
+
+        .van-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .van-copy h2 {
+            font-size: 2.4rem;
+            color: var(--text-primary);
+            margin: 0.25rem 0 0.75rem;
+        }
+
+        .van-copy p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .van-art {
+            width: 100%;
+            height: auto;
+            display: block;
+            animation: van-bob 3.2s ease-in-out infinite;
+        }
+
+        @keyframes van-bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .van-art {
+                animation: none;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .van-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .van-copy h2 {
+                font-size: 1.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .van-band {
+                padding: 4rem 1.25rem 3rem;
+            }
+        }
+
         /* FAQ */
         .faq {
             padding: 6rem 2rem;
@@ -3199,6 +3265,61 @@
                     <p>Payment is collected on the day of the job &mdash; cash, check or card. No online prepayment.</p>
                 </details>
             </div>
+        </div>
+    </section>
+
+    <!-- Vintage van -->
+    <section class="van-band" aria-labelledby="vanHeading">
+        <div class="van-inner">
+            <div class="van-copy">
+                <span class="section-label">Vintage JUP Wash</span>
+                <h2 id="vanHeading">Spot the JUP van around town?</h2>
+                <p>Give us a wave &mdash; or a text. We&rsquo;re out in Jupiter, Tequesta, Palm Beach Gardens and Juno Beach Monday through Saturday.</p>
+                <a href="sms:5615327120" class="btn-primary">Text 561-532-7120</a>
+            </div>
+            <svg class="van-art" viewBox="0 0 900 470" role="img" aria-labelledby="vanTitle">
+                <title id="vanTitle">Vintage Jupiter Power Wash van, two-tone cream and seaglass with the lighthouse logo, phone number 561-532-7120 and a surfboard on the roof</title>
+                <ellipse cx="450" cy="438" rx="380" ry="16" fill="#3A332A" opacity="0.12"/>
+                <!-- roof rack + surfboard -->
+                <rect x="250" y="40" width="400" height="8" rx="4" fill="#9C9080"/>
+                <rect x="290" y="48" width="8" height="22" fill="#9C9080"/>
+                <rect x="602" y="48" width="8" height="22" fill="#9C9080"/>
+                <path d="M195 30 Q205 14 260 14 L690 14 Q760 16 790 30 Q760 44 690 46 L260 46 Q205 46 195 30 Z" fill="#C9A876"/>
+                <path d="M215 30 L775 30" stroke="#FAF5EA" stroke-width="3" stroke-linecap="round"/>
+                <!-- body -->
+                <path d="M78 150 Q78 70 160 70 L700 70 Q790 70 820 150 L838 250 Q846 290 846 320 L846 352 Q846 372 826 372 L98 372 Q78 372 78 352 Z" fill="#3F5F56"/>
+                <path d="M78 150 Q78 70 160 70 L700 70 Q790 70 820 150 L832 204 L78 204 Z" fill="#FAF5EA"/>
+                <rect x="78" y="204" width="764" height="7" fill="#C9A876"/>
+                <!-- windows -->
+                <rect x="112" y="90" width="92" height="56" rx="14" fill="#A8C3BC"/>
+                <rect x="220" y="90" width="92" height="56" rx="14" fill="#A8C3BC"/>
+                <rect x="328" y="90" width="92" height="56" rx="14" fill="#A8C3BC"/>
+                <rect x="436" y="90" width="92" height="56" rx="14" fill="#A8C3BC"/>
+                <rect x="544" y="90" width="92" height="56" rx="14" fill="#A8C3BC"/>
+                <path d="M664 90 L706 90 Q768 92 792 150 L796 160 L664 160 Q652 160 652 148 L652 102 Q652 90 664 90 Z" fill="#A8C3BC"/>
+                <path d="M120 98 L150 98" stroke="#FAF5EA" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+                <path d="M672 98 L700 98" stroke="#FAF5EA" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+                <!-- logo panel -->
+                <image href="images/brand/jupwash-logo-horizontal-fullcolor.svg" x="122" y="150" width="216" height="52"/>
+                <!-- doors -->
+                <path d="M640 160 L640 360" stroke="#2A3F3A" stroke-width="2" opacity="0.5"/>
+                                <rect x="604" y="226" width="26" height="7" rx="3.5" fill="#D8C3A0"/>
+                <!-- lower panel text -->
+                <text x="124" y="262" font-family="Space Grotesk, sans-serif" font-size="46" font-weight="700" fill="#FAF5EA" letter-spacing="1">561-532-7120</text>
+                <text x="126" y="292" font-family="Inter, sans-serif" font-size="17" font-weight="600" fill="#D8C3A0" letter-spacing="3">TEXT A PHOTO &#183; FREE ESTIMATE</text>
+                <!-- front details -->
+                <circle cx="822" cy="236" r="15" fill="#FAF5EA" stroke="#C9A876" stroke-width="4"/>
+                <rect x="806" y="276" width="30" height="6" rx="3" fill="#D8C3A0"/>
+                <!-- bumpers -->
+                <rect x="58" y="352" width="54" height="16" rx="8" fill="#D8C3A0"/>
+                <rect x="808" y="352" width="56" height="16" rx="8" fill="#D8C3A0"/>
+                <!-- wheel arches -->
+                <path d="M172 372 A66 66 0 0 1 304 372 Z" fill="#2A3F3A"/>
+                <path d="M602 372 A66 66 0 0 1 734 372 Z" fill="#2A3F3A"/>
+                <!-- wheels -->
+                <g class="van-wheel"><circle cx="238" cy="378" r="58" fill="#3A332A"/><circle cx="238" cy="378" r="40" fill="#FAF5EA"/><circle cx="238" cy="378" r="28" fill="#C9A876"/><circle cx="238" cy="378" r="9" fill="#A8824F"/></g>
+                <g class="van-wheel"><circle cx="668" cy="378" r="58" fill="#3A332A"/><circle cx="668" cy="378" r="40" fill="#FAF5EA"/><circle cx="668" cy="378" r="28" fill="#C9A876"/><circle cx="668" cy="378" r="9" fill="#A8824F"/></g>
+            </svg>
         </div>
     </section>
 
