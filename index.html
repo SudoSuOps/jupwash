@@ -412,6 +412,9 @@
         }
 
         .nav-links a {
+            white-space: nowrap;
+            display: inline-block;
+            padding: 0.6rem 0;
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
@@ -424,6 +427,7 @@
         }
 
         .nav-cta {
+            white-space: nowrap;
             background: var(--gradient-warm);
             color: var(--deep-space);
             padding: 0.75rem 1.5rem;
@@ -611,7 +615,13 @@
             min-width: 0;
         }
 
+        .contact-method-text a {
+            display: inline-block;
+            padding: 0.6rem 0;
+        }
+
         .contact-form input[type="file"] {
+            padding: 0.6rem 0;
             width: 100%;
             max-width: 100%;
             font-size: 0.9rem;
@@ -2384,7 +2394,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1180px) {
             .nav-links {
                 display: none;
             }
@@ -2412,6 +2422,17 @@
             .mobile-menu-btn {
                 display: block;
             }
+
+            .nav-container {
+                gap: 1rem;
+            }
+
+            .nav-phone {
+                margin-left: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
 
             .hero h1 {
                 font-size: 2.5rem;
@@ -2490,6 +2511,55 @@
 
             .mobile-menu-btn {
                 padding: 0.25rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .nav-phone {
+                display: none;
+            }
+
+            .nav-cta {
+                margin-left: auto;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .about {
+                padding: 4rem 1.25rem;
+            }
+
+            .about-grid > * {
+                min-width: 0;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .referral-code {
+                padding: 0.8rem 1.1rem;
+                max-width: 100%;
+            }
+
+            .referral-code span {
+                font-size: 1.2rem;
+                letter-spacing: 1px;
+            }
+        }
+
+        @media (max-width: 340px) {
+            nav {
+                padding: 0.5rem 0.6rem;
+            }
+
+            .nav-container {
+                gap: 0.3rem;
+            }
+
+            .nav-cta {
+                padding: 0.55rem 0.75rem;
+                font-size: 0.8rem;
             }
         }
     </style>
