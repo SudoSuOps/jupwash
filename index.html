@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jupiter Power Wash | Friendly, Local Power Washing in Jupiter, FL</title>
-    <meta name="description" content="Jupiter Power Wash is your local, family-owned power washing company serving Jupiter, FL. Driveways, patios, pool areas & sidewalks. Simple pricing: $300 half day, $550 full day. Text a photo to 561-532-7120 for a free estimate.">
+    <meta name="description" content="Jupiter Power Wash is your local, family-owned power washing company serving Jupiter, FL. Driveways, patios, pool areas, sidewalks & solar panels. Simple pricing: $300 half day, $550 full day. Text a photo to 561-532-7120 for a free estimate.">
 
     <!-- SEO Meta Tags -->
     <meta name="keywords" content="power washing Jupiter FL, pressure washing Jupiter, driveway cleaning Jupiter, patio cleaning Palm Beach, pool area cleaning, sidewalk cleaning Jupiter Florida, local family owned power washing, residential pressure washing">
@@ -58,7 +58,7 @@
         "priceRange": "$300 half day, $550 full day",
         "openingHours": "Mo-Sa 08:00-18:00",
         "sameAs": [],
-        "serviceType": ["Power Washing", "Pressure Washing", "Driveway Cleaning", "Patio Cleaning", "Pool Area Cleaning", "Sidewalk Cleaning"]
+        "serviceType": ["Power Washing", "Pressure Washing", "Driveway Cleaning", "Patio Cleaning", "Pool Area Cleaning", "Sidewalk Cleaning", "Solar Panel Cleaning"]
     }
     </script>
 
@@ -416,6 +416,155 @@
             font-size: 0.85rem;
             color: var(--text-secondary);
             margin-top: 0.4rem;
+        }
+
+
+        /* Solar */
+        .service-card.wide {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            text-decoration: none;
+            border: 2px solid var(--jupiter-orange);
+        }
+
+        .service-card.wide .service-icon {
+            flex-shrink: 0;
+            margin-bottom: 0;
+        }
+
+        .service-card.wide .specialty {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--jupiter-orange);
+            margin-bottom: 0.25rem;
+        }
+
+        .solar {
+            padding: 6rem 2rem;
+            background: var(--gradient-space);
+            color: #F3E8D2;
+        }
+
+        .solar .section-label {
+            background: none;
+            -webkit-text-fill-color: var(--jupiter-gold);
+            color: var(--jupiter-gold);
+        }
+
+        .solar .section-title {
+            color: #FFFDF8;
+        }
+
+        .solar .section-subtitle {
+            color: rgba(243, 232, 210, 0.85);
+        }
+
+        .solar .price-card {
+            color: var(--text-primary);
+            text-align: left;
+        }
+
+        .solar .price-card h3,
+        .solar .price-card .price-amount,
+        .solar .price-card .price-sub {
+            text-align: center;
+        }
+
+        .price-amount small {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .price-list {
+            list-style: none;
+            margin: 1.5rem 0 0;
+            padding: 0;
+        }
+
+        .price-list li {
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-start;
+            padding: 0.4rem 0;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .price-list svg {
+            flex-shrink: 0;
+            margin-top: 0.15rem;
+            color: var(--jupiter-cyan);
+        }
+
+        .solar-why {
+            max-width: 960px;
+            margin: 4rem auto 0;
+        }
+
+        .solar-why h3 {
+            text-align: center;
+            color: #FFFDF8;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .solar-why > p {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 2rem;
+            color: rgba(243, 232, 210, 0.85);
+        }
+
+        .why-solar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.25rem;
+        }
+
+        .why-solar-grid div {
+            background: rgba(255, 253, 248, 0.08);
+            border: 1px solid rgba(255, 253, 248, 0.15);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .why-solar-grid h4 {
+            color: var(--jupiter-gold);
+            margin-bottom: 0.4rem;
+        }
+
+        .why-solar-grid p {
+            color: rgba(243, 232, 210, 0.85);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .solar-note {
+            text-align: center;
+            margin-top: 2rem;
+            color: rgba(243, 232, 210, 0.8);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 700px) {
+            .why-solar-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .solar {
+                padding: 4rem 1.25rem;
+            }
+
+            .service-card.wide {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
 
         /* Hero Section */
@@ -1957,6 +2106,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#services">Services</a></li>
                 <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#solar">Solar</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#booking">Free Estimate</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -2088,6 +2238,16 @@
                     <h3>Sidewalks</h3>
                     <p>Safer footing and a cleaner curb appeal. We wash walkways front to back so the whole property looks cared for.</p>
                 </div>
+                <a href="#solar" class="service-card wide">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="10" rx="1"/><path d="M3 14h18M9 9v10M15 9v10"/><path d="M12 2v3M5.6 4.6l1.4 1.4M18.4 4.6L17 6"/></svg>
+                    </div>
+                    <div>
+                        <span class="specialty">Specialty &middot; Weekends</span>
+                        <h3>Solar Panel Cleaning</h3>
+                        <p>White-glove, full-top cleaning for single-story homes, metal or shingle roofs. $600 per rooftop, or $995 a year for two cleanings. See details &rarr;</p>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -2135,6 +2295,63 @@
                 <a href="sms:5615327120" class="btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Text Us a Photo</a>
                 <a href="#contact" class="btn-outline">Upload Photos Online</a>
             </div>
+        </div>
+    </section>
+
+    <!-- Solar Panel Cleaning -->
+    <section id="solar" class="solar">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">Specialty Service</span>
+                <h2 class="section-title">Solar Panel Cleaning</h2>
+                <p class="section-subtitle">White-glove cleaning with full top coverage for single-story homes, on metal or shingle roofs. Solar is a specialty job, so we do it on Saturdays &amp; Sundays.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>One-Time Clean</h3>
+                    <div class="price-amount">$600</div>
+                    <p class="price-sub">per rooftop</p>
+                    <ul class="price-list">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>Full top coverage &mdash; every panel on the roof</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>Single-story homes, metal or shingle roofs</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>White-glove service, scheduled on a Saturday or Sunday</li>
+                    </ul>
+                </div>
+                <div class="price-card featured">
+                    <span class="price-tag">Best Value</span>
+                    <h3>Yearly Service Plan</h3>
+                    <div class="price-amount">$995<small>/yr</small></div>
+                    <p class="price-sub">2 panel cleanings a year &mdash; save $205</p>
+                    <ul class="price-list">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>We clean your panels twice a year, about every 6 months</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>Same white-glove, full top coverage every visit</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>We reach out when your next cleaning is due</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="solar-why">
+                <h3>Why clean your panels every 6&ndash;12 months?</h3>
+                <p>Solar panels only make power from the sunlight that actually reaches them. Anything sitting on the glass is energy you paid for and aren't getting.</p>
+                <div class="why-solar-grid">
+                    <div>
+                        <h4>Grime blocks the sun</h4>
+                        <p>Dust, pollen, salt spray and bird droppings build up into a film on the glass. Rain alone doesn't wash it away &mdash; it often just spreads it around and leaves residue.</p>
+                    </div>
+                    <div>
+                        <h4>Florida builds it up fast</h4>
+                        <p>Coastal salt air, heavy pollen seasons and humidity mean panels here get dirty faster than in drier climates, and the buildup bakes on in the heat.</p>
+                    </div>
+                    <div>
+                        <h4>Protect your investment</h4>
+                        <p>Clean panels produce closer to what they were rated for, and regular cleaning keeps buildup from staining the glass and frames over time.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pricing-ctas">
+                <a href="sms:5615327120" class="btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Text Us a Photo of Your Roof</a>
+                <a href="tel:5615327120" class="btn-secondary">Call 561-532-7120</a>
+            </div>
+            <p class="solar-note">Two-story home or something different? Give us a call and ask.</p>
         </div>
     </section>
 
@@ -2444,6 +2661,7 @@
                         <li><a href="#services">Patios</a></li>
                         <li><a href="#services">Pool Areas</a></li>
                         <li><a href="#services">Sidewalks</a></li>
+                        <li><a href="#solar">Solar Panels</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
@@ -2505,6 +2723,7 @@
             <button class="quick-reply" data-message="What services do you offer?">Services</button>
             <button class="quick-reply" data-message="How does your pricing work?">Pricing</button>
             <button class="quick-reply" data-message="I'd like a free estimate">Free Estimate</button>
+            <button class="quick-reply" data-message="Do you clean solar panels?">Solar</button>
             <button class="quick-reply" data-message="What areas do you serve?">Service Area</button>
         </div>
         <div class="chatbot-input">
