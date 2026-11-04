@@ -1,11 +1,12 @@
 # Jupiter Power Wash
 
-> Family-owned power washing company in Jupiter, Florida. Driveways (including brick pavers), patios, pool decks, sidewalks, and weekend solar panel cleaning for single-story homes. Two simple prices: $300 half day, $550 full day. Customers text a photo and get told up front which one it is.
+> Family-owned power washing company in Jupiter, Florida. Driveways (including brick pavers), patios, pool decks, sidewalks, and Saturday solar panel cleaning for single-story homes. Two simple prices: $300 half day, $550 full day. Customers text a photo and get told up front which one it is.
 
 - Phone (call or text): 561-532-7120
 - Email: clean@jupiterpowerwash.com
 - Address: 1609 Berkshire Ave, Jupiter, FL 33469
 - Website: https://jupiterpowerwash.com
+- Hours: Monday-Saturday 8am-6pm. Closed Sunday.
 - Service area: Jupiter, Tequesta, Palm Beach Gardens, Juno Beach (Florida)
 
 ## Pricing
@@ -20,7 +21,7 @@
 ## Solar panel cleaning
 
 - Single-story homes only, metal or shingle roofs. No two-story homes.
-- Saturdays and Sundays only. White-glove service.
+- Saturdays only. White-glove service.
 - Done by hand: pre-soak, hand wash, hand wipe, after-clean treatment.
 - Recommended every 6-12 months in Florida: dust, pollen, salt air and bird droppings form a film that blocks sunlight, and rain does not wash it off.
 

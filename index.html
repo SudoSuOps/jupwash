@@ -25,7 +25,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jupiterpowerwash.com">
     <meta property="og:title" content="Jupiter Power Wash | Two prices. Text a photo. That's it.">
-    <meta property="og:description" content="Family-owned power washing in Jupiter, FL: driveways, pavers, patios, pool decks, sidewalks and weekend solar panel cleaning. $300 half day, $550 full day.">
+    <meta property="og:description" content="Family-owned power washing in Jupiter, FL: driveways, pavers, patios, pool decks, sidewalks and Saturday solar panel cleaning. $300 half day, $550 full day.">
     <meta property="og:image" content="https://jupiterpowerwash.com/images/brand/jupwash-og-1200x630.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -37,7 +37,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://jupiterpowerwash.com">
     <meta name="twitter:title" content="Jupiter Power Wash | Two prices. Text a photo. That's it.">
-    <meta name="twitter:description" content="Family-owned power washing in Jupiter, FL: driveways, pavers, patios, pool decks, sidewalks and weekend solar panel cleaning. $300 half day, $550 full day.">
+    <meta name="twitter:description" content="Family-owned power washing in Jupiter, FL: driveways, pavers, patios, pool decks, sidewalks and Saturday solar panel cleaning. $300 half day, $550 full day.">
     <meta name="twitter:image" content="https://jupiterpowerwash.com/images/brand/jupwash-og-1200x630.jpg">
 
     <!-- Local Business Schema -->
@@ -51,7 +51,7 @@
   "@id": "https://jupiterpowerwash.com/#business",
   "name": "Jupiter Power Wash",
   "slogan": "Powering Clean, One Wash at a Time – Your Property, Our Priority",
-  "description": "Family-owned power washing company in Jupiter, Florida. Driveways, brick pavers, patios, pool decks, sidewalks and weekend solar panel cleaning. Simple pricing: $300 half day, $550 full day.",
+  "description": "Family-owned power washing company in Jupiter, Florida. Driveways, brick pavers, patios, pool decks, sidewalks and Saturday solar panel cleaning. Simple pricing: $300 half day, $550 full day.",
   "image": "https://jupiterpowerwash.com/images/brand/jupwash-og-1200x630.jpg",
   "logo": "https://jupiterpowerwash.com/images/brand/jupwash-logo-badge-1024.png",
   "url": "https://jupiterpowerwash.com",
@@ -107,7 +107,14 @@
   "priceRange": "$300–$1,795",
   "paymentAccepted": "Cash, Check, Credit Card",
   "currenciesAccepted": "USD",
-  "openingHours": "Mo-Sa 08:00-18:00",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "08:00",
+      "closes": "18:00"
+    }
+  ],
   "knowsAbout": [
     "Power washing",
     "Pressure washing",
@@ -214,7 +221,7 @@
       "name": "How much does solar panel cleaning cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "$995 flat for a one-time clean — a full day with a two-person crew and full top coverage. Our yearly plan is $1,795 for two cleanings a year, which saves $195. Solar cleaning is done on Saturdays and Sundays."
+        "text": "$995 flat for a one-time clean — a full day with a two-person crew and full top coverage. Our yearly plan is $1,795 for two cleanings a year, which saves $195. Solar cleaning is done on Saturdays. We're closed Sundays."
       }
     },
     {
@@ -2635,7 +2642,7 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="10" rx="1"/><path d="M3 14h18M9 9v10M15 9v10"/><path d="M12 2v3M5.6 4.6l1.4 1.4M18.4 4.6L17 6"/></svg>
                     </div>
                     <div>
-                        <span class="specialty">Specialty &middot; Weekends</span>
+                        <span class="specialty">Specialty &middot; Saturdays</span>
                         <h3>Solar Panel Cleaning</h3>
                         <p>White-glove, full-top cleaning for single-story homes, metal or shingle roofs. $995 flat for a full-day, two-person clean, or $1,795 a year for two cleanings. See details &rarr;</p>
                     </div>
@@ -2704,7 +2711,7 @@
                 <img src="images/brand/jupwash-logo-solar-fullcolor.svg" alt="Solar Panel Cleaning Specialty" width="120" height="120" loading="lazy" style="display:block;margin:0 auto 1.25rem;width:120px;height:auto;">
                 <span class="section-label">Specialty Service</span>
                 <h2 class="section-title">Solar Panel Cleaning</h2>
-                <p class="section-subtitle">White-glove, hand-washed cleaning with full top coverage for single-story homes, on metal or shingle roofs. Solar is a specialty job: a two-person crew, a full day, on a Saturday or Sunday.</p>
+                <p class="section-subtitle">White-glove, hand-washed cleaning with full top coverage for single-story homes, on metal or shingle roofs. Solar is a specialty job: a two-person crew, a full day, on a Saturday.</p>
             </div>
             <div class="pricing-grid">
                 <div class="price-card">
@@ -2714,7 +2721,7 @@
                     <ul class="price-list">
                         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>Full top coverage &mdash; every panel on the roof, one flat price</li>
                         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>Single-story homes, metal or shingle roofs</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>White-glove service, scheduled on a Saturday or Sunday</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><polyline points="20 6 9 17 4 12"/></svg>White-glove service, scheduled on a Saturday</li>
                     </ul>
                 </div>
                 <div class="price-card featured">
@@ -3099,7 +3106,7 @@
                 </details>
                 <details class="faq-item">
                     <summary><h3>How much does solar panel cleaning cost?</h3></summary>
-                    <p>$995 flat for a one-time clean &mdash; a full day with a two-person crew and full top coverage. Our yearly plan is $1,795 for two cleanings a year, which saves $195. Solar cleaning is done on Saturdays and Sundays.</p>
+                    <p>$995 flat for a one-time clean &mdash; a full day with a two-person crew and full top coverage. Our yearly plan is $1,795 for two cleanings a year, which saves $195. Solar cleaning is done on Saturdays. We're closed Sundays.</p>
                 </details>
                 <details class="faq-item">
                     <summary><h3>How do you clean solar panels?</h3></summary>
@@ -3165,6 +3172,7 @@
                         <li><a href="tel:5615327120">561.532.7120</a></li>
                         <li><a href="mailto:clean@jupiterpowerwash.com">Email Us</a></li>
                         <li><a href="https://www.google.com/maps/search/?api=1&amp;query=1609+Berkshire+Ave,+Jupiter,+FL+33469" rel="noopener">1609 Berkshire Ave<br>Jupiter, FL 33469</a></li>
+                        <li><span style="color:inherit;opacity:0.85">Mon&ndash;Sat 8am&ndash;6pm<br>Closed Sunday</span></li>
                     </ul>
                 </div>
             </div>
