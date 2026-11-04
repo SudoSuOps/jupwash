@@ -80,7 +80,7 @@ function cleanPhotos(raw) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const cors = corsHeaders(request);
 
     if (request.method === 'OPTIONS') {
@@ -90,7 +90,7 @@ export default {
     const url = new URL(request.url);
 
     if (request.method === 'POST' && url.pathname === '/api/contact') {
-      return handleContact(request, env, cors);
+      return handleContact(request, env, cors, ctx);
     }
     if (request.method === 'POST' && url.pathname === '/api/chat') {
       return handleChat(request, env, cors);
@@ -118,7 +118,7 @@ function clean(value, max) {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
 }
 
-async function handleContact(request, env, cors) {
+async function handleContact(request, env, cors, ctx) {
   let data;
   try {
     data = await request.json();
@@ -193,7 +193,115 @@ async function handleContact(request, env, cors) {
     return jsonResponse({ error: `Sorry, your message didn't go through. Please call or text us at ${PHONE_DISPLAY}.` }, 502, cors);
   }
 
+  // Branded confirmation to the customer (only if they gave an email). Never blocks or fails the lead.
+  if (email) {
+    const confirm = sendCustomerConfirmation(env, { name, email, street, town, photos: photos.length, refId })
+      .catch(err => console.error(`Confirmation for ${refId} failed:`, err.message));
+    if (ctx && ctx.waitUntil) ctx.waitUntil(confirm); else await confirm;
+  }
+
   return jsonResponse({ success: true, messageId: refId }, 200, cors);
+}
+
+function escapeHtml(t) {
+  return String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+async function sendCustomerConfirmation(env, { name, email, street, town, photos, refId }) {
+  const SITE = 'https://jupiterpowerwash.com';
+  // Only echo short, clipped fields back (never the free-text message) so the form can't be used to mail arbitrary text.
+  const first = (name.split(/\s+/)[0] || 'there').slice(0, 30);
+  const where = `${street.slice(0, 80)}${town && town !== 'Other' ? `, ${town}` : ''}`;
+  const outside = town === 'Other';
+  const photoLine = photos
+    ? `We got your ${photos > 1 ? `${photos} photos` : 'photo'} &mdash; thank you, that's exactly what we need.`
+    : `<strong>Want a faster answer?</strong> Just reply to this email with a photo of what needs cleaning, or text it to ${PHONE_DISPLAY}.`;
+  const photoText = photos
+    ? `We got your ${photos > 1 ? `${photos} photos` : 'photo'} - thank you, that's exactly what we need.`
+    : `Want a faster answer? Reply to this email with a photo of what needs cleaning, or text it to ${PHONE_DISPLAY}.`;
+  const areaHtml = outside
+    ? `<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#6B6056;">Heads up: your address may be outside our usual area (Jupiter, Tequesta, Palm Beach Gardens, Juno Beach). We'll let you know if we can make it.</p>`
+    : '';
+
+  const html = `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><title>We got your request</title></head>
+<body style="margin:0;padding:0;background:#F3E8D2;">
+<div style="display:none;max-height:0;overflow:hidden;">Thanks ${escapeHtml(first)}! Here's what happens next with your free estimate.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F3E8D2;">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#FFFDF8;border-radius:16px;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#3A332A;">
+  <tr><td align="center" style="padding:28px 24px 8px;"><a href="${SITE}"><img src="${SITE}/images/brand/jupwash-email-logo.png" width="280" height="68" alt="Jupiter Power Wash" style="display:block;border:0;width:280px;height:auto;"></a></td></tr>
+  <tr><td style="padding:8px 32px 0;">
+    <h1 style="margin:16px 0 8px;font-size:24px;line-height:1.3;color:#3F5F56;">Thanks, ${escapeHtml(first)} &mdash; we got your request!</h1>
+    <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#6B6056;">Request for <strong style="color:#3A332A;">${escapeHtml(where)}</strong> &middot; Ref ${escapeHtml(refId)}</p>
+    ${areaHtml}
+    <p style="margin:0 0 20px;font-size:15px;line-height:1.6;">${photoLine}</p>
+  </td></tr>
+  <tr><td style="padding:0 32px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F3E8D2;border-radius:12px;">
+      <tr><td style="padding:18px 20px;">
+        <p style="margin:0 0 10px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#A8824F;font-weight:bold;">What happens next</p>
+        <p style="margin:0 0 8px;font-size:15px;line-height:1.5;"><strong style="color:#3F5F56;">1.</strong> We look at your photos and your address.</p>
+        <p style="margin:0 0 8px;font-size:15px;line-height:1.5;"><strong style="color:#3F5F56;">2.</strong> We get back to you &mdash; usually within 24 hours &mdash; with your free estimate: <strong>half day $300</strong> or <strong>full day $550</strong>.</p>
+        <p style="margin:0;font-size:15px;line-height:1.5;"><strong style="color:#3F5F56;">3.</strong> We clean. You pay on the day &mdash; cash, check or card. No surprise add-ons.</p>
+      </td></tr>
+    </table>
+  </td></tr>
+  <tr><td align="center" style="padding:24px 32px 8px;">
+    <p style="margin:0 0 12px;font-size:15px;color:#6B6056;">Need it sooner? Call or text us:</p>
+    <a href="tel:5615327120" style="display:inline-block;background:#A8824F;color:#FFFDF8;text-decoration:none;font-weight:bold;font-size:18px;padding:14px 28px;border-radius:999px;">561-532-7120</a>
+    <p style="margin:12px 0 0;font-size:13px;color:#9C9080;">Mon&ndash;Sat 8am&ndash;6pm &middot; Closed Sunday</p>
+  </td></tr>
+  <tr><td style="padding:20px 32px 8px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px dashed #C9A876;border-radius:12px;">
+      <tr><td align="center" style="padding:14px 16px;">
+        <p style="margin:0 0 4px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#A8824F;font-weight:bold;">Tell a neighbor</p>
+        <p style="margin:0;font-size:15px;line-height:1.5;">Share code <strong style="letter-spacing:1px;color:#3F5F56;">JUPFRIEND50</strong> &mdash; you both save $50.</p>
+      </td></tr>
+    </table>
+  </td></tr>
+  <tr><td style="padding:16px 32px 4px;">
+    <p style="margin:0;font-size:14px;line-height:1.6;color:#6B6056;">Have solar panels? We also do white-glove, hand-washed solar panel cleaning for single-story homes on Saturdays &mdash; $995, or $1,795/year for two cleanings.</p>
+  </td></tr>
+  <tr><td style="padding:24px 32px 28px;border-top:1px solid #EDE0C8;">
+    <p style="margin:16px 0 4px;font-size:13px;line-height:1.6;color:#9C9080;font-style:italic;">&ldquo;Powering Clean, One Wash at a Time &ndash; Your Property, Our Priority&rdquo;</p>
+    <p style="margin:0;font-size:12px;line-height:1.6;color:#9C9080;">Jupiter Power Wash &middot; 1609 Berkshire Ave, Jupiter, FL 33469<br><a href="${SITE}" style="color:#5E8679;">jupiterpowerwash.com</a> &middot; <a href="mailto:clean@jupiterpowerwash.com" style="color:#5E8679;">clean@jupiterpowerwash.com</a><br>You're getting this because you requested an estimate on our website. Just reply if you have questions.</p>
+  </td></tr>
+</table>
+</td></tr></table>
+</body></html>`;
+
+  const text = [
+    `Thanks, ${first} - we got your request!`,
+    `Request for ${where} (Ref ${refId})`,
+    outside ? `Heads up: your address may be outside our usual area (Jupiter, Tequesta, Palm Beach Gardens, Juno Beach). We'll let you know if we can make it.` : '',
+    '',
+    photoText,
+    '',
+    'WHAT HAPPENS NEXT',
+    '1. We look at your photos and your address.',
+    '2. We get back to you - usually within 24 hours - with your free estimate: half day $300 or full day $550.',
+    '3. We clean. You pay on the day - cash, check or card. No surprise add-ons.',
+    '',
+    `Need it sooner? Call or text ${PHONE_DISPLAY} (Mon-Sat 8am-6pm, closed Sunday).`,
+    '',
+    'Tell a neighbor: share code JUPFRIEND50 - you both save $50.',
+    '',
+    'Have solar panels? White-glove, hand-washed solar panel cleaning for single-story homes on Saturdays: $995, or $1,795/year for two cleanings.',
+    '',
+    'Jupiter Power Wash - 1609 Berkshire Ave, Jupiter, FL 33469',
+    'jupiterpowerwash.com - clean@jupiterpowerwash.com',
+  ].filter((l, i, a) => !(l === '' && a[i - 1] === '')).join('\n');
+
+  await sendEmail(env, {
+    fromName: 'Jupiter Power Wash',
+    from: env.NOTIFY_EMAIL,
+    to: email,
+    replyTo: env.NOTIFY_EMAIL,
+    subject: `We got your request - Jupiter Power Wash`,
+    text,
+    html,
+  });
 }
 
 async function handleChat(request, env, cors) {
@@ -228,7 +336,7 @@ async function handleChat(request, env, cors) {
   }
 }
 
-async function sendEmail(env, { to, replyTo, subject, text, attachments }) {
+async function sendEmail(env, { to, replyTo, subject, text, html, attachments, from, fromName }) {
   if (!env.RESEND_API_KEY) throw new Error('RESEND_API_KEY is not set');
   if (!to || !env.FROM_EMAIL) throw new Error('NOTIFY_EMAIL / FROM_EMAIL not configured');
 
@@ -239,11 +347,12 @@ async function sendEmail(env, { to, replyTo, subject, text, attachments }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: `Jupiter Power Wash Website <${env.FROM_EMAIL}>`,
+      from: `${fromName || 'Jupiter Power Wash Website'} <${from || env.FROM_EMAIL}>`,
       to: [to],
       reply_to: replyTo,
       subject,
       text,
+      html: html || undefined,
       attachments: attachments && attachments.length ? attachments : undefined,
     }),
   });
