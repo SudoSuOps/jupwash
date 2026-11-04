@@ -1,6 +1,6 @@
 # Jupiter Power Wash
 
-> Family-owned power washing company in Jupiter, Florida. Home exteriors (stucco walls, hurricane shutters, windows and doors), concrete and brick-paver driveways, patios, pool decks, sidewalks, and Saturday solar panel cleaning for single-story homes. Two simple prices: $300 half day, $550 full day. Customers text a photo and get told up front which one it is.
+> Family-owned power washing company in Jupiter, Florida. Single-story home exteriors (stucco walls, hurricane shutters, windows and doors), concrete and brick-paver driveways, patios, pool decks, sidewalks, and Saturday solar panel cleaning for single-story homes. Two simple prices: $300 half day, $550 full day. Customers text a photo and get told up front which one it is.
 
 - Phone (call or text): 561-532-7120
 - Email: clean@jupiterpowerwash.com
@@ -27,6 +27,7 @@
 
 ## How we work
 
+- House washing (stucco, shutters, windows, doors) is for single-story homes only. No two-story houses.
 - Electric pressure washers: quiet, no exhaust fumes at the home. We use an outdoor electrical outlet, or bring our own generator.
 - No online booking: call, text, or use the contact form on the website.
 
