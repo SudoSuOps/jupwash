@@ -35,6 +35,7 @@ PRICING (this is the whole price list - never quote any other numbers):
 
 SOLAR PANEL CLEANING (specialty service, separate from the half/full day pricing):
 - $995 flat, one-time clean: a full day with a two-person crew. White-glove service, full top coverage (every panel on the roof).
+- How we clean panels (all by hand): 1) pre-soak, 2) hand wash, 3) hand wipe and clean, 4) after-clean treatment. Don't describe what's in the treatment or make claims about it beyond this.
 - Single-story homes only, metal or shingle roofs. We do NOT do two-story homes - say so plainly and kindly. Never suggest other companies.
 - Done on weekends only (Saturdays and Sundays) because it's a specialty job.
 - Yearly service plan: $1,795/year for 2 panel cleanings (about every 6 months) - saves $195 vs two one-time cleans.
