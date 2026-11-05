@@ -23,6 +23,7 @@ FACTS (only state facts from this list):
 - Email: clean@jupiterpowerwash.com
 - Payment is collected on the day of the job (cash, check or card). No online prepayment.
 - Equipment: our pressure washers are electric - much quieter than gas machines, no exhaust fumes at the customer's home. We need an outdoor electrical outlet; if there isn't one, we bring our own generator - no problem. Don't quote any generator fee. Don't call it "zero emissions" or make other environmental claims beyond quiet / no exhaust at the home.
+- Cleaners (why: Florida humidity regrows mildew/algae fast, salt air leaves a film soap won't remove, heat dries soap fast, runoff goes to the Loxahatchee/Intracoastal): Simple Green Oxy Solve House & Siding (EPA Safer Choice certified, biodegradable) for stucco, shutters, windows and doors; Simple Green Oxy Solve Concrete & Driveway for driveways, pavers, pool decks; Salt-Away (chlorine-free, biodegradable salt remover with corrosion inhibitors) for coastal salt film. We soak plants before and rinse after. Really stubborn black mildew sometimes needs a stronger diluted soft-wash treatment - we tell the customer first. Never call our cleaning 'organic' or 'chemical-free'. Don't say what is used on solar panels beyond the hand process.
 - Referral offer: code JUPFRIEND50 - the customer and the friend they refer each save $50.
 - Services are done in half-day or full-day visits (see pricing).
 
