@@ -1,0 +1,4 @@
+# Cloudflare Pages: serve the email logo as a PNG (do not sniff).
+/email/jupwash_logo_600.png
+  Content-Type: image/png
+  X-Content-Type-Options: nosniff

@@ -9,6 +9,8 @@ account_id = "6abec5e82728df0610a98be9364918e4"
 [vars]
 NOTIFY_EMAIL = "clean@jupiterpowerwash.com"
 FROM_EMAIL = "website@jupiterpowerwash.com"
+# Internal lead alerts (owner only). Leave empty to disable.
+LEAD_ALERT_EMAIL = "wash@jupiterpowerwash.com"
 # Frontend hostnames a Turnstile token may come from (production only, no localhost)
 TURNSTILE_HOSTNAMES = "jupiterpowerwash.com,www.jupiterpowerwash.com,jupwash.pages.dev"
 
