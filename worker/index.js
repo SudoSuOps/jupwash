@@ -120,6 +120,33 @@ function clean(value, max) {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
 }
 
+async function verifyTurnstile(env, token, remoteip) {
+  const expectedHostnames = new Set(
+    String(env.TURNSTILE_HOSTNAMES || '').split(',').map((h) => h.trim()).filter(Boolean),
+  );
+  if (!env.TURNSTILE_SECRET || typeof token !== 'string' || token.length === 0 || token.length > 2048 || expectedHostnames.size === 0) {
+    return false;
+  }
+  try {
+    const body = new URLSearchParams({ secret: env.TURNSTILE_SECRET, response: token });
+    if (remoteip) body.set('remoteip', remoteip);
+    const r = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body,
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!r.ok) return false;
+    const result = await r.json();
+    const ok = result.success === true && result.action === 'contact' && expectedHostnames.has(result.hostname);
+    if (!ok) console.log('turnstile rejected', JSON.stringify({ codes: result['error-codes'], action: result.action, hostname: result.hostname }));
+    return ok;
+  } catch (err) {
+    console.log('turnstile error', String(err));
+    return false;
+  }
+}
+
 async function handleContact(request, env, cors, ctx) {
   let data;
   try {
@@ -149,6 +176,11 @@ async function handleContact(request, env, cors, ctx) {
   if (!street || !town) {
     return jsonResponse({ error: 'Please add the street address and town where the job is.' }, 400, cors);
   }
+  // Bot check (Cloudflare Turnstile). Fail closed: no valid token, no email.
+  if (!(await verifyTurnstile(env, data['cf-turnstile-response'], request.headers.get('CF-Connecting-IP')))) {
+    return jsonResponse({ error: 'Security check failed' }, 403, cors);
+  }
+
   const address = `${street}, ${town === 'Other' ? '(outside service area)' : `${town}, FL`}`;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${street}, ${town === 'Other' ? '' : town + ', '}FL`)}`;
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

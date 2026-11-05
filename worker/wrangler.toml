@@ -3,12 +3,14 @@ main = "index.js"
 compatibility_date = "2024-01-01"
 account_id = "6abec5e82728df0610a98be9364918e4"
 
-# Secret (not in this file): RESEND_API_KEY
+# Secrets (not in this file): RESEND_API_KEY, TURNSTILE_SECRET (widget "jupwash-contact")
 #   npx wrangler secret put RESEND_API_KEY
 
 [vars]
 NOTIFY_EMAIL = "clean@jupiterpowerwash.com"
 FROM_EMAIL = "website@jupiterpowerwash.com"
+# Frontend hostnames a Turnstile token may come from (production only, no localhost)
+TURNSTILE_HOSTNAMES = "jupiterpowerwash.com,www.jupiterpowerwash.com,jupwash.pages.dev"
 
 [ai]
 binding = "AI"

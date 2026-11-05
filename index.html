@@ -2735,6 +2735,8 @@
         }
     
 
+        .turnstile-box { min-height: 65px; margin: 0.25rem 0 1rem; max-width: 100%; overflow: hidden; }
+
         /* Cleaners section */
         .cleaners { padding: 6rem 2rem; background: linear-gradient(180deg, #E6F0EB 0%, #F6F1E6 100%); }
         .cleaners .container { text-align: center; }
@@ -2808,6 +2810,20 @@
             }
         }
     </style>
+    <script>
+        window.contactTurnstileId = null;
+        window.onTurnstileLoad = function () {
+            var box = document.getElementById('contactTurnstile');
+            if (!box || !window.turnstile) return;
+            window.contactTurnstileId = window.turnstile.render(box, {
+                sitekey: '0x4AAAAAAF0PuyU9o4Qq5IGq',
+                action: 'contact',
+                theme: 'light',
+                'response-field': false
+            });
+        };
+    </script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad" async defer></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -3402,6 +3418,7 @@
                             <input type="checkbox" id="contact-sms-consent" name="sms_consent" value="yes">
                             <label for="contact-sms-consent">I agree to receive appointment and service texts from Jupiter Power Wash at the number provided. Msg frequency varies. Msg &amp; data rates may apply. Reply HELP for help, STOP to opt out. See our <a href="/privacy">Privacy Policy</a> and <a href="/terms">SMS Terms</a>.</label>
                         </div>
+                        <div id="contactTurnstile" class="turnstile-box"></div>
                         <button type="submit" class="btn-primary">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                                 <line x1="22" y1="2" x2="11" y2="13"/>
@@ -3755,6 +3772,14 @@
                 return;
             }
 
+            const tsToken = (window.turnstile && window.contactTurnstileId !== null)
+                ? window.turnstile.getResponse(window.contactTurnstileId) : '';
+            if (!tsToken) {
+                showFormStatus('err', "One second, we're finishing a quick security check. Try again in a moment, or call or text " + CALL_LINK + '.');
+                return;
+            }
+            data['cf-turnstile-response'] = tsToken;
+
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<svg class="spinner" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70" style="animation: spin 1s linear infinite;"/></svg> Sending...';
             formStatus.className = 'form-status';
@@ -3775,6 +3800,8 @@
                     form.reset();
                     photoInput.dispatchEvent(new Event('change'));
                     showFormStatus('ok', "Thanks! Your message is in. We'll get back to you soon. Need it faster? Call or text " + CALL_LINK + '.');
+                } else if (response.status === 403) {
+                    showFormStatus('err', "The security check didn't go through. Please try again, or call or text " + CALL_LINK + '.');
                 } else {
                     const msg = response.status === 400 && result.error
                         ? escapeHtml(result.error) + ' Or call or text ' + CALL_LINK + '.'
@@ -3785,6 +3812,10 @@
                 showFormStatus('err', "Sorry, we couldn't send that (connection problem). Please call or text " + CALL_LINK + '.');
             }
 
+            // Turnstile tokens are single-use: get a fresh one before any retry.
+            if (window.turnstile && window.contactTurnstileId !== null) {
+                window.turnstile.reset(window.contactTurnstileId);
+            }
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
         });
