@@ -139,6 +139,7 @@ async function handleContact(request, env, cors, ctx) {
   const townRaw = clean(data.town, 40);
   const town = TOWNS.includes(townRaw) ? townRaw : (townRaw ? 'Other' : '');
   const outlet = { yes: 'Yes', no: 'No - bring the generator' }[clean(data.outlet, 10)] || 'Not sure';
+  const smsConsent = clean(data.sms_consent, 8) === 'yes' ? 'Yes' : 'No';
 
   if (!name || !message || (!email && !phone)) {
     return jsonResponse({ error: 'Please add your name, a message, and an email or phone number.' }, 400, cors);
@@ -170,6 +171,7 @@ async function handleContact(request, env, cors, ctx) {
     `Email: ${email || 'Not provided'}`,
     `Photos: ${photos.length ? `${photos.length} attached` : 'none'}`,
     `Outdoor outlet: ${outlet}`,
+    `SMS opt-in: ${smsConsent}`,
     '',
     'Message:',
     '--------',

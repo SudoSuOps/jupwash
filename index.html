@@ -674,6 +674,35 @@
             margin-top: 0.4rem;
         }
 
+        .sms-consent {
+            display: flex;
+            flex-direction: row;
+            gap: 0.65rem;
+            align-items: flex-start;
+        }
+
+        .sms-consent input[type="checkbox"] {
+            width: 1.15rem;
+            height: 1.15rem;
+            margin: 0.2rem 0 0;
+            padding: 0;
+            flex: 0 0 auto;
+            accent-color: var(--jupiter-blue);
+            border-radius: 4px;
+        }
+
+        .sms-consent label {
+            font-weight: 400;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .sms-consent a {
+            color: var(--jupiter-orange);
+            font-weight: 600;
+        }
+
 
         /* Solar */
         .service-card.wide {
@@ -2245,7 +2274,8 @@
 
         .footer-legal {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
+            margin-top: 0.75rem;
         }
 
         .footer-legal a {
@@ -2578,6 +2608,14 @@
             .footer-bottom {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            footer {
+                padding-bottom: 7.5rem;
+            }
+
+            .footer-legal {
+                justify-content: center;
             }
 
             .chatbot-window {
@@ -3260,6 +3298,10 @@
                             <label for="contact-message">Message</label>
                             <textarea id="contact-message" name="message" placeholder="What would you like cleaned? (driveway, patio, pool deck...)" maxlength="4000" required></textarea>
                         </div>
+                        <div class="sms-consent">
+                            <input type="checkbox" id="contact-sms-consent" name="sms_consent" value="yes">
+                            <label for="contact-sms-consent">I agree to receive appointment and service texts from Jupiter Power Wash at the number provided. Msg frequency varies. Msg &amp; data rates may apply. Reply HELP for help, STOP to opt out. See our <a href="/privacy">Privacy Policy</a> and <a href="/terms">SMS Terms</a>.</label>
+                        </div>
                         <button type="submit" class="btn-primary">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                                 <line x1="22" y1="2" x2="11" y2="13"/>
@@ -3467,6 +3509,10 @@
                 <div>
                     <p>&copy; 2026 Jupiter Power Wash. All rights reserved.</p>
                     <p class="photo-credit">Hero photo: <a href="https://commons.wikimedia.org/wiki/File:Driveway-Cleaning-1-1.jpg" rel="noopener">&ldquo;Pressure washing block paving&rdquo;</a> by Cvcuk, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener license">CC BY-SA 4.0</a></p>
+                    <div class="footer-legal">
+                        <a href="/privacy">Privacy Policy</a>
+                        <a href="/terms">SMS Terms</a>
+                    </div>
                 </div>
             </div>
         </div>
