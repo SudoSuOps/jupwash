@@ -10,8 +10,7 @@
  * the email. A failed send returns an error so the page tells them to call.
  */
 
-const PHONE_DISPLAY = '561-600-9274';
-const PHONE_VANITY = '561-600-WASH';
+const PHONE_DISPLAY = '561-532-7120';
 
 const SERVICE_AREA = 'Jupiter, Tequesta, Palm Beach Gardens and Juno Beach';
 
@@ -20,7 +19,7 @@ const SYSTEM_PROMPT = `You are Splash, the friendly assistant on the Jupiter Pow
 FACTS (only state facts from this list):
 - Services: home exteriors on SINGLE-STORY homes only (stucco walls, hurricane shutters, windows and doors) - we do NOT wash two-story houses; say so plainly and kindly, concrete and brick-paver driveways, patios, pool areas / pool decks, sidewalks, and solar panel cleaning (specialty, see below). All of these are priced with the same half-day / full-day pricing.
 - Service area: ${SERVICE_AREA}. If someone is outside this, tell them to call and ask - don't promise.
-- Phone (call or text): ${PHONE_DISPLAY} (easy to remember: ${PHONE_VANITY}). This is the fastest way to get a free estimate.
+- Phone (call or text): ${PHONE_DISPLAY}. This is the fastest way to get a free estimate.
 - Email: clean@jupiterpowerwash.com
 - Payment is collected on the day of the job (cash, check or card). No online prepayment.
 - Equipment: our pressure washers are electric - much quieter than gas machines, no exhaust fumes at the customer's home. We need an outdoor electrical outlet; if there isn't one, we bring our own generator - no problem. Don't quote any generator fee. Don't call it "zero emissions" or make other environmental claims beyond quiet / no exhaust at the home.
@@ -250,7 +249,7 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
   </td></tr>
   <tr><td align="center" style="padding:24px 32px 8px;">
     <p style="margin:0 0 12px;font-size:15px;color:#6B6056;">Need it sooner? Call or text us:</p>
-    <a href="tel:+15616009274" style="display:inline-block;background:#A8824F;color:#FFFDF8;text-decoration:none;font-weight:bold;font-size:18px;padding:14px 28px;border-radius:999px;">561-600-9274</a>
+    <a href="tel:5615327120" style="display:inline-block;background:#A8824F;color:#FFFDF8;text-decoration:none;font-weight:bold;font-size:18px;padding:14px 28px;border-radius:999px;">561-532-7120</a>
     <p style="margin:12px 0 0;font-size:13px;color:#9C9080;">Mon&ndash;Sat 8am&ndash;6pm &middot; Closed Sunday</p>
   </td></tr>
   <tr><td style="padding:20px 32px 8px;">
