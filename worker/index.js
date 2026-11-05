@@ -1,7 +1,7 @@
 /**
  * Jupiter Power Wash - Website API (Cloudflare Worker)
  *
- *   POST /api/contact  -> emails the lead to NOTIFY_EMAIL via Resend
+ *   POST /api/contact  -> emails the lead to NOTIFY_EMAIL and LEAD_ALERT_EMAIL via Resend
  *   POST /api/chat     -> "Splash" chat assistant on Workers AI
  *
  * Stateless: no database. Secrets: RESEND_API_KEY (wrangler secret put RESEND_API_KEY).
@@ -25,6 +25,7 @@ FACTS (only state facts from this list):
 - Equipment: our pressure washers are electric - much quieter than gas machines, no exhaust fumes at the customer's home. We need an outdoor electrical outlet; if there isn't one, we bring our own generator - no problem. Don't quote any generator fee. Don't call it "zero emissions" or make other environmental claims beyond quiet / no exhaust at the home.
 - Cleaners (why: Florida humidity regrows mildew/algae fast, salt air leaves a film that holds moisture and eats metal, heat dries soap fast, runoff goes to the Loxahatchee/Intracoastal): Simple Green Oxy Solve House & Siding (EPA Safer Choice certified, biodegradable) for stucco, shutters, windows and doors; Simple Green Oxy Solve Concrete & Driveway for driveways, pavers, pool decks; a thorough fresh-water rinse to remove coastal salt film. We use Simple Green on every job - don't name other cleaning brands. We soak plants before and rinse after. Really stubborn black mildew sometimes needs a stronger diluted soft-wash treatment - we tell the customer first. Never call our cleaning 'organic' or 'chemical-free'. Don't say what is used on solar panels beyond the hand process.
 - Referral offer: code JUPFRIEND50 - the customer and the friend they refer each save $50.
+- Coaster offer: $50 off the wash when the customer has a Jup Wash coaster. The only codes are COAST-H, COAST-R, and COAST-H2. They claim it on https://jupiterpowerwash.com/coaster — the link on the coaster already includes their code. Don't add expiration, minimums, stacking, or any other terms. If they have no code, tell them to open the link on the coaster or call ${PHONE_DISPLAY}.
 - Services are done in half-day or full-day visits (see pricing).
 
 PRICING (this is the whole price list - never quote any other numbers):
@@ -58,6 +59,8 @@ const ALLOWED_ORIGINS = new Set([
 ]);
 
 const TOWNS = ['Jupiter', 'Tequesta', 'Palm Beach Gardens', 'Juno Beach'];
+
+const COASTER_CODES = new Set(['COAST-H', 'COAST-R', 'COAST-H2']);
 
 const LIMITS = { street: 150, name: 100, email: 200, phone: 40, message: 4000, chat: 1000, historyItem: 2000 };
 
@@ -169,6 +172,12 @@ async function handleContact(request, env, cors, ctx) {
   const town = TOWNS.includes(townRaw) ? townRaw : (townRaw ? 'Other' : '');
   const outlet = { yes: 'Yes', no: 'No - bring the generator' }[clean(data.outlet, 10)] || 'Not sure';
   const smsConsent = clean(data.sms_consent, 8) === 'yes' ? 'Yes' : 'No';
+  const codeCandidate = clean(data.code, 16).toUpperCase();
+  const coasterCode = COASTER_CODES.has(codeCandidate) ? codeCandidate : '';
+  const fromCoaster = clean(data.source, 20) === 'coaster' || Boolean(coasterCode);
+  const leadSource = coasterCode
+    ? `coaster ${coasterCode}`
+    : (fromCoaster ? 'coaster (no recognized code)' : 'website contact form');
 
   if (!name || !message || (!email && !phone)) {
     return jsonResponse({ error: 'Please add your name, a message, and an email or phone number.' }, 400, cors);
@@ -195,6 +204,7 @@ async function handleContact(request, env, cors, ctx) {
     'NEW WEBSITE LEAD - Jupiter Power Wash',
     `Ref: ${refId}`,
     `Received: ${when} ET`,
+    `Source: ${leadSource}`,
     '',
     `Address: ${address}`,
     `Map:     ${mapsUrl}`,
@@ -212,15 +222,15 @@ async function handleContact(request, env, cors, ctx) {
     message,
     '',
     '---',
-    'Sent from the contact form on jupiterpowerwash.com.',
+    `Sent from the ${fromCoaster ? 'coaster page' : 'contact form'} on jupiterpowerwash.com.`,
     email ? 'Hit Reply to answer the customer directly.' : 'No email given - call or text them back.',
   ].join('\n');
 
   try {
     await sendEmail(env, {
-      to: env.NOTIFY_EMAIL,
+      to: [env.NOTIFY_EMAIL, env.LEAD_ALERT_EMAIL].filter(Boolean),
       replyTo: email || undefined,
-      subject: `New lead: ${street}, ${town === 'Other' ? 'OUTSIDE AREA' : town} - ${name}${phone ? ` - ${phone}` : ''}${photos.length ? ` [${photos.length} photo${photos.length > 1 ? 's' : ''}]` : ''} (${refId})`,
+      subject: `New lead${coasterCode ? ` [${coasterCode}]` : ''}: ${street}, ${town === 'Other' ? 'OUTSIDE AREA' : town} - ${name}${phone ? ` - ${phone}` : ''}${photos.length ? ` [${photos.length} photo${photos.length > 1 ? 's' : ''}]` : ''} (${refId})`,
       text,
       attachments: photos,
     });
@@ -255,53 +265,53 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
   const photoText = photos
     ? `We got your ${photos > 1 ? `${photos} photos` : 'photo'} - thank you, that's exactly what we need.`
     : `Want a faster answer? Reply to this email with a photo of what needs cleaning, or text it to ${PHONE_DISPLAY}.`;
-  const areaHtml = outside
-    ? `<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#6B6056;">Heads up: your address may be outside our usual area (Jupiter, Tequesta, Palm Beach Gardens, Juno Beach). We'll let you know if we can make it.</p>`
+  const areaNote = outside
+    ? `Heads up: your address may be outside our usual area (${SERVICE_AREA}). We'll let you know if we can make it.`
     : '';
 
   const html = `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><title>We got your request</title></head>
-<body style="margin:0;padding:0;background:#F3E8D2;">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><title>We got your request - Jup Wash</title></head>
+<body style="margin:0;padding:0;background:#FAF5EA;">
 <div style="display:none;max-height:0;overflow:hidden;">Thanks ${escapeHtml(first)}! Here's what happens next with your free estimate.</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F3E8D2;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF5EA;">
 <tr><td align="center" style="padding:24px 12px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#FFFDF8;border-radius:16px;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#3A332A;">
-  <tr><td align="center" style="padding:28px 24px 8px;"><a href="${SITE}"><img src="${SITE}/images/brand/jupwash-email-logo.png" width="280" height="68" alt="Jupiter Power Wash" style="display:block;border:0;width:280px;height:auto;"></a></td></tr>
-  <tr><td style="padding:8px 32px 0;">
-    <h1 style="margin:16px 0 8px;font-size:24px;line-height:1.3;color:#3F5F56;">Thanks, ${escapeHtml(first)} &mdash; we got your request!</h1>
-    <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#6B6056;">Request for <strong style="color:#3A332A;">${escapeHtml(where)}</strong> &middot; Ref ${escapeHtml(refId)}</p>
-    ${areaHtml}
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FFFDF8;border:1px solid #D8C3A0;font-family:Georgia,'Times New Roman',Times,serif;color:#3A332A;">
+  <tr><td align="center" style="padding:28px 24px 16px;border-top:6px solid #3F5F56;">
+    <a href="${SITE}"><img src="${SITE}/email/jupwash_logo_600.png" width="180" alt="Jup Wash - Jupiter Power Wash" style="display:block;border:0;width:180px;height:auto;"></a>
+  </td></tr>
+  <tr><td style="padding:0 32px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td height="2" style="height:2px;line-height:2px;font-size:0;background:#A8824F;">&nbsp;</td></tr></table></td></tr>
+  <tr><td style="padding:24px 32px 0;">
+    <h1 style="margin:0 0 8px;font-family:Georgia,serif;font-size:24px;line-height:1.3;color:#3F5F56;font-weight:normal;">Thanks, ${escapeHtml(first)} &mdash; we got your request!</h1>
+    <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#5E5348;">Request for <strong style="color:#3A332A;">${escapeHtml(where)}</strong> &middot; Ref ${escapeHtml(refId)}</p>
+    ${areaNote ? `<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#5E5348;">${escapeHtml(areaNote)}</p>` : ''}
     <p style="margin:0 0 20px;font-size:15px;line-height:1.6;">${photoLine}</p>
   </td></tr>
   <tr><td style="padding:0 32px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F3E8D2;border-radius:12px;">
-      <tr><td style="padding:18px 20px;">
-        <p style="margin:0 0 10px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#A8824F;font-weight:bold;">What happens next</p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF5EA;border-left:4px solid #5E8679;">
+      <tr><td style="padding:18px 20px;font-family:Georgia,serif;">
+        <p style="margin:0 0 10px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#A8824F;font-weight:bold;">What happens next</p>
         <p style="margin:0 0 8px;font-size:15px;line-height:1.5;"><strong style="color:#3F5F56;">1.</strong> We look at your photos and your address.</p>
         <p style="margin:0 0 8px;font-size:15px;line-height:1.5;"><strong style="color:#3F5F56;">2.</strong> We get back to you &mdash; usually within 24 hours &mdash; with your free estimate: <strong>half day $300</strong> or <strong>full day $550</strong>.</p>
         <p style="margin:0;font-size:15px;line-height:1.5;"><strong style="color:#3F5F56;">3.</strong> We clean. You pay on the day &mdash; cash, check or card. No surprise add-ons.</p>
       </td></tr>
     </table>
   </td></tr>
-  <tr><td align="center" style="padding:24px 32px 8px;">
-    <p style="margin:0 0 12px;font-size:15px;color:#6B6056;">Need it sooner? Call or text us:</p>
-    <a href="tel:5615327120" style="display:inline-block;background:#A8824F;color:#FFFDF8;text-decoration:none;font-weight:bold;font-size:18px;padding:14px 28px;border-radius:999px;">561-532-7120</a>
-    <p style="margin:12px 0 0;font-size:13px;color:#9C9080;">Mon&ndash;Sat 8am&ndash;6pm &middot; Closed Sunday</p>
+  <tr><td align="center" style="padding:24px 32px 8px;font-family:Georgia,serif;">
+    <p style="margin:0 0 12px;font-size:15px;color:#5E5348;">Need it sooner? Call or text us:</p>
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" bgcolor="#3F5F56" style="background:#3F5F56;">
+      <a href="tel:+15615327120" style="display:inline-block;padding:14px 28px;font-family:Georgia,serif;font-size:18px;font-weight:bold;color:#FFFDF8;text-decoration:none;">561-532-7120</a>
+    </td></tr></table>
+    <p style="margin:12px 0 0;font-size:13px;color:#8A7E70;">Mon&ndash;Sat 8am&ndash;6pm &middot; Closed Sunday</p>
   </td></tr>
-  <tr><td style="padding:20px 32px 8px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px dashed #C9A876;border-radius:12px;">
-      <tr><td align="center" style="padding:14px 16px;">
-        <p style="margin:0 0 4px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#A8824F;font-weight:bold;">Tell a neighbor</p>
-        <p style="margin:0;font-size:15px;line-height:1.5;">Share code <strong style="letter-spacing:1px;color:#3F5F56;">JUPFRIEND50</strong> &mdash; you both save $50.</p>
-      </td></tr>
-    </table>
+  <tr><td style="padding:16px 32px 8px;">
+    <p style="margin:0 0 6px;font-size:14px;line-height:1.6;color:#5E5348;">Tell a neighbor: share code <strong style="color:#3F5F56;letter-spacing:1px;">JUPFRIEND50</strong> &mdash; you both save $50.</p>
+    <p style="margin:0;font-size:14px;line-height:1.6;color:#5E5348;">Have solar panels? We also do hand-washed solar panel cleaning for single-story homes on Saturdays &mdash; $995, or $1,795/year for two cleanings.</p>
   </td></tr>
-  <tr><td style="padding:16px 32px 4px;">
-    <p style="margin:0;font-size:14px;line-height:1.6;color:#6B6056;">Have solar panels? We also do white-glove, hand-washed solar panel cleaning for single-story homes on Saturdays &mdash; $995, or $1,795/year for two cleanings.</p>
-  </td></tr>
-  <tr><td style="padding:24px 32px 28px;border-top:1px solid #EDE0C8;">
-    <p style="margin:16px 0 4px;font-size:13px;line-height:1.6;color:#9C9080;font-style:italic;">&ldquo;Powering Clean, One Wash at a Time &ndash; Your Property, Our Priority&rdquo;</p>
-    <p style="margin:0;font-size:12px;line-height:1.6;color:#9C9080;">Jupiter Power Wash &middot; 1609 Berkshire Ave, Jupiter, FL 33469<br><a href="${SITE}" style="color:#5E8679;">jupiterpowerwash.com</a> &middot; <a href="mailto:clean@jupiterpowerwash.com" style="color:#5E8679;">clean@jupiterpowerwash.com</a><br>You're getting this because you requested an estimate on our website. Just reply if you have questions.</p>
+  <tr><td align="center" bgcolor="#3F5F56" style="background:#3F5F56;padding:22px 32px;font-family:Georgia,serif;">
+    <p style="margin:0 0 6px;font-size:15px;color:#FAF5EA;letter-spacing:2px;text-transform:uppercase;">Jup Wash</p>
+    <p style="margin:0 0 6px;font-size:13px;line-height:1.6;color:#FAF5EA;">Jupiter, FL &middot; <a href="tel:+15615327120" style="color:#FAF5EA;text-decoration:none;">561-532-7120</a> &middot; <a href="${SITE}" style="color:#C9A876;">jupiterpowerwash.com</a></p>
+    <p style="margin:0 0 8px;font-size:12px;"><a href="${SITE}/privacy" style="color:#C9A876;">Privacy</a> &nbsp;&middot;&nbsp; <a href="${SITE}/terms" style="color:#C9A876;">Terms</a></p>
+    <p style="margin:0;font-size:11px;line-height:1.5;color:#D8C3A0;">You're getting this because you requested an estimate on our website. Just reply if you have questions.</p>
   </td></tr>
 </table>
 </td></tr></table>
@@ -310,7 +320,7 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
   const text = [
     `Thanks, ${first} - we got your request!`,
     `Request for ${where} (Ref ${refId})`,
-    outside ? `Heads up: your address may be outside our usual area (Jupiter, Tequesta, Palm Beach Gardens, Juno Beach). We'll let you know if we can make it.` : '',
+    areaNote,
     '',
     photoText,
     '',
@@ -323,10 +333,16 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
     '',
     'Tell a neighbor: share code JUPFRIEND50 - you both save $50.',
     '',
-    'Have solar panels? White-glove, hand-washed solar panel cleaning for single-story homes on Saturdays: $995, or $1,795/year for two cleanings.',
+    'Have solar panels? We also do hand-washed solar panel cleaning for single-story homes on Saturdays: $995, or $1,795/year for two cleanings.',
     '',
-    'Jupiter Power Wash - 1609 Berkshire Ave, Jupiter, FL 33469',
-    'jupiterpowerwash.com - clean@jupiterpowerwash.com',
+    'Jup Wash',
+    'Jupiter, FL',
+    PHONE_DISPLAY,
+    SITE,
+    `Privacy: ${SITE}/privacy`,
+    `Terms: ${SITE}/terms`,
+    '',
+    "You're getting this because you requested an estimate on our website. Just reply if you have questions.",
   ].filter((l, i, a) => !(l === '' && a[i - 1] === '')).join('\n');
 
   await sendEmail(env, {
@@ -374,7 +390,7 @@ async function handleChat(request, env, cors) {
 
 async function sendEmail(env, { to, replyTo, subject, text, html, attachments, from, fromName }) {
   if (!env.RESEND_API_KEY) throw new Error('RESEND_API_KEY is not set');
-  if (!to || !env.FROM_EMAIL) throw new Error('NOTIFY_EMAIL / FROM_EMAIL not configured');
+  if (!to || (Array.isArray(to) && !to.length) || !env.FROM_EMAIL) throw new Error('NOTIFY_EMAIL / FROM_EMAIL not configured');
 
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -384,7 +400,7 @@ async function sendEmail(env, { to, replyTo, subject, text, html, attachments, f
     },
     body: JSON.stringify({
       from: `${fromName || 'Jupiter Power Wash Website'} <${from || env.FROM_EMAIL}>`,
-      to: [to],
+      to: Array.isArray(to) ? to : [to],
       reply_to: replyTo,
       subject,
       text,

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Got a Jup Wash coaster? $50 off your wash | Jupiter Power Wash</title>
+    <meta name="description" content="Got a Jup Wash coaster? Request a quote and claim your $50 off your wash. Call or text 561-532-7120. Jupiter, Tequesta, Palm Beach Gardens, and Juno Beach.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jupiterpowerwash.com/coaster">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/images/brand/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/brand/jupwash-favicon-32.png">
+    <link rel="apple-touch-icon" href="/images/brand/jupwash-apple-touch-icon-180.png">
+    <meta name="theme-color" content="#3F5F56">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jupiterpowerwash.com/coaster">
+    <meta property="og:title" content="Got a Jup Wash coaster? Claim your $50 off your wash">
+    <meta property="og:description" content="Request a quote from Jupiter Power Wash and include the code from your coaster. Call or text 561-532-7120.">
+    <meta property="og:image" content="https://jupiterpowerwash.com/email/jupwash_logo_600.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --jupiter-cyan: #5E8679;
+            --jupiter-blue: #3F5F56;
+            --jupiter-orange: #A8824F;
+            --jupiter-gold: #C9A876;
+            --jupiter-warm: #D8C3A0;
+            --deep-space: #F3E8D2;
+            --clean-white: #FAF5EA;
+            --card: #FFFDF8;
+            --text-primary: #3A332A;
+            --text-secondary: #6B6056;
+            --text-muted: #9C9080;
+            --border-subtle: rgba(58, 51, 42, 0.08);
+            --gradient-warm: linear-gradient(135deg, #A8824F 0%, #C9A876 100%);
+            --gradient-space: linear-gradient(160deg, #2A3F3A 0%, #3F5F56 45%, #5E8679 100%);
+            --shadow-medium: 0 10px 20px -5px rgba(58, 51, 42, 0.12), 0 4px 8px -2px rgba(58, 51, 42, 0.06);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
+            background: var(--clean-white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a { color: var(--jupiter-orange); }
+
+        .nav {
+            background: rgba(250, 245, 234, 0.96);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0.85rem 1.25rem;
+        }
+
+        .nav-inner {
+            max-width: 880px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-logo img {
+            display: block;
+            width: 210px;
+            height: auto;
+        }
+
+        .nav-phone {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .nav-phone:hover { color: var(--jupiter-orange); }
+
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 3rem;
+        }
+
+        .intro { text-align: center; }
+
+        .badge {
+            width: 148px;
+            height: auto;
+            margin: 0.25rem auto 1rem;
+            display: block;
+        }
+
+        h1 {
+            color: var(--jupiter-blue);
+            font-size: 2.15rem;
+            margin: 0 0 0.75rem;
+        }
+
+        .lede {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin: 0 auto 1.25rem;
+            max-width: 38rem;
+        }
+
+        .code-note {
+            margin: 0 auto 1.25rem;
+            max-width: 36rem;
+            padding: 0.85rem 1rem;
+            border-radius: 14px;
+            background: rgba(94, 134, 121, 0.12);
+            border: 1px solid var(--jupiter-cyan);
+            color: var(--jupiter-blue);
+        }
+
+        .code-note.warn {
+            background: rgba(168, 130, 79, 0.12);
+            border-color: var(--jupiter-orange);
+            color: #7A5527;
+        }
+
+        .code-note strong { letter-spacing: 0.04em; }
+
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin: 0 0 1.5rem;
+            padding: 0;
+            list-style: none;
+        }
+
+        .facts li {
+            background: var(--card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 0.9rem 0.7rem;
+            text-align: center;
+        }
+
+        .facts strong {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--jupiter-blue);
+            font-size: 1.15rem;
+        }
+
+        .facts span {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 2rem 1.75rem;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .card h2 {
+            margin: 0 0 0.35rem;
+            font-size: 1.45rem;
+            color: var(--jupiter-blue);
+        }
+
+        .card > p {
+            margin: 0 0 1.25rem;
+            color: var(--text-secondary);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.05rem;
+            position: relative;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label { font-weight: 500; font-size: 0.95rem; }
+
+        .hint {
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.95rem 1rem;
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            font: inherit;
+            font-size: 1rem;
+            background: var(--deep-space);
+            color: var(--text-primary);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--jupiter-cyan);
+            box-shadow: 0 0 0 3px rgba(94, 134, 121, 0.15);
+            background: var(--card);
+        }
+
+        .form-group textarea { min-height: 96px; resize: vertical; }
+
+        .sms-consent {
+            display: flex;
+            gap: 0.65rem;
+            align-items: flex-start;
+        }
+
+        .sms-consent input {
+            width: 1.15rem;
+            height: 1.15rem;
+            margin: 0.25rem 0 0;
+            flex: 0 0 auto;
+            accent-color: var(--jupiter-blue);
+        }
+
+        .sms-consent label {
+            font-weight: 400;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .hp-field {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        .turnstile-box { min-height: 65px; max-width: 100%; overflow: hidden; }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            background: var(--gradient-warm);
+            color: var(--deep-space);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover { box-shadow: 0 8px 20px rgba(168, 130, 79, 0.28); }
+
+        .btn-primary:disabled { opacity: 0.7; cursor: wait; }
+
+        .form-status {
+            display: none;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .form-status.ok {
+            display: block;
+            background: rgba(94, 134, 121, 0.12);
+            color: var(--jupiter-blue);
+            border: 1px solid var(--jupiter-cyan);
+        }
+
+        .form-status.err {
+            display: block;
+            background: rgba(168, 130, 79, 0.12);
+            color: #7A5527;
+            border: 1px solid var(--jupiter-orange);
+        }
+
+        .form-status a { color: inherit; font-weight: 700; }
+
+        .call-line {
+            text-align: center;
+            margin: 1.25rem 0 0;
+            color: var(--text-secondary);
+        }
+
+        .call-line a {
+            color: var(--jupiter-blue);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        footer {
+            background: var(--gradient-space);
+            color: rgba(250, 245, 234, 0.8);
+            text-align: center;
+            padding: 1.75rem 1.25rem 2rem;
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: #FAF5EA;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover { color: var(--jupiter-gold); }
+
+        footer p { margin: 0.35rem 0; }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.7rem; }
+            .facts { grid-template-columns: 1fr; }
+            .card { padding: 1.35rem 1.05rem; }
+            .nav-logo img { width: 160px; }
+        }
+    </style>
+    <script>
+        window.coasterTurnstileId = null;
+        window.onTurnstileLoad = function () {
+            var box = document.getElementById('coasterTurnstile');
+            if (!box || !window.turnstile) return;
+            window.coasterTurnstileId = window.turnstile.render(box, {
+                sitekey: '0x4AAAAAAF0PuyU9o4Qq5IGq',
+                action: 'contact',
+                theme: 'light',
+                'response-field': false
+            });
+        };
+    </script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad" async defer></script>
+</head>
+<body>
+    <header class="nav">
+        <div class="nav-inner">
+            <a class="nav-logo" href="/" aria-label="Jupiter Power Wash home">
+                <img src="/images/brand/jupwash-logo-horizontal-fullcolor.svg" alt="Jupiter Power Wash" width="531" height="128">
+            </a>
+            <a class="nav-phone" href="tel:+15615327120">561-532-7120</a>
+        </div>
+    </header>
+    <main>
+        <div class="intro">
+            <img class="badge" src="/email/jupwash_logo_600.png" width="600" height="600" alt="Jup Wash">
+            <h1>Got a Jup Wash coaster? Claim your $50 off your wash</h1>
+            <p class="lede">Send a short quote request. If this link has your coaster code, we include that code with the request. Half day is $300 and full day is $550. Estimates are free. You pay on the day of the job &mdash; cash, check, or card.</p>
+            <p class="code-note" id="codeKnown" hidden>Coaster code <strong id="codeValue"></strong> will be included with this request.</p>
+            <p class="code-note warn" id="codeMissing" hidden>This link does not include a coaster code (COAST-H, COAST-R, or COAST-H2). Open the link on your coaster, or call or text <a href="tel:+15615327120">561-532-7120</a>. You can still request a quote below.</p>
+            <ul class="facts">
+                <li><strong>$300</strong><span>Half day</span></li>
+                <li><strong>$550</strong><span>Full day</span></li>
+                <li><strong>On the day</strong><span>Cash, check, or card</span></li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>Request a quote</h2>
+            <p>Jupiter, Tequesta, Palm Beach Gardens, and Juno Beach. House washing is for single-story homes.</p>
+            <form id="coasterForm">
+                <div class="form-group">
+                    <label for="coaster-name">Your name</label>
+                    <input type="text" id="coaster-name" name="name" autocomplete="name" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="coaster-phone">Phone <span class="hint">(fastest way to reach you)</span></label>
+                    <input type="tel" id="coaster-phone" name="phone" autocomplete="tel" maxlength="40" placeholder="(561) 555-0123">
+                </div>
+                <div class="form-group">
+                    <label for="coaster-email">Email</label>
+                    <input type="email" id="coaster-email" name="email" autocomplete="email" maxlength="200">
+                </div>
+                <div class="form-group">
+                    <label for="coaster-street">Street address <span class="hint">(where the job is)</span></label>
+                    <input type="text" id="coaster-street" name="street" autocomplete="street-address" maxlength="150" required>
+                </div>
+                <div class="form-group">
+                    <label for="coaster-town">Town</label>
+                    <select id="coaster-town" name="town" required>
+                        <option value="">Choose your town</option>
+                        <option>Jupiter</option>
+                        <option>Tequesta</option>
+                        <option>Palm Beach Gardens</option>
+                        <option>Juno Beach</option>
+                        <option value="Other">Somewhere else</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="coaster-message">What should we wash?</label>
+                    <textarea id="coaster-message" name="message" maxlength="4000" required placeholder="Driveway, patio, pool deck, house..."></textarea>
+                </div>
+                <p class="hint">Leave an email or a phone number so we can get back to you.</p>
+                <div class="sms-consent">
+                    <input type="checkbox" id="coaster-sms" name="sms_consent" value="yes">
+                    <label for="coaster-sms">I agree to receive appointment and service texts from Jupiter Power Wash at the number provided. Msg frequency varies. Msg &amp; data rates may apply. Reply HELP for help, STOP to opt out. See our <a href="/privacy">Privacy Policy</a> and <a href="/terms">SMS Terms</a>.</label>
+                </div>
+                <div class="hp-field" aria-hidden="true">
+                    <label for="coaster-website">Website</label>
+                    <input type="text" id="coaster-website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+                <input type="hidden" name="source" value="coaster">
+                <input type="hidden" name="code" id="coasterCode" value="">
+                <div id="coasterTurnstile" class="turnstile-box"></div>
+                <button type="submit" class="btn-primary">Request my quote</button>
+                <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+            </form>
+            <p class="call-line">Prefer to talk? Call or text <a href="tel:+15615327120">561-532-7120</a>. Monday&ndash;Saturday 8am&ndash;6pm. Closed Sunday.</p>
+        </div>
+    </main>
+    <footer>
+        <p><a href="tel:+15615327120">561-532-7120</a> &middot; <a href="mailto:clean@jupiterpowerwash.com">clean@jupiterpowerwash.com</a></p>
+        <p>&copy; 2026 Jupiter Power Wash</p>
+        <p><a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">SMS Terms</a></p>
+    </footer>
+    <script>
+        (function () {
+            var allowed = { 'COAST-H': true, 'COAST-R': true, 'COAST-H2': true };
+            var raw = '';
+            try {
+                raw = (new URLSearchParams(location.search).get('c') || '').trim().toUpperCase();
+            } catch (err) {
+                raw = '';
+            }
+            var code = allowed[raw] ? raw : '';
+            var input = document.getElementById('coasterCode');
+            if (input) input.value = code;
+            var known = document.getElementById('codeKnown');
+            var missing = document.getElementById('codeMissing');
+            if (code && known) {
+                known.hidden = false;
+                document.getElementById('codeValue').textContent = code;
+            } else if (missing) {
+                missing.hidden = false;
+            }
+        })();
+
+        const API_URL = 'https://jupwash-api.dm-6ab.workers.dev';
+        const form = document.getElementById('coasterForm');
+        const formStatus = document.getElementById('formStatus');
+        const CALL_LINK = '<a href="tel:+15615327120">561-532-7120</a>';
+
+        function escapeHtml(t) {
+            return String(t).replace(/[&<>"']/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
+        }
+
+        function showFormStatus(kind, html) {
+            formStatus.className = 'form-status ' + kind;
+            formStatus.innerHTML = html;
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var submitBtn = form.querySelector('button[type="submit"]');
+            var originalText = submitBtn.innerHTML;
+            var data = Object.fromEntries(new FormData(form));
+
+            if (!String(data.email || '').trim() && !String(data.phone || '').trim()) {
+                showFormStatus('err', 'Please leave an email or a phone number so we can get back to you.');
+                return;
+            }
+
+            var tsToken = (window.turnstile && window.coasterTurnstileId !== null)
+                ? window.turnstile.getResponse(window.coasterTurnstileId) : '';
+            if (!tsToken) {
+                showFormStatus('err', "One second, we're finishing a quick security check. Try again in a moment, or call or text " + CALL_LINK + '.');
+                return;
+            }
+            data['cf-turnstile-response'] = tsToken;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            formStatus.className = 'form-status';
+
+            try {
+                var response = await fetch(API_URL + '/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+                var result = {};
+                try { result = await response.json(); } catch (err) { result = {}; }
+
+                if (response.ok && result.success) {
+                    var sentCode = data.code ? ' Coaster code ' + escapeHtml(data.code) + ' is included.' : '';
+                    form.reset();
+                    document.getElementById('coasterCode').value = data.code || '';
+                    var sourceInput = form.querySelector('input[name="source"]');
+                    if (sourceInput) sourceInput.value = 'coaster';
+                    showFormStatus('ok', "Thanks! Your quote request is in." + sentCode + " Need it faster? Call or text " + CALL_LINK + '.');
+                } else if (response.status === 403) {
+                    showFormStatus('err', "The security check didn't go through. Please try again, or call or text " + CALL_LINK + '.');
+                } else {
+                    var msg = response.status === 400 && result.error
+                        ? escapeHtml(result.error) + ' Or call or text ' + CALL_LINK + '.'
+                        : "Sorry, your request didn't go through. Please call or text " + CALL_LINK + '.';
+                    showFormStatus('err', msg);
+                }
+            } catch (error) {
+                showFormStatus('err', "Sorry, we couldn't send that (connection problem). Please call or text " + CALL_LINK + '.');
+            }
+
+            if (window.turnstile && window.coasterTurnstileId !== null) {
+                window.turnstile.reset(window.coasterTurnstileId);
+            }
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        });
+    </script>
+</body>
+</html>
