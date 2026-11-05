@@ -92,9 +92,15 @@ export default {
     const url = new URL(request.url);
 
     if (request.method === 'POST' && url.pathname === '/api/contact') {
+      if (!(await underLimit(env.CONTACT_IP, request))) {
+        return jsonResponse({ error: 'Too many requests. Please call or text us instead.' }, 429, cors);
+      }
       return handleContact(request, env, cors, ctx);
     }
     if (request.method === 'POST' && url.pathname === '/api/chat') {
+      if (!(await underLimit(env.CHAT_IP, request))) {
+        return jsonResponse({ response: `You're sending messages fast! Give it a minute, or call or text us at ${PHONE_DISPLAY}.` }, 429, cors);
+      }
       return handleChat(request, env, cors);
     }
 
@@ -120,11 +126,50 @@ function clean(value, max) {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
 }
 
+// Returns true the first time a token is seen, false on a repeat. Turnstile's siteverify
+// was observed accepting the same token twice, so single use is enforced here with a
+// D1 primary key (strongly consistent: a second INSERT of the same hash fails).
+async function markTokenUsed(env, token) {
+  if (!env.TOKENS_DB) return true;
+  try {
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token));
+    const hex = [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
+    const now = Date.now();
+    const res = await env.TOKENS_DB
+      .prepare('INSERT OR IGNORE INTO used_tokens (hash, used_at) VALUES (?, ?)')
+      .bind(hex, now)
+      .run();
+    // Tokens expire after 5 minutes; keep a day of history, prune the rest.
+    await env.TOKENS_DB.prepare('DELETE FROM used_tokens WHERE used_at < ?').bind(now - 86400000).run();
+    return res.meta.changes === 1;
+  } catch (err) {
+    console.log('turnstile dedupe error', String(err));
+    return true; // fail open on the dedupe only; siteverify still has to pass
+  }
+}
+
+// Per-visitor rate limit. Fails open if the binding is unavailable.
+async function underLimit(limiter, request) {
+  if (!limiter) return true;
+  try {
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    const { success } = await limiter.limit({ key: ip });
+    return success;
+  } catch {
+    return true;
+  }
+}
+
 async function verifyTurnstile(env, token, remoteip) {
   const expectedHostnames = new Set(
     String(env.TURNSTILE_HOSTNAMES || '').split(',').map((h) => h.trim()).filter(Boolean),
   );
   if (!env.TURNSTILE_SECRET || typeof token !== 'string' || token.length === 0 || token.length > 2048 || expectedHostnames.size === 0) {
+    return false;
+  }
+  const used = await markTokenUsed(env, token);
+  if (!used) {
+    console.log('turnstile rejected', JSON.stringify({ codes: ['duplicate-local'] }));
     return false;
   }
   try {

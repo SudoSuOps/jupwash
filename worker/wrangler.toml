@@ -18,3 +18,25 @@ binding = "AI"
 # Keep worker logs so a lead that fails to email can still be recovered from the dashboard.
 [observability]
 enabled = true
+
+# Used Turnstile tokens (single-use enforcement). Table: used_tokens(hash PK, used_at)
+[[d1_databases]]
+binding = "TOKENS_DB"
+database_name = "jupwash-tokens"
+database_id = "85742ac2-00b8-49db-aafb-f4720a76ad60"
+
+# Rate limits (approximate, per Cloudflare location): 5 form submits and
+# 20 chat messages per visitor IP per minute.
+[[ratelimits]]
+name = "CONTACT_IP"
+namespace_id = "1002"
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
+[[ratelimits]]
+name = "CHAT_IP"
+namespace_id = "1003"
+  [ratelimits.simple]
+  limit = 20
+  period = 60
