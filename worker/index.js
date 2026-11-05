@@ -10,7 +10,9 @@
  * the email. A failed send returns an error so the page tells them to call.
  */
 
-const PHONE_DISPLAY = '561-532-7120';
+const PHONE_DISPLAY = '561-600-9274 (561-600-WASH)';
+const PHONE_TEL = '+15616009274';
+const PUBLIC_EMAIL = 'wash@jupiterpowerwash.com';
 
 const SERVICE_AREA = 'Jupiter, Tequesta, Palm Beach Gardens and Juno Beach';
 
@@ -20,7 +22,7 @@ FACTS (only state facts from this list):
 - Services: home exteriors on SINGLE-STORY homes only (stucco walls, hurricane shutters, windows and doors) - we do NOT wash two-story houses; say so plainly and kindly, without giving a reason, concrete and brick-paver driveways, patios, pool areas / pool decks, sidewalks, and solar panel cleaning (specialty, see below). All of these are priced with the same half-day / full-day pricing.
 - Service area: ${SERVICE_AREA}. If someone is outside this, tell them to call and ask - don't promise.
 - Phone (call or text): ${PHONE_DISPLAY}. This is the fastest way to get a free estimate.
-- Email: clean@jupiterpowerwash.com
+- Email: ${PUBLIC_EMAIL}
 - Payment is collected on the day of the job (cash, check or card). No online prepayment.
 - Equipment: our pressure washers are electric - much quieter than gas machines, no exhaust fumes at the customer's home. We need an outdoor electrical outlet; if there isn't one, we bring our own generator - no problem. Don't quote any generator fee. Don't call it "zero emissions" or make other environmental claims beyond quiet / no exhaust at the home.
 - Cleaners (why: Florida humidity regrows mildew/algae fast, salt air leaves a film that holds moisture and eats metal, heat dries soap fast, runoff goes to the Loxahatchee/Intracoastal): Simple Green Oxy Solve House & Siding (EPA Safer Choice certified, biodegradable) for stucco, shutters, windows and doors; Simple Green Oxy Solve Concrete & Driveway for driveways, pavers, pool decks; a thorough fresh-water rinse to remove coastal salt film. We use Simple Green on every job - don't name other cleaning brands. We soak plants before and rinse after. Really stubborn black mildew sometimes needs a stronger diluted soft-wash treatment - we tell the customer first. Never call our cleaning 'organic' or 'chemical-free'. Don't say what is used on solar panels beyond the hand process.
@@ -344,7 +346,7 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
   <tr><td align="center" style="padding:24px 32px 8px;font-family:Georgia,serif;">
     <p style="margin:0 0 12px;font-size:15px;color:#5E5348;">Need it sooner? Call or text us:</p>
     <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" bgcolor="#3F5F56" style="background:#3F5F56;">
-      <a href="tel:+15615327120" style="display:inline-block;padding:14px 28px;font-family:Georgia,serif;font-size:18px;font-weight:bold;color:#FFFDF8;text-decoration:none;">561-532-7120</a>
+      <a href="tel:${PHONE_TEL}" style="display:inline-block;padding:14px 28px;font-family:Georgia,serif;font-size:18px;font-weight:bold;color:#FFFDF8;text-decoration:none;">${PHONE_DISPLAY}</a>
     </td></tr></table>
     <p style="margin:12px 0 0;font-size:13px;color:#8A7E70;">Mon&ndash;Sat 8am&ndash;6pm &middot; Closed Sunday</p>
   </td></tr>
@@ -354,7 +356,7 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
   </td></tr>
   <tr><td align="center" bgcolor="#3F5F56" style="background:#3F5F56;padding:22px 32px;font-family:Georgia,serif;">
     <p style="margin:0 0 6px;font-size:15px;color:#FAF5EA;letter-spacing:2px;text-transform:uppercase;">Jup Wash</p>
-    <p style="margin:0 0 6px;font-size:13px;line-height:1.6;color:#FAF5EA;">Jupiter, FL &middot; <a href="tel:+15615327120" style="color:#FAF5EA;text-decoration:none;">561-532-7120</a> &middot; <a href="${SITE}" style="color:#C9A876;">jupiterpowerwash.com</a></p>
+    <p style="margin:0 0 6px;font-size:13px;line-height:1.6;color:#FAF5EA;">Jupiter, FL &middot; <a href="tel:${PHONE_TEL}" style="color:#FAF5EA;text-decoration:none;">${PHONE_DISPLAY}</a> &middot; <a href="${SITE}" style="color:#C9A876;">jupiterpowerwash.com</a></p>
     <p style="margin:0 0 8px;font-size:12px;"><a href="${SITE}/privacy" style="color:#C9A876;">Privacy</a> &nbsp;&middot;&nbsp; <a href="${SITE}/terms" style="color:#C9A876;">Terms</a></p>
     <p style="margin:0;font-size:11px;line-height:1.5;color:#D8C3A0;">You're getting this because you requested an estimate on our website. Just reply if you have questions.</p>
   </td></tr>
@@ -392,9 +394,9 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
 
   await sendEmail(env, {
     fromName: 'Jupiter Power Wash',
-    from: env.NOTIFY_EMAIL,
+    from: PUBLIC_EMAIL,
     to: email,
-    replyTo: env.NOTIFY_EMAIL,
+    replyTo: PUBLIC_EMAIL,
     subject: `We got your request - Jupiter Power Wash`,
     text,
     html,
