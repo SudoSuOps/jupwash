@@ -30,6 +30,29 @@ FACTS (only state facts from this list):
 - Coaster offer: $50 off the wash when the customer has a Jup Wash coaster. The only codes are COAST-H, COAST-R, and COAST-H2. They claim it on https://jupiterpowerwash.com/coaster — the link on the coaster already includes their code. Don't add expiration, minimums, stacking, or any other terms. If they have no code, tell them to open the link on the coaster or call ${PHONE_DISPLAY}.
 - Services are done in half-day or full-day visits (see pricing).
 
+EXTERIOR CAR WASH (separate from half-day / full-day power washing):
+- We wash the outside of the car. $25 for one exterior wash, or $99/month for unlimited exterior washes.
+- At the customer's home, or at ours: 1609 Berkshire Ave, Jupiter, FL 33469. At ours, pull into the driveway and beep.
+- Shop hours are the published hours: Monday-Saturday 8am-6pm. Closed Sunday.
+- Do not add membership caps, vehicle limits, cancellation terms, extra fees, a travel radius, or interior cleaning. Do not offer wax, interior detail, vacuuming, or shampoo.
+- There is no online payment and no signup link. To set one up, they call or text the phone number or email wash@jupiterpowerwash.com.
+
+JOB PHOTOGRAPHS:
+- The site shows two still job photographs: a technician washing an octagon paver driveway at sunset outside a single-story home, and a close-up of octagon pavers with a brick border beside a lawn. The paver close-up is a detail of the surface, not a before-and-after of a wash.
+- Do not claim thumbs-up photos or spray-action photos are published as their own pictures.
+- There is no video on the website. Do not describe a montage, and do not say a film is published.
+- The large hero image at the top is credited separately and is not one of these job photographs.
+
+JUP WASH SOAP DISHES:
+- Three photographs are on the site. No price is listed. There is no online purchase.
+- Green wave, shown in two pieces, insert off the slotted base.
+- Beige pebble appearance, shown as a full dish.
+- Clear wave, mint appearance, shown as a full dish.
+- Those words describe how the photographs look. Do not turn them into material names, product codes, dimensions, or stock claims. Do not invent a price. Tell them to call, text, or email.
+
+MASCOT:
+- Jup Wash CEO is the name of our bull mascot. The bull validates the clean. It is a playful mascot, not a real person, and not an outside certification or inspection. The mascot artwork is not on the website. Do not describe a picture of it.
+
 PRICING (this is the whole price list - never quote any other numbers):
 - Half day, full service: $300
 - Full day, full service: $550
@@ -352,7 +375,8 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
   </td></tr>
   <tr><td style="padding:16px 32px 8px;">
     <p style="margin:0 0 6px;font-size:14px;line-height:1.6;color:#5E5348;">Tell a neighbor: share code <strong style="color:#3F5F56;letter-spacing:1px;">JUPFRIEND50</strong> &mdash; you both save $50.</p>
-    <p style="margin:0;font-size:14px;line-height:1.6;color:#5E5348;">Have solar panels? We also do hand-washed solar panel cleaning for single-story homes on Saturdays &mdash; $995, or $1,795/year for two cleanings.</p>
+    <p style="margin:0 0 8px;font-size:14px;line-height:1.6;color:#5E5348;">Have solar panels? We also do hand-washed solar panel cleaning for single-story homes on Saturdays &mdash; $995, or $1,795/year for two cleanings.</p>
+    <p style="margin:0;font-size:14px;line-height:1.6;color:#5E5348;">Exterior car wash is separate: $25 for one exterior wash, or $99 a month for unlimited exterior washes. Call or text us.</p>
   </td></tr>
   <tr><td align="center" bgcolor="#3F5F56" style="background:#3F5F56;padding:22px 32px;font-family:Georgia,serif;">
     <p style="margin:0 0 6px;font-size:15px;color:#FAF5EA;letter-spacing:2px;text-transform:uppercase;">Jup Wash</p>
@@ -381,6 +405,7 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
     'Tell a neighbor: share code JUPFRIEND50 - you both save $50.',
     '',
     'Have solar panels? We also do hand-washed solar panel cleaning for single-story homes on Saturdays: $995, or $1,795/year for two cleanings.',
+    'Exterior car wash is separate: $25 for one exterior wash, or $99 a month for unlimited exterior washes. Call or text us.',
     '',
     'Jup Wash',
     'Jupiter, FL',
