@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Power Washing in Jupiter, FL | Jupiter Power Wash</title>
-    <meta name="description" content="Family-owned power washing in Jupiter, Tequesta, Palm Beach Gardens &amp; Juno Beach. $300 half day or $550 full day. Text a photo to 561-600-9274 (561-600-WASH) for a free estimate.">
+    <meta name="description" content="Family-owned power washing in Jupiter, Tequesta, Palm Beach Gardens &amp; Juno Beach. $300 half day or $550 full day. Exterior car wash $25 or $99/month unlimited. Call or text 561-600-9274.">
 
     <!-- SEO Meta Tags -->
-    <meta name="keywords" content="power washing Jupiter FL, pressure washing Jupiter, driveway cleaning Jupiter, patio cleaning Palm Beach, pool area cleaning, sidewalk cleaning Jupiter Florida, local family owned power washing, residential pressure washing">
+    <meta name="keywords" content="power washing Jupiter FL, pressure washing Jupiter, driveway cleaning Jupiter, patio cleaning Palm Beach, pool area cleaning, sidewalk cleaning Jupiter Florida, exterior car wash Jupiter, Jup Wash soap dish, local family owned power washing, residential pressure washing">
     <meta name="author" content="Jupiter Power Wash">
     <meta name="robots" content="index, follow">
     <meta name="geo.region" content="US-FL">
@@ -51,7 +51,7 @@
   "@id": "https://jupiterpowerwash.com/#business",
   "name": "Jupiter Power Wash",
   "slogan": "Powering Clean, One Wash at a Time – Your Property, Our Priority",
-  "description": "Family-owned power washing company in Jupiter, Florida. Single-story home exteriors (stucco, hurricane shutters, windows and doors), concrete and brick-paver driveways, patios, pool decks, sidewalks and Saturday solar panel cleaning. Simple pricing: $300 half day, $550 full day.",
+  "description": "Family-owned power washing company in Jupiter, Florida. Single-story home exteriors (stucco, hurricane shutters, windows and doors), concrete and brick-paver driveways, patios, pool decks, sidewalks and Saturday solar panel cleaning. Simple pricing: $300 half day, $550 full day. Exterior car washing is $25 for one exterior wash or $99 a month for unlimited exterior washes.",
   "image": "https://jupiterpowerwash.com/images/brand/jupwash-og-1200x630.jpg",
   "logo": "https://jupiterpowerwash.com/images/brand/jupwash-logo-badge-1024.png",
   "url": "https://jupiterpowerwash.com",
@@ -104,7 +104,7 @@
       }
     }
   ],
-  "priceRange": "$300–$1,795",
+  "priceRange": "$25–$1,795",
   "paymentAccepted": "Cash, Check, Credit Card",
   "currenciesAccepted": "USD",
   "openingHoursSpecification": [
@@ -123,7 +123,8 @@
     "Patio cleaning",
     "Pool deck cleaning",
     "Sidewalk cleaning",
-    "Solar panel cleaning"
+    "Solar panel cleaning",
+    "Exterior car washing"
   ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
@@ -172,6 +173,30 @@
           "name": "Solar panel cleaning yearly plan",
           "serviceType": "Solar panel cleaning"
         }
+      },
+      {
+        "@type": "Offer",
+        "name": "Exterior car wash",
+        "price": "25",
+        "priceCurrency": "USD",
+        "description": "One exterior wash, at your home or at ours.",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Exterior car wash",
+          "serviceType": "Exterior car washing"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Unlimited exterior car washes",
+        "price": "99",
+        "priceCurrency": "USD",
+        "description": "Unlimited exterior washes each month, at your home or at ours.",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Unlimited exterior car washes",
+          "serviceType": "Exterior car washing"
+        }
       }
     ]
   },
@@ -213,7 +238,7 @@
       "name": "What do you clean?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Single-story home exteriors (stucco walls, hurricane shutters, windows and doors), concrete and brick-paver driveways, patios, pool areas and pool decks, sidewalks, and solar panels on single-story homes."
+        "text": "Single-story home exteriors (stucco walls, hurricane shutters, windows and doors), concrete and brick-paver driveways, patios, pool areas and pool decks, sidewalks, solar panels on single-story homes, and exterior car washing."
       }
     },
     {
@@ -270,6 +295,22 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Payment is collected on the day of the job — cash, check or card. No online prepayment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much is an exterior car wash?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$25 for one exterior wash, or $99 a month for unlimited exterior washes. At your home, or at ours at 1609 Berkshire Ave, Jupiter, FL 33469. Pull into the driveway and beep. Monday through Saturday 8am to 6pm. Closed Sunday. Call or text 561-600-9274, or email wash@jupiterpowerwash.com."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you have Jup Wash soap dishes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three soap dishes are pictured: a green wave shown in two pieces, a beige pebble appearance shown as a full dish, and a clear wave with a mint appearance shown as a full dish. Those words describe the photographs. Call or text 561-600-9274, or email wash@jupiterpowerwash.com."
       }
     }
   ]
@@ -417,8 +458,9 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.15rem;
             list-style: none;
+            margin-left: 1.25rem;
         }
 
         .nav-links a {
@@ -1436,6 +1478,194 @@
             color: var(--text-secondary);
             font-size: 0.95rem;
             margin-top: 0.25rem;
+        }
+
+
+        .skip-link {
+            position: absolute;
+            left: 0.75rem;
+            top: -4rem;
+            z-index: 2000;
+            background: #FFFDF8;
+            color: #3A332A;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .skip-link:focus {
+            top: 0.75rem;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        summary:focus-visible,
+        video:focus-visible {
+            outline: 3px solid var(--jupiter-orange);
+            outline-offset: 3px;
+        }
+
+        #work, #cars, #soap, #services, #pricing, #solar, #contact, #faq {
+            scroll-margin-top: 5.75rem;
+        }
+
+        .work {
+            padding: 6rem 2rem;
+            background: var(--clean-white);
+        }
+
+        .work-gallery {
+            display: grid;
+            grid-template-columns: 1.35fr 0.9fr;
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        .work-shot {
+            margin: 0;
+        }
+
+        .work-shot img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            border-radius: 20px;
+            background: #E7E1D4;
+        }
+
+        .work-shot figcaption {
+            margin-top: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .cars {
+            padding: 6rem 2rem;
+            background: #FFFDF8;
+        }
+
+        .car-places {
+            max-width: 860px;
+            margin: 2.5rem auto 0;
+        }
+
+        .car-places h3,
+        .car-hours {
+            text-align: center;
+        }
+
+        .car-place-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .car-place-grid article {
+            background: var(--card-dark);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 1.5rem;
+        }
+
+        .car-place-grid h3 {
+            text-align: left;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .car-place-grid a {
+            color: var(--jupiter-blue);
+            font-weight: 700;
+        }
+
+        .car-place-grid p,
+        .car-hours {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .car-hours {
+            margin-top: 1.25rem;
+        }
+
+        .soap {
+            padding: 6rem 2rem;
+            background: var(--soft-gray);
+        }
+
+        .soap-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        .soap-shot {
+            margin: 0;
+            background: #FFFDF8;
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 0.75rem;
+        }
+
+        .soap-shot img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            background: #F4F1EA;
+            border-radius: 12px;
+        }
+
+        .soap-shot figcaption {
+            margin-top: 0.75rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .soap-note,
+        .soap .section-subtitle {
+            text-align: center;
+        }
+
+        .soap-note {
+            max-width: 680px;
+            margin: 1.5rem auto 0;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 900px) {
+            .work-gallery,
+            .soap-gallery,
+            .car-place-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .work, .cars, .soap {
+                padding: 4rem 1rem;
+            }
+
+            .work-shot img {
+                aspect-ratio: 4 / 5;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cars .btn-outline,
+            .cars .btn-primary,
+            .soap .btn-outline,
+            .soap .btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
         }
 
         /* Services Section */
@@ -2568,6 +2798,7 @@
                 display: flex;
                 flex-direction: column;
                 gap: 0;
+                margin-left: 0;
                 position: absolute;
                 top: 100%;
                 left: 0;
@@ -2585,7 +2816,11 @@
             }
 
             .mobile-menu-btn {
-                display: block;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 44px;
+                min-height: 44px;
             }
 
             .nav-container {
@@ -2828,6 +3063,7 @@
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad" async defer></script>
 </head>
 <body>
+    <a class="skip-link" href="#services">Skip to services</a>
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
@@ -2836,10 +3072,12 @@
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#services">Services</a></li>
+                <li><a href="#work">Our Work</a></li>
                 <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#cars">Cars</a></li>
                 <li><a href="#solar">Solar</a></li>
+                <li><a href="#soap">Soap</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#booking">Free Estimate</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <a href="tel:5616009274" class="nav-phone" aria-label="Call 561-600-9274 (561-600-WASH)">
@@ -2994,6 +3232,49 @@
                         <p>White-glove, full-top cleaning for single-story homes, metal or shingle roofs. $995 flat for a full-day, two-person clean, or $1,795 a year for two cleanings. See details &rarr;</p>
                     </div>
                 </a>
+                <a href="#cars" class="service-card wide">
+                    <div class="service-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-5h14l2 5"/><path d="M5 16h14"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/></svg>
+                    </div>
+                    <div>
+                        <span class="specialty">Exterior wash</span>
+                        <h3>Car Cleaning</h3>
+                        <p>We wash the outside of the car at your home or at ours. $25 each, or $99 a month for unlimited exterior washes.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="work" class="work" aria-labelledby="workHeading">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">Photographs</span>
+                <h2 id="workHeading" class="section-title">From the driveway</h2>
+                <p class="section-subtitle">Two photographs from our work: a paver driveway at sunset, and a close look at the octagon pavers.</p>
+            </div>
+            <div class="work-gallery">
+                <figure class="work-shot">
+                    <picture>
+                        <source media="(max-width: 700px)" type="image/webp" srcset="images/jobs/sunset-driveway-wash-portrait-4x5-800w.webp 800w, images/jobs/sunset-driveway-wash-portrait-4x5-1600w.webp 1600w, images/jobs/sunset-driveway-wash-portrait-4x5-2400w.webp 2400w" sizes="100vw">
+                        <source media="(max-width: 700px)" type="image/jpeg" srcset="images/jobs/sunset-driveway-wash-portrait-4x5-800w.jpg 800w, images/jobs/sunset-driveway-wash-portrait-4x5-1600w.jpg 1600w, images/jobs/sunset-driveway-wash-portrait-4x5-2400w.jpg 2400w" sizes="100vw">
+                        <source type="image/webp" srcset="images/jobs/sunset-driveway-wash-landscape-16x9-800w.webp 800w, images/jobs/sunset-driveway-wash-landscape-16x9-1600w.webp 1600w, images/jobs/sunset-driveway-wash-landscape-16x9-2400w.webp 2400w" sizes="(min-width: 1100px) 680px, 58vw">
+                        <source type="image/jpeg" srcset="images/jobs/sunset-driveway-wash-landscape-16x9-800w.jpg 800w, images/jobs/sunset-driveway-wash-landscape-16x9-1600w.jpg 1600w, images/jobs/sunset-driveway-wash-landscape-16x9-2400w.jpg 2400w" sizes="(min-width: 1100px) 680px, 58vw">
+                        <img src="images/jobs/sunset-driveway-wash-landscape-16x9-1600w.jpg" width="1600" height="900" alt="Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home" loading="lazy" decoding="async">
+                    </picture>
+                    <figcaption>Washing an octagon paver driveway at sunset, outside a single-story home.</figcaption>
+                </figure>
+                <figure class="work-shot">
+                    <picture>
+                        <source media="(max-width: 700px)" type="image/webp" srcset="images/jobs/octagon-paver-detail-portrait-4x5-800w.webp 800w, images/jobs/octagon-paver-detail-portrait-4x5-1600w.webp 1600w, images/jobs/octagon-paver-detail-portrait-4x5-2400w.webp 2400w" sizes="100vw">
+                        <source media="(max-width: 700px)" type="image/jpeg" srcset="images/jobs/octagon-paver-detail-portrait-4x5-800w.jpg 800w, images/jobs/octagon-paver-detail-portrait-4x5-1600w.jpg 1600w, images/jobs/octagon-paver-detail-portrait-4x5-2400w.jpg 2400w" sizes="100vw">
+                        <source type="image/webp" srcset="images/jobs/octagon-paver-detail-landscape-16x9-800w.webp 800w, images/jobs/octagon-paver-detail-landscape-16x9-1600w.webp 1600w, images/jobs/octagon-paver-detail-landscape-16x9-2400w.webp 2400w" sizes="(min-width: 1100px) 420px, 34vw">
+                        <source type="image/jpeg" srcset="images/jobs/octagon-paver-detail-landscape-16x9-800w.jpg 800w, images/jobs/octagon-paver-detail-landscape-16x9-1600w.jpg 1600w, images/jobs/octagon-paver-detail-landscape-16x9-2400w.jpg 2400w" sizes="(min-width: 1100px) 420px, 34vw">
+                        <img src="images/jobs/octagon-paver-detail-landscape-16x9-1600w.jpg" width="1600" height="900" alt="Close-up of octagon concrete pavers with a brick border beside a lawn" loading="lazy" decoding="async">
+                    </picture>
+                    <figcaption>A close look at the octagon pavers and the brick border beside the lawn.</figcaption>
+                </figure>
             </div>
         </div>
     </section>
@@ -3047,6 +3328,48 @@
             <div class="pricing-ctas">
                 <a href="sms:5616009274" class="btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Text Us a Photo</a>
                 <a href="#contact" class="btn-outline">Upload Photos Online</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="cars" class="cars" aria-labelledby="carsHeading">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">Exterior car cleaning</span>
+                <h2 id="carsHeading" class="section-title">The outside of the car, washed</h2>
+                <p class="section-subtitle">At your home, or at ours.</p>
+            </div>
+            <div class="pricing-grid">
+                <article class="price-card">
+                    <h3>One exterior wash</h3>
+                    <p class="price-amount">$25</p>
+                    <p class="price-sub">Each exterior wash</p>
+                </article>
+                <article class="price-card">
+                    <h3>Unlimited exterior washes</h3>
+                    <p class="price-amount">$99<small>/month</small></p>
+                    <p class="price-sub">Unlimited exterior washes</p>
+                </article>
+            </div>
+            <div class="car-places">
+                <h3>Your home, or ours</h3>
+                <div class="car-place-grid">
+                    <article>
+                        <h3>Your home</h3>
+                        <p>We come to you and wash the outside of the car.</p>
+                    </article>
+                    <article>
+                        <h3>Ours</h3>
+                        <p><a href="https://www.google.com/maps/search/?api=1&amp;query=1609+Berkshire+Ave,+Jupiter,+FL+33469" rel="noopener">1609 Berkshire Ave, Jupiter, FL 33469</a></p>
+                        <p>Pull into the driveway and beep.</p>
+                    </article>
+                </div>
+                <p class="car-hours">Monday&ndash;Saturday 8am&ndash;6pm. Closed Sunday.</p>
+            </div>
+            <div class="pricing-ctas">
+                <a class="btn-primary" href="tel:5616009274">Call or text 561-600-9274</a>
+                <a class="btn-outline" href="mailto:wash@jupiterpowerwash.com">wash@jupiterpowerwash.com</a>
             </div>
         </div>
     </section>
@@ -3481,6 +3804,48 @@
         </div>
     </section>
 
+
+    <section id="soap" class="soap" aria-labelledby="soapHeading">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">Jup Wash soap dishes</span>
+                <h2 id="soapHeading" class="section-title">Three dishes, as photographed</h2>
+                <p class="section-subtitle">The words under each picture describe how that dish looks. Call or email to ask about them.</p>
+            </div>
+            <div class="soap-gallery">
+                <figure class="soap-shot">
+                    <picture>
+                        <source type="image/webp" srcset="images/soap/jupwash-green-wave-two-pieces-480.webp 480w, images/soap/jupwash-green-wave-two-pieces-768.webp 768w, images/soap/jupwash-green-wave-two-pieces-1024.webp 1024w, images/soap/jupwash-green-wave-two-pieces-1380.webp 1380w" sizes="(max-width: 900px) 92vw, 30vw">
+                        <source type="image/jpeg" srcset="images/soap/jupwash-green-wave-two-pieces-480.jpg 480w, images/soap/jupwash-green-wave-two-pieces-768.jpg 768w, images/soap/jupwash-green-wave-two-pieces-1024.jpg 1024w, images/soap/jupwash-green-wave-two-pieces-1380.jpg 1380w" sizes="(max-width: 900px) 92vw, 30vw">
+                        <img src="images/soap/jupwash-green-wave-two-pieces-1024.jpg" width="1380" height="2048" alt="Jup Wash soap dish shown in two pieces: a green wave-pattern insert with small holes, above a separate slotted base." loading="lazy" decoding="async">
+                    </picture>
+                    <figcaption>Green wave, two pieces</figcaption>
+                </figure>
+                <figure class="soap-shot">
+                    <picture>
+                        <source type="image/webp" srcset="images/soap/jupwash-beige-pebble-full-product-480.webp 480w, images/soap/jupwash-beige-pebble-full-product-768.webp 768w, images/soap/jupwash-beige-pebble-full-product-1024.webp 1024w, images/soap/jupwash-beige-pebble-full-product-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 30vw">
+                        <source type="image/jpeg" srcset="images/soap/jupwash-beige-pebble-full-product-480.jpg 480w, images/soap/jupwash-beige-pebble-full-product-768.jpg 768w, images/soap/jupwash-beige-pebble-full-product-1024.jpg 1024w, images/soap/jupwash-beige-pebble-full-product-1600.jpg 1600w" sizes="(max-width: 900px) 92vw, 30vw">
+                        <img src="images/soap/jupwash-beige-pebble-full-product-1024.jpg" width="1600" height="2043" alt="Jup Wash soap dish photographed as a full dish, with a beige pebble-pattern top seated in the tray." loading="lazy" decoding="async">
+                    </picture>
+                    <figcaption>Beige pebble appearance, full dish</figcaption>
+                </figure>
+                <figure class="soap-shot">
+                    <picture>
+                        <source type="image/webp" srcset="images/soap/jupwash-clear-wave-mint-appearance-full-product-480.webp 480w, images/soap/jupwash-clear-wave-mint-appearance-full-product-768.webp 768w, images/soap/jupwash-clear-wave-mint-appearance-full-product-1024.webp 1024w, images/soap/jupwash-clear-wave-mint-appearance-full-product-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 30vw">
+                        <source type="image/jpeg" srcset="images/soap/jupwash-clear-wave-mint-appearance-full-product-480.jpg 480w, images/soap/jupwash-clear-wave-mint-appearance-full-product-768.jpg 768w, images/soap/jupwash-clear-wave-mint-appearance-full-product-1024.jpg 1024w, images/soap/jupwash-clear-wave-mint-appearance-full-product-1600.jpg 1600w" sizes="(max-width: 900px) 92vw, 30vw">
+                        <img src="images/soap/jupwash-clear-wave-mint-appearance-full-product-1024.jpg" width="1600" height="1189" alt="Jup Wash soap dish photographed as a full dish, with a clear-looking wave-pattern top in a mint-appearing tray." loading="lazy" decoding="async">
+                    </picture>
+                    <figcaption>Clear wave, mint appearance, full dish</figcaption>
+                </figure>
+            </div>
+            <p class="soap-note">Call or email to ask about a dish.</p>
+            <div class="pricing-ctas">
+                <a class="btn-primary" href="tel:5616009274">Call or text 561-600-9274</a>
+                <a class="btn-outline" href="mailto:wash@jupiterpowerwash.com?subject=Jup%20Wash%20soap%20dishes">wash@jupiterpowerwash.com</a>
+            </div>
+        </div>
+    </section>
+
     <!-- FAQ -->
     <section id="faq" class="faq">
         <div class="section-container">
@@ -3504,7 +3869,7 @@
                 </details>
                 <details class="faq-item">
                     <summary><h3>What do you clean?</h3></summary>
-                    <p>Single-story home exteriors (stucco walls, hurricane shutters, windows and doors), concrete and brick-paver driveways, patios, pool areas and pool decks, sidewalks, and solar panels on single-story homes.</p>
+                    <p>Single-story home exteriors (stucco walls, hurricane shutters, windows and doors), concrete and brick-paver driveways, patios, pool areas and pool decks, sidewalks, solar panels on single-story homes, and exterior car washing.</p>
                 </details>
                 <details class="faq-item">
                     <summary><h3>What cleaners do you use?</h3></summary>
@@ -3533,6 +3898,14 @@
                 <details class="faq-item">
                     <summary><h3>How do I pay?</h3></summary>
                     <p>Payment is collected on the day of the job &mdash; cash, check or card. No online prepayment.</p>
+                </details>
+                <details class="faq-item">
+                    <summary><h3>How much is an exterior car wash?</h3></summary>
+                    <p>$25 for one exterior wash, or $99 a month for unlimited exterior washes. At your home, or at ours: <a href="https://www.google.com/maps/search/?api=1&amp;query=1609+Berkshire+Ave,+Jupiter,+FL+33469" rel="noopener">1609 Berkshire Ave, Jupiter, FL 33469</a>. Pull into the driveway and beep. Monday&ndash;Saturday 8am&ndash;6pm. Closed Sunday. Call or text <a href="tel:5616009274">561-600-9274 (561-600-WASH)</a>, or email <a href="mailto:wash@jupiterpowerwash.com">wash@jupiterpowerwash.com</a>.</p>
+                </details>
+                <details class="faq-item">
+                    <summary><h3>Do you have Jup Wash soap dishes?</h3></summary>
+                    <p>Three are pictured above: a green wave shown in two pieces, a beige pebble appearance shown as a full dish, and a clear wave with a mint appearance shown as a full dish. Those words describe the photographs. Call or text <a href="tel:5616009274">561-600-9274</a>, or email <a href="mailto:wash@jupiterpowerwash.com">wash@jupiterpowerwash.com</a>, to ask about them.</p>
                 </details>
             </div>
         </div>
@@ -3606,6 +3979,9 @@
                         <li><a href="#services">Pool Areas</a></li>
                         <li><a href="#services">Sidewalks</a></li>
                         <li><a href="#solar">Solar Panels</a></li>
+                        <li><a href="#cars">Exterior Car Wash</a></li>
+                        <li><a href="#work">Our Work</a></li>
+                        <li><a href="#soap">Soap Dishes</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
@@ -3677,6 +4053,8 @@
             <button class="quick-reply" data-message="How does your pricing work?">Pricing</button>
             <button class="quick-reply" data-message="I'd like a free estimate">Free Estimate</button>
             <button class="quick-reply" data-message="Do you clean solar panels?">Solar</button>
+            <button class="quick-reply" data-message="How much is an exterior car wash?">Car Wash</button>
+            <button class="quick-reply" data-message="Do you have soap dishes?">Soap Dishes</button>
             <button class="quick-reply" data-message="What areas do you serve?">Service Area</button>
         </div>
         <div class="chatbot-input">
