@@ -1,99 +1,11 @@
 [
  {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-portrait-4x5-2400w.jpg",
-  "width": 2400,
-  "height": 3000,
-  "crop": "portrait-4x5",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-portrait-4x5-2400w.webp",
-  "width": 2400,
-  "height": 3000,
-  "crop": "portrait-4x5",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-portrait-4x5-1600w.jpg",
-  "width": 1600,
-  "height": 2000,
-  "crop": "portrait-4x5",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-portrait-4x5-1600w.webp",
-  "width": 1600,
-  "height": 2000,
-  "crop": "portrait-4x5",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-portrait-4x5-800w.jpg",
+  "file": "jupwash-thumbs-up-portrait-4x5-800w.jpg",
   "width": 800,
   "height": 1000,
   "crop": "portrait-4x5",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-portrait-4x5-800w.webp",
-  "width": 800,
-  "height": 1000,
-  "crop": "portrait-4x5",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-landscape-16x9-2400w.jpg",
-  "width": 2400,
-  "height": 1350,
-  "crop": "landscape-16x9",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-landscape-16x9-2400w.webp",
-  "width": 2400,
-  "height": 1350,
-  "crop": "landscape-16x9",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-landscape-16x9-1600w.jpg",
-  "width": 1600,
-  "height": 900,
-  "crop": "landscape-16x9",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-landscape-16x9-1600w.webp",
-  "width": 1600,
-  "height": 900,
-  "crop": "landscape-16x9",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-landscape-16x9-800w.jpg",
-  "width": 800,
-  "height": 450,
-  "crop": "landscape-16x9",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
- },
- {
-  "original": "originals/headdown_wide.jpg",
-  "file": "final/sunset-driveway-wash-landscape-16x9-800w.webp",
-  "width": 800,
-  "height": 450,
-  "crop": "landscape-16x9",
-  "alt": "Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home"
+  "alt": "Technician giving a thumbs-up while holding a pressure washer wand on an octagon paver driveway outside a Florida home",
+  "note": "Published sizes are portrait 4:5 at 400, 800, and 1200. The 16:9 crop is not published."
  },
  {
   "original": "originals/paver_detail.jpg",
