@@ -1517,7 +1517,7 @@
 
         .work-gallery {
             display: grid;
-            grid-template-columns: 1.35fr 0.9fr;
+            grid-template-columns: minmax(260px, 0.78fr) minmax(0, 1.22fr);
             gap: 1.25rem;
             align-items: start;
         }
@@ -1530,10 +1530,18 @@
             display: block;
             width: 100%;
             height: auto;
-            aspect-ratio: 16 / 9;
             object-fit: contain;
+            object-position: center center;
             border-radius: 20px;
             background: #E7E1D4;
+        }
+
+        .work-shot-lead img {
+            aspect-ratio: 4 / 5;
+        }
+
+        .work-shot-detail img {
+            aspect-ratio: 16 / 9;
         }
 
         .work-shot figcaption {
@@ -1653,7 +1661,7 @@
                 padding: 4rem 1rem;
             }
 
-            .work-shot img {
+            .work-shot-detail img {
                 aspect-ratio: 4 / 5;
             }
         }
@@ -3252,20 +3260,18 @@
             <div class="section-header">
                 <span class="section-label">Photographs</span>
                 <h2 id="workHeading" class="section-title">From the driveway</h2>
-                <p class="section-subtitle">Two photographs from our work: a paver driveway at sunset, and a close look at the octagon pavers.</p>
+                <p class="section-subtitle">Two photographs from our work: a technician pressure washing an octagon paver driveway, and a close look at the pavers.</p>
             </div>
             <div class="work-gallery">
-                <figure class="work-shot">
+                <figure class="work-shot work-shot-lead">
                     <picture>
-                        <source media="(max-width: 700px)" type="image/webp" srcset="images/jobs/sunset-driveway-wash-portrait-4x5-800w.webp 800w, images/jobs/sunset-driveway-wash-portrait-4x5-1600w.webp 1600w, images/jobs/sunset-driveway-wash-portrait-4x5-2400w.webp 2400w" sizes="100vw">
-                        <source media="(max-width: 700px)" type="image/jpeg" srcset="images/jobs/sunset-driveway-wash-portrait-4x5-800w.jpg 800w, images/jobs/sunset-driveway-wash-portrait-4x5-1600w.jpg 1600w, images/jobs/sunset-driveway-wash-portrait-4x5-2400w.jpg 2400w" sizes="100vw">
-                        <source type="image/webp" srcset="images/jobs/sunset-driveway-wash-landscape-16x9-800w.webp 800w, images/jobs/sunset-driveway-wash-landscape-16x9-1600w.webp 1600w, images/jobs/sunset-driveway-wash-landscape-16x9-2400w.webp 2400w" sizes="(min-width: 1100px) 680px, 58vw">
-                        <source type="image/jpeg" srcset="images/jobs/sunset-driveway-wash-landscape-16x9-800w.jpg 800w, images/jobs/sunset-driveway-wash-landscape-16x9-1600w.jpg 1600w, images/jobs/sunset-driveway-wash-landscape-16x9-2400w.jpg 2400w" sizes="(min-width: 1100px) 680px, 58vw">
-                        <img src="images/jobs/sunset-driveway-wash-landscape-16x9-1600w.jpg" width="1600" height="900" alt="Pressure washing technician working on an octagon paver driveway at sunset outside a single-story Florida home" loading="lazy" decoding="async">
+                        <source type="image/webp" srcset="images/jobs/jupwash-thumbs-up-portrait-4x5-400w.webp 400w, images/jobs/jupwash-thumbs-up-portrait-4x5-800w.webp 800w, images/jobs/jupwash-thumbs-up-portrait-4x5-1200w.webp 1200w" sizes="(max-width: 700px) 92vw, 440px">
+                        <source type="image/jpeg" srcset="images/jobs/jupwash-thumbs-up-portrait-4x5-400w.jpg 400w, images/jobs/jupwash-thumbs-up-portrait-4x5-800w.jpg 800w, images/jobs/jupwash-thumbs-up-portrait-4x5-1200w.jpg 1200w" sizes="(max-width: 700px) 92vw, 440px">
+                        <img src="images/jobs/jupwash-thumbs-up-portrait-4x5-800w.jpg" width="800" height="1000" alt="Technician giving a thumbs-up while holding a pressure washer wand on an octagon paver driveway outside a Florida home" decoding="async">
                     </picture>
-                    <figcaption>Washing an octagon paver driveway at sunset, outside a single-story home.</figcaption>
+                    <figcaption>A technician gives a thumbs-up while pressure washing an octagon paver driveway.</figcaption>
                 </figure>
-                <figure class="work-shot">
+                <figure class="work-shot work-shot-detail">
                     <picture>
                         <source media="(max-width: 700px)" type="image/webp" srcset="images/jobs/octagon-paver-detail-portrait-4x5-800w.webp 800w, images/jobs/octagon-paver-detail-portrait-4x5-1600w.webp 1600w, images/jobs/octagon-paver-detail-portrait-4x5-2400w.webp 2400w" sizes="100vw">
                         <source media="(max-width: 700px)" type="image/jpeg" srcset="images/jobs/octagon-paver-detail-portrait-4x5-800w.jpg 800w, images/jobs/octagon-paver-detail-portrait-4x5-1600w.jpg 1600w, images/jobs/octagon-paver-detail-portrait-4x5-2400w.jpg 2400w" sizes="100vw">

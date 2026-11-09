@@ -42,8 +42,11 @@ test('exterior car wash uses the approved terms and contact lines', () => {
 
 test('job photographs are the two real crops and are not a before-and-after', () => {
   const work = section('work');
-  assert.match(work, /sunset-driveway-wash-landscape-16x9-1600w\.jpg/);
-  assert.match(work, /sunset-driveway-wash-portrait-4x5-800w\.webp/);
+  assert.match(work, /jupwash-thumbs-up-portrait-4x5-800w\.jpg/);
+  assert.match(work, /jupwash-thumbs-up-portrait-4x5-1200w\.webp/);
+  assert.match(work, /jupwash-thumbs-up-portrait-4x5-400w\.webp/);
+  assert.doesNotMatch(work, /thumbs-up-landscape|sunset-driveway/);
+  assert.match(work, /object-fit: contain|work-shot-lead/);
   assert.match(work, /octagon-paver-detail-landscape-16x9-1600w\.jpg/);
   assert.match(work, /octagon-paver-detail-portrait-4x5-2400w\.webp/);
   assert.match(work, /Close-up of octagon concrete pavers with a brick border beside a lawn/);
