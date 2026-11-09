@@ -4034,7 +4034,7 @@
             </div>
             <div class="chatbot-header-text">
                 <h4>Splash &middot; Jupiter Power Wash</h4>
-                <p>Online | Ready to help</p>
+                <p>Answers in this chat any hour</p>
             </div>
             <button class="chatbot-close" id="chatbotClose" aria-label="Close chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
@@ -4045,7 +4045,7 @@
         </div>
         <div class="chatbot-messages" id="chatMessages">
             <div class="chat-message bot">
-                Hi there! I'm Splash, the Jupiter Power Wash assistant. Ask me about our services or pricing - or call/text 561-600-9274 (561-600-WASH) for a free estimate.
+                Hi there! I'm Splash, the Jupiter Power Wash assistant. I can answer in this chat any hour. The shop phone is answered Monday&ndash;Saturday 8am&ndash;6pm, and we're closed Sunday. Call or text 561-600-9274 (561-600-WASH), or email wash@jupiterpowerwash.com. Messages here are kept for 30 days so we can review a question I couldn't finish. They are not public.
             </div>
         </div>
         <div class="chat-quick-replies">
@@ -4209,10 +4209,6 @@
         const chatSend = document.getElementById('chatSend');
         const CHAT_API = 'https://jupwash-api.dm-6ab.workers.dev/api/chat';
 
-        // Conversation history lives in this tab only (no server-side storage) -
-        // sent along with each message so Splash remembers the conversation so far.
-        let chatHistory = [];
-
         chatbotToggle.addEventListener('click', () => {
             chatbotWindow.classList.toggle('open');
         });
@@ -4244,21 +4240,35 @@
             if (typing) typing.remove();
         }
 
+        function chatConversationId() {
+            const key = 'jupwash-chat';
+            try {
+                const existing = sessionStorage.getItem(key) || '';
+                if (/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(existing)) return existing;
+                const created = crypto.randomUUID();
+                sessionStorage.setItem(key, created);
+                return created;
+            } catch (error) {
+                return '';
+            }
+        }
+
         async function sendToAI(message) {
             try {
                 const response = await fetch(CHAT_API, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message, history: chatHistory })
+                    body: JSON.stringify({ message, conversationId: chatConversationId() })
                 });
                 const data = await response.json();
                 if (!data || typeof data.response !== 'string' || !data.response) throw new Error('empty reply');
-                chatHistory.push({ role: 'user', content: message });
-                chatHistory.push({ role: 'assistant', content: data.response });
+                if (data.conversationId) {
+                    try { sessionStorage.setItem('jupwash-chat', data.conversationId); } catch (error) { /* private mode */ }
+                }
                 return data.response;
             } catch (error) {
-                console.error('Chat error:', error);
-                return "I'm having trouble connecting right now. Give us a call at 561-600-9274 (561-600-WASH) for a free estimate!";
+                console.error('Chat error:', error && error.name);
+                return "I'm having trouble connecting right now. Nothing is booked. Call or text 561-600-9274 (561-600-WASH), or email wash@jupiterpowerwash.com.";
             }
         }
 

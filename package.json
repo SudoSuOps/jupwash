@@ -1,6 +1,7 @@
 {
   "name": "jupwash",
   "private": true,
+  "type": "module",
   "scripts": {
     "test": "node --test",
     "build": "node --check worker/index.js && node --test"
