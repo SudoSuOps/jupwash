@@ -7,7 +7,8 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const html = readFileSync(join(root, 'index.html'), 'utf8');
-const worker = readFileSync(join(root, 'worker/index.js'), 'utf8');
+const worker = readFileSync(join(root, 'worker/index.js'), 'utf8')
+  + readFileSync(join(root, 'worker/chat.js'), 'utf8');
 const llms = readFileSync(join(root, 'llms.txt'), 'utf8');
 
 function section(id) {

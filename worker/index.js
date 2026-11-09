@@ -1,81 +1,26 @@
 /**
  * Jupiter Power Wash - Website API (Cloudflare Worker)
  *
- *   POST /api/contact  -> emails the lead to NOTIFY_EMAIL and LEAD_ALERT_EMAIL via Resend
- *   POST /api/chat     -> "Splash" chat assistant on Workers AI
+ *   POST /api/contact       -> emails the lead to NOTIFY_EMAIL and LEAD_ALERT_EMAIL via Resend
+ *   POST /api/chat          -> Splash answers in the website chat only
+ *   GET  /api/health        -> public health, no secrets
+ *   GET  /api/chat/review   -> authenticated read of stored chats
  *
- * Stateless: no database. Secrets: RESEND_API_KEY (wrangler secret put RESEND_API_KEY).
+ * Chat transcripts use the existing D1 binding TOKENS_DB. See worker/CHAT.md.
+ * Secrets: RESEND_API_KEY, TURNSTILE_SECRET, CHAT_REVIEW_TOKEN.
  *
  * Rule for /api/contact: never tell a customer "sent" unless Resend accepted
  * the email. A failed send returns an error so the page tells them to call.
+ * The chat path does not send email or SMS.
  */
+
+import { handleChat, handleHealth, handleReview } from './chat.js';
 
 const PHONE_DISPLAY = '561-600-9274 (561-600-WASH)';
 const PHONE_TEL = '+15616009274';
 const PUBLIC_EMAIL = 'wash@jupiterpowerwash.com';
 
 const SERVICE_AREA = 'Jupiter, Tequesta, Palm Beach Gardens and Juno Beach';
-
-const SYSTEM_PROMPT = `You are Splash, the friendly assistant on the Jupiter Power Wash website. Jupiter Power Wash is a local, family-owned power washing company in Jupiter, Florida.
-
-FACTS (only state facts from this list):
-- Services: home exteriors on SINGLE-STORY homes only (stucco walls, hurricane shutters, windows and doors) - we do NOT wash two-story houses; say so plainly and kindly, without giving a reason, concrete and brick-paver driveways, patios, pool areas / pool decks, sidewalks, and solar panel cleaning (specialty, see below). All of these are priced with the same half-day / full-day pricing.
-- Service area: ${SERVICE_AREA}. If someone is outside this, tell them to call and ask - don't promise.
-- Phone (call or text): ${PHONE_DISPLAY}. This is the fastest way to get a free estimate.
-- Email: ${PUBLIC_EMAIL}
-- Payment is collected on the day of the job (cash, check or card). No online prepayment.
-- Equipment: our pressure washers are electric - much quieter than gas machines, no exhaust fumes at the customer's home. We need an outdoor electrical outlet; if there isn't one, we bring our own generator - no problem. Don't quote any generator fee. Don't call it "zero emissions" or make other environmental claims beyond quiet / no exhaust at the home.
-- Cleaners (why: Florida humidity regrows mildew/algae fast, salt air leaves a film that holds moisture and eats metal, heat dries soap fast, runoff goes to the Loxahatchee/Intracoastal): Simple Green Oxy Solve House & Siding (EPA Safer Choice certified, biodegradable) for stucco, shutters, windows and doors; Simple Green Oxy Solve Concrete & Driveway for driveways, pavers, pool decks; a thorough fresh-water rinse to remove coastal salt film. We use Simple Green on every job - don't name other cleaning brands. We soak plants before and rinse after. Really stubborn black mildew sometimes needs a stronger diluted soft-wash treatment - we tell the customer first. Never call our cleaning 'organic' or 'chemical-free'. Don't say what is used on solar panels beyond the hand process.
-- Referral offer: code JUPFRIEND50 - the customer and the friend they refer each save $50.
-- Coaster offer: $50 off the wash when the customer has a Jup Wash coaster. The only codes are COAST-H, COAST-R, and COAST-H2. They claim it on https://jupiterpowerwash.com/coaster — the link on the coaster already includes their code. Don't add expiration, minimums, stacking, or any other terms. If they have no code, tell them to open the link on the coaster or call ${PHONE_DISPLAY}.
-- Services are done in half-day or full-day visits (see pricing).
-
-EXTERIOR CAR WASH (separate from half-day / full-day power washing):
-- We wash the outside of the car. $25 for one exterior wash, or $99/month for unlimited exterior washes.
-- At the customer's home, or at ours: 1609 Berkshire Ave, Jupiter, FL 33469. At ours, pull into the driveway and beep.
-- Shop hours are the published hours: Monday-Saturday 8am-6pm. Closed Sunday.
-- Do not add membership caps, vehicle limits, cancellation terms, extra fees, a travel radius, or interior cleaning. Do not offer wax, interior detail, vacuuming, or shampoo.
-- There is no online payment and no signup link. To set one up, they call or text the phone number or email wash@jupiterpowerwash.com.
-
-JOB PHOTOGRAPHS:
-- The site shows two still job photographs: a technician washing an octagon paver driveway at sunset outside a single-story home, and a close-up of octagon pavers with a brick border beside a lawn. The paver close-up is a detail of the surface, not a before-and-after of a wash.
-- Do not claim thumbs-up photos or spray-action photos are published as their own pictures.
-- There is no video on the website. Do not describe a montage, and do not say a film is published.
-- The large hero image at the top is credited separately and is not one of these job photographs.
-
-JUP WASH SOAP DISHES:
-- Three photographs are on the site. No price is listed. There is no online purchase.
-- Green wave, shown in two pieces, insert off the slotted base.
-- Beige pebble appearance, shown as a full dish.
-- Clear wave, mint appearance, shown as a full dish.
-- Those words describe how the photographs look. Do not turn them into material names, product codes, dimensions, or stock claims. Do not invent a price. Tell them to call, text, or email.
-
-MASCOT:
-- Jup Wash CEO is the name of our bull mascot. The bull validates the clean. It is a playful mascot, not a real person, and not an outside certification or inspection. The mascot artwork is not on the website. Do not describe a picture of it.
-
-PRICING (this is the whole price list - never quote any other numbers):
-- Half day, full service: $300
-- Full day, full service: $550
-- How it works: the customer sends a photo of what they want cleaned (text it to ${PHONE_DISPLAY}, or attach it to the "Send a Message" form on this page). We look at it and tell them up front whether it's a half day or a full day. Estimates are free.
-- Our promise: full service made easy. No per-square-foot pricing, no surprise add-ons.
-- You can't tell from a description alone whether a job is a half or full day - ask them to send a photo.
-
-SOLAR PANEL CLEANING (specialty service, separate from the half/full day pricing):
-- $995 flat, one-time clean: a full day with a two-person crew. White-glove service, full top coverage (every panel on the roof).
-- How we clean panels (all by hand): 1) pre-soak, 2) hand wash, 3) hand wipe and clean, 4) after-clean treatment. Don't describe what's in the treatment or make claims about it beyond this.
-- Single-story homes only, metal or shingle roofs. We do NOT do two-story homes - say so plainly and kindly. Never suggest other companies.
-- Done on Saturdays only because it's a specialty job. We are CLOSED on Sundays - never offer Sunday.
-- Business hours: Monday-Saturday 8am-6pm. Closed Sunday.
-- Yearly service plan: $1,795/year for 2 panel cleanings (about every 6 months) - saves $195 vs two one-time cleans.
-- Why clean every 6-12 months: dust, pollen, salt spray and bird droppings form a film that blocks sunlight, rain doesn't wash it off, and Florida's salt air and pollen build it up fast. Clean panels produce closer to their rated output. Don't quote specific efficiency percentages.
-- To book: text a photo of the roof/panels to ${PHONE_DISPLAY} or call.
-
-RULES:
-1. There is no online booking. To schedule or get a quote, the customer calls or texts ${PHONE_DISPLAY}, or uses the "Send a Message" form on this page. When they text, ask them to include a photo AND their street address and town - we schedule jobs by street. Don't collect their details yourself in this chat.
-2. If asked about a service not listed above (roof cleaning, gutters, etc.), say you're not sure it's offered and ask them to call ${PHONE_DISPLAY} to ask. Never recommend or name other companies.
-3. For two-story homes (house washing or solar), just say we only do single-story homes. Do NOT give any reason - never mention equipment, ladders, safety or insurance.
-4. Don't invent facts: no made-up hours, guarantees, licenses, discounts or availability. If you don't know, say so and give the phone number.
-5. Keep answers short (2-4 sentences), warm and casual. Plain text only, no markdown.`;
 
 const ALLOWED_ORIGINS = new Set([
   'https://jupiterpowerwash.com',
@@ -87,7 +32,7 @@ const TOWNS = ['Jupiter', 'Tequesta', 'Palm Beach Gardens', 'Juno Beach'];
 
 const COASTER_CODES = new Set(['COAST-H', 'COAST-R', 'COAST-H2']);
 
-const LIMITS = { street: 150, name: 100, email: 200, phone: 40, message: 4000, chat: 1000, historyItem: 2000 };
+const LIMITS = { street: 150, name: 100, email: 200, phone: 40, message: 4000 };
 
 // Photos arrive already shrunk by the browser (~1600px JPEG). Base64 sizes.
 const MAX_PHOTOS = 5;
@@ -125,9 +70,15 @@ export default {
       }
       return handleContact(request, env, cors, ctx);
     }
+    if (request.method === 'GET' && url.pathname === '/api/health') {
+      return handleHealth(env, cors);
+    }
+    if (url.pathname === '/api/chat/review') {
+      return handleReview(request, env, cors);
+    }
     if (request.method === 'POST' && url.pathname === '/api/chat') {
       if (!(await underLimit(env.CHAT_IP, request))) {
-        return jsonResponse({ response: `You're sending messages fast! Give it a minute, or call or text us at ${PHONE_DISPLAY}.` }, 429, cors);
+        return jsonResponse({ response: `You're sending messages fast! Give it a minute, or call or text us at ${PHONE_DISPLAY}. Nothing is booked.` }, 429, cors);
       }
       return handleChat(request, env, cors);
     }
@@ -426,38 +377,6 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
     text,
     html,
   });
-}
-
-async function handleChat(request, env, cors) {
-  const fallback = `I'm having a little trouble right now. Call or text us at ${PHONE_DISPLAY} for a free estimate!`;
-  try {
-    const body = await request.json();
-    const message = clean(body.message, LIMITS.chat);
-    if (!message) {
-      return jsonResponse({ error: 'Message required' }, 400, cors);
-    }
-
-    const history = Array.isArray(body.history) ? body.history.slice(-12) : [];
-    const messages = [
-      { role: 'system', content: SYSTEM_PROMPT },
-      ...history
-        .filter(h => h && (h.role === 'user' || h.role === 'assistant') && typeof h.content === 'string' && h.content)
-        .map(h => ({ role: h.role, content: h.content.slice(0, LIMITS.historyItem) })),
-      { role: 'user', content: message },
-    ];
-
-    const ai = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
-      messages,
-      max_tokens: 400,
-      temperature: 0.5,
-    });
-
-    const reply = typeof ai?.response === 'string' && ai.response.trim() ? ai.response.trim() : fallback;
-    return jsonResponse({ response: reply }, 200, cors);
-  } catch (error) {
-    console.error('Chat error:', error);
-    return jsonResponse({ response: fallback }, 200, cors);
-  }
 }
 
 async function sendEmail(env, { to, replyTo, subject, text, html, attachments, from, fromName }) {
