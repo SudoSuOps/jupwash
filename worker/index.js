@@ -25,30 +25,19 @@ FACTS (only state facts from this list):
 - Email: ${PUBLIC_EMAIL}
 - Payment is collected on the day of the job (cash, check or card). No online prepayment.
 - Equipment: our pressure washers are electric - much quieter than gas machines, no exhaust fumes at the customer's home. We need an outdoor electrical outlet; if there isn't one, we bring our own generator - no problem. Don't quote any generator fee. Don't call it "zero emissions" or make other environmental claims beyond quiet / no exhaust at the home.
-- Cleaners (why: Florida humidity regrows mildew/algae fast, salt air leaves a film that holds moisture and eats metal, heat dries soap fast, runoff goes to the Loxahatchee/Intracoastal): Simple Green Oxy Solve House & Siding (EPA Safer Choice certified, biodegradable) for stucco, shutters, windows and doors; Simple Green Oxy Solve Concrete & Driveway for driveways, pavers, pool decks; a thorough fresh-water rinse to remove coastal salt film. We use Simple Green on every job - don't name other cleaning brands. We soak plants before and rinse after. Really stubborn black mildew sometimes needs a stronger diluted soft-wash treatment - we tell the customer first. Never call our cleaning 'organic' or 'chemical-free'. Don't say what is used on solar panels beyond the hand process.
+- Cleaners (why: Florida humidity regrows mildew/algae fast, salt air leaves a film that holds moisture and eats metal, heat dries cleaner fast, runoff goes to the Loxahatchee/Intracoastal): Simple Green Oxy Solve House & Siding (EPA Safer Choice certified, biodegradable) for stucco, shutters, windows and doors; Simple Green Oxy Solve Concrete & Driveway for driveways, pavers, pool decks; a thorough fresh-water rinse to remove coastal salt film. We use Simple Green on every job - don't name other cleaning brands. We soak plants before and rinse after. Really stubborn black mildew sometimes needs a stronger diluted soft-wash treatment - we tell the customer first. Never call our cleaning 'organic' or 'chemical-free'. Don't say what is used on solar panels beyond the hand process.
 - Referral offer: code JUPFRIEND50 - the customer and the friend they refer each save $50.
 - Coaster offer: $50 off the wash when the customer has a Jup Wash coaster. The only codes are COAST-H, COAST-R, and COAST-H2. They claim it on https://jupiterpowerwash.com/coaster — the link on the coaster already includes their code. Don't add expiration, minimums, stacking, or any other terms. If they have no code, tell them to open the link on the coaster or call ${PHONE_DISPLAY}.
 - Services are done in half-day or full-day visits (see pricing).
 
-EXTERIOR CAR WASH (separate from half-day / full-day power washing):
-- We wash the outside of the car. $25 for one exterior wash, or $99/month for unlimited exterior washes.
-- At the customer's home, or at ours: 1609 Berkshire Ave, Jupiter, FL 33469. At ours, pull into the driveway and beep.
-- Shop hours are the published hours: Monday-Saturday 8am-6pm. Closed Sunday.
-- Do not add membership caps, vehicle limits, cancellation terms, extra fees, a travel radius, or interior cleaning. Do not offer wax, interior detail, vacuuming, or shampoo.
-- There is no online payment and no signup link. To set one up, they call or text the phone number or email wash@jupiterpowerwash.com.
+NOT OFFERED:
+- Jup Wash does not offer exterior car washing and does not sell soap dishes. Those are not on the website and have no price.
+- If someone asks about a car wash, an exterior car wash, a $25 wash, a $99 monthly wash, or soap dishes, say Jup Wash focuses on power washing (and Saturday solar panel cleaning for single-story homes) and ask them to call or text ${PHONE_DISPLAY}. Do not quote $25 or $99. Do not offer those products or take an inquiry as if they are for sale.
 
 JOB PHOTOGRAPHS:
-- The site shows two still job photographs: a technician washing an octagon paver driveway at sunset outside a single-story home, and a close-up of octagon pavers with a brick border beside a lawn. The paver close-up is a detail of the surface, not a before-and-after of a wash.
-- Do not claim thumbs-up photos or spray-action photos are published as their own pictures.
+- The site shows two still job photographs: a technician giving a thumbs-up while holding a pressure washer wand on an octagon paver driveway outside a Florida home, and a close-up of octagon concrete pavers with a brick border beside a lawn. The driveway photograph shows the wash in progress. It is not a before-and-after and it is not a claim that the surface is finished. The paver close-up is a detail of the surface, not a before-and-after of a wash.
 - There is no video on the website. Do not describe a montage, and do not say a film is published.
 - The large hero image at the top is credited separately and is not one of these job photographs.
-
-JUP WASH SOAP DISHES:
-- Three photographs are on the site. No price is listed. There is no online purchase.
-- Green wave, shown in two pieces, insert off the slotted base.
-- Beige pebble appearance, shown as a full dish.
-- Clear wave, mint appearance, shown as a full dish.
-- Those words describe how the photographs look. Do not turn them into material names, product codes, dimensions, or stock claims. Do not invent a price. Tell them to call, text, or email.
 
 MASCOT:
 - Jup Wash CEO is the name of our bull mascot. The bull validates the clean. It is a playful mascot, not a real person, and not an outside certification or inspection. The mascot artwork is not on the website. Do not describe a picture of it.
@@ -375,8 +364,7 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
   </td></tr>
   <tr><td style="padding:16px 32px 8px;">
     <p style="margin:0 0 6px;font-size:14px;line-height:1.6;color:#5E5348;">Tell a neighbor: share code <strong style="color:#3F5F56;letter-spacing:1px;">JUPFRIEND50</strong> &mdash; you both save $50.</p>
-    <p style="margin:0 0 8px;font-size:14px;line-height:1.6;color:#5E5348;">Have solar panels? We also do hand-washed solar panel cleaning for single-story homes on Saturdays &mdash; $995, or $1,795/year for two cleanings.</p>
-    <p style="margin:0;font-size:14px;line-height:1.6;color:#5E5348;">Exterior car wash is separate: $25 for one exterior wash, or $99 a month for unlimited exterior washes. Call or text us.</p>
+    <p style="margin:0;font-size:14px;line-height:1.6;color:#5E5348;">Have solar panels? We also do hand-washed solar panel cleaning for single-story homes on Saturdays &mdash; $995, or $1,795/year for two cleanings.</p>
   </td></tr>
   <tr><td align="center" bgcolor="#3F5F56" style="background:#3F5F56;padding:22px 32px;font-family:Georgia,serif;">
     <p style="margin:0 0 6px;font-size:15px;color:#FAF5EA;letter-spacing:2px;text-transform:uppercase;">Jup Wash</p>
@@ -405,7 +393,6 @@ async function sendCustomerConfirmation(env, { name, email, street, town, photos
     'Tell a neighbor: share code JUPFRIEND50 - you both save $50.',
     '',
     'Have solar panels? We also do hand-washed solar panel cleaning for single-story homes on Saturdays: $995, or $1,795/year for two cleanings.',
-    'Exterior car wash is separate: $25 for one exterior wash, or $99 a month for unlimited exterior washes. Call or text us.',
     '',
     'Jup Wash',
     'Jupiter, FL',
